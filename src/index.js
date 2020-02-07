@@ -8,8 +8,11 @@ const Settings = {
   releaseDate: `2014`,
 };
 
+const films = [`Fantastic Beasts`, `Bohemian Rhapsody`, `Macbeth`];
+
 ReactDOM.render(
     <App
+      films = {films}
       title = {Settings.title}
       genre = {Settings.genre}
       releaseDate = {Settings.releaseDate}

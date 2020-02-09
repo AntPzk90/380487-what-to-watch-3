@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Main = (props) => {
 
-  const {title, genre, releaseDate, films} = props;
+  const {title, genre, releaseDate, films, movieCardTitleHandler} = props;
 
   return (
     <React.Fragment>
@@ -37,7 +37,7 @@ const Main = (props) => {
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{title}</h2>
+              <h2 className="movie-card__title" onClick={movieCardTitleHandler}>{title}</h2>
               <p className="movie-card__meta">
                 <span className="movie-card__genre">{genre}</span>
                 <span className="movie-card__year">{releaseDate}</span>
@@ -141,7 +141,8 @@ Main.propTypes = {
   releaseDate: PropTypes.string.isRequired,
   films: PropTypes.arrayOf(
       PropTypes.string
-  )
+  ),
+  movieCardTitleHandler: PropTypes.func
 };
 
 export default Main;

@@ -12,6 +12,7 @@ const App = (props) => {
       title = {title}
       genre = {genre}
       releaseDate = {releaseDate}
+      movieCardTitleHandler = {() => {}}
     />
   );
 };
@@ -22,7 +23,8 @@ App.propTypes = {
   releaseDate: PropTypes.string.isRequired,
   films: PropTypes.arrayOf(
       PropTypes.string
-  )
+  ),
+  movieCardTitleHandler: PropTypes.func
 };
 
 export default App;

@@ -1,11 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import App from './app.jsx';
+import FilmsList from './../films-list/films-list.jsx';
 
 const films = [
   {
     title: `Midnight special`,
-    src: `midnight-special.jpg`
+    src: `midnight-special.jpg`,
   },
   {
     title: `Revenant`,
@@ -13,13 +13,10 @@ const films = [
   },
 ];
 
-it(`SnapshotTest App`, () => {
+it(`SnapshotTest FilmList`, () => {
   const tree = renderer
-  .create(<App
+  .create(<FilmsList
     films = {films}
-    title = {`Some title`}
-    genre = {`some gemre`}
-    releaseDate = {`some date`}
   />).toJSON();
 
   expect(tree).toMatchSnapshot();

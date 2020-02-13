@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import FilmsList from '../films-list/films-list.jsx';
 
 const Main = (props) => {
 
-  const {title, genre, releaseDate, films, movieCardTitleHandler} = props;
+  const {title, genre, releaseDate, films, onMovieCardTitleMouseEnter} = props;
 
   return (
     <React.Fragment>
@@ -37,7 +38,7 @@ const Main = (props) => {
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title" onClick={movieCardTitleHandler}>{title}</h2>
+              <h2 className="movie-card__title" onClick={onMovieCardTitleMouseEnter}>{title}</h2>
               <p className="movie-card__meta">
                 <span className="movie-card__genre">{genre}</span>
                 <span className="movie-card__year">{releaseDate}</span>
@@ -98,25 +99,13 @@ const Main = (props) => {
               <a href="#" className="catalog__genres-link">Thrillers</a>
             </li>
           </ul>
-
-          <div className="catalog__movies-list">
-            {films.map((film, index) => (
-              <article key={index} className="small-movie-card catalog__movies-card">
-                <div className="small-movie-card__image">
-                  <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175"/>
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">{film}</a>
-                </h3>
-              </article>
-            ))}
-          </div>
-
+          <FilmsList
+            films = {films}
+          />
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
         </section>
-
         <footer className="page-footer">
           <div className="logo">
             <a className="logo__link logo__link--light">
@@ -140,9 +129,12 @@ Main.propTypes = {
   genre: PropTypes.string.isRequired,
   releaseDate: PropTypes.string.isRequired,
   films: PropTypes.arrayOf(
-      PropTypes.string
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        src: PropTypes.string.isRequired,
+      }).isRequired
   ),
-  movieCardTitleHandler: PropTypes.func
+  onMovieCardTitleMouseEnter: PropTypes.func
 };
 
 export default Main;

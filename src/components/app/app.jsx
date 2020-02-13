@@ -12,7 +12,7 @@ const App = (props) => {
       title = {title}
       genre = {genre}
       releaseDate = {releaseDate}
-      movieCardTitleHandler = {() => {}}
+      onMovieCardTitleMouseEnter = {() => {}}
     />
   );
 };
@@ -22,9 +22,12 @@ App.propTypes = {
   genre: PropTypes.string.isRequired,
   releaseDate: PropTypes.string.isRequired,
   films: PropTypes.arrayOf(
-      PropTypes.string
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        src: PropTypes.string.isRequired,
+      }).isRequired
   ),
-  movieCardTitleHandler: PropTypes.func
+  onMovieCardTitleMouseEnter: PropTypes.func
 };
 
 export default App;

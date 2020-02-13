@@ -3,9 +3,14 @@ import renderer from 'react-test-renderer';
 import Main from './main.jsx';
 
 const films = [
-  `Fantastic Beasts`,
-  `Bohemian Rhapsody`,
-  `Macbeth`
+  {
+    title: `Midnight special`,
+    src: `midnight-special.jpg`,
+  },
+  {
+    title: `Revenant`,
+    src: `revenant.jpg`,
+  },
 ];
 
 it(`SnapshotTest Main`, () => {

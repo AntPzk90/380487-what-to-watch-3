@@ -8,13 +8,18 @@ Enzyme.configure({
 });
 
 const films = [
-  `Fantastic Beasts`,
-  `Bohemian Rhapsody`,
-  `Macbeth`
+  {
+    title: `Midnight special`,
+    src: `midnight-special.jpg`,
+  },
+  {
+    title: `Revenant`,
+    src: `revenant.jpg`,
+  },
 ];
 
 it(`Should cardTitle be pressed`, () => {
-  const movieCardTitleHandler = jest.fn();
+  const onMovieCardTitleMouseEnter = jest.fn();
 
   const MainComponent = shallow(
       <Main
@@ -22,7 +27,7 @@ it(`Should cardTitle be pressed`, () => {
         title = {`Some title`}
         genre = {`some gemre`}
         releaseDate = {`some date`}
-        movieCardTitleHandler = {movieCardTitleHandler}
+        onMovieCardTitleMouseEnter = {onMovieCardTitleMouseEnter}
       />
   );
 
@@ -30,5 +35,5 @@ it(`Should cardTitle be pressed`, () => {
 
   cardTitle.simulate(`click`);
 
-  expect(movieCardTitleHandler).toHaveBeenCalledTimes(1);
+  expect(onMovieCardTitleMouseEnter).toHaveBeenCalledTimes(1);
 });

@@ -1,14 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app.jsx';
+import films from './mocks/films.js';
 
 const Settings = {
   title: `The Grand Budapest Hotel`,
   genre: `Drama`,
   releaseDate: `2014`,
 };
-
-const films = [`Fantastic Beasts`, `Bohemian Rhapsody`, `Macbeth`];
 
 ReactDOM.render(
     <App

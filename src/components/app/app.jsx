@@ -1,21 +1,68 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import Main from './../main/main.jsx';
+import MovieCardDetails from '../movie-card-details/movie-card-details.jsx';
 
-const App = (props) => {
+class App extends PureComponent {
+  constructor(props) {
+    super(props);
 
-  const {title, genre, releaseDate, films} = props;
+    this.state = {
+      film: null,
+    };
+  }
 
-  return (
-    <Main
-      films = {films}
-      title = {title}
-      genre = {genre}
-      releaseDate = {releaseDate}
-      onMovieCardTitleMouseEnter = {() => {}}
-    />
-  );
-};
+  renderApp() {
+    const {title, genre, releaseDate, films} = this.props;
+    const {film} = this.state;
+    if (film === null) {
+      return (
+        <Main
+          films={films}
+          title={title}
+          genre={genre}
+          releaseDate={releaseDate}
+          onMovieCardTitleMouseEnter={() => { }}
+
+          showCardDetails = {(filmData) => {
+            this.setState({
+              film: filmData
+            });
+          }}
+        />
+      );
+    }
+    if (film) {
+      return (
+        <MovieCardDetails
+          film = {film}
+        />
+      );
+    }
+    return null;
+  }
+
+  render() {
+
+    const {film} = this.state;
+
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            {this.renderApp()}
+          </Route>
+          <Route exact path="/dev-film">
+            <MovieCardDetails
+              film = {film}
+            />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    );
+  }
+}
 
 App.propTypes = {
   title: PropTypes.string.isRequired,

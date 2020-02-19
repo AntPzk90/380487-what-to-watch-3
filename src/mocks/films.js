@@ -6,6 +6,7 @@ const films = [
     titlePoster: `bg-the-grand-budapest-hotel.jpg`,
     genre: `Drama`,
     releaseDate: `2014`,
+    preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
   },
   {
     title: `Bohemian rhapsody`,
@@ -14,6 +15,7 @@ const films = [
     titlePoster: `bohemian-rhapsody.jpg`,
     genre: `Comedy`,
     releaseDate: `2015`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
     title: `Dardjeeling limited`,
@@ -22,6 +24,7 @@ const films = [
     titlePoster: `dardjeeling-limited.jpg`,
     genre: `Comedy`,
     releaseDate: `2016`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
     title: `Pulp fiction`,
@@ -30,6 +33,7 @@ const films = [
     titlePoster: `pulp-fiction.jpg`,
     genre: `Detective`,
     releaseDate: `2017`,
+    preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
   },
   {
     title: `Macbeth`,
@@ -38,6 +42,7 @@ const films = [
     titlePoster: `macbeth.jpg`,
     genre: `Comedy`,
     releaseDate: `2018`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
     title: `Shutter island`,
@@ -46,6 +51,7 @@ const films = [
     titlePoster: `shutter-island.jpg`,
     genre: `Drama`,
     releaseDate: `2019`,
+    preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
   },
   {
     title: `Midnight special`,
@@ -54,6 +60,7 @@ const films = [
     titlePoster: `midnight-special.jpg`,
     genre: `Comedy`,
     releaseDate: `2020`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
     title: `Revenant`,
@@ -62,6 +69,7 @@ const films = [
     titlePoster: `revenant.jpg`,
     genre: `Detective`,
     releaseDate: `2012`,
+    preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   },
 ];
 

@@ -8,6 +8,7 @@ exports[`SnapshotTest FilmList 1`] = `
     className="small-movie-card catalog__movies-card"
     onClick={[Function]}
     onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
       className="small-movie-card__image"
@@ -35,6 +36,7 @@ exports[`SnapshotTest FilmList 1`] = `
     className="small-movie-card catalog__movies-card"
     onClick={[Function]}
     onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
       className="small-movie-card__image"

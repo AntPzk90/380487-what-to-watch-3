@@ -5,7 +5,6 @@ import FilmsList from '../films-list/films-list.jsx';
 const Main = (props) => {
 
   const {title, genre, releaseDate, films, onMovieCardTitleMouseEnter, showCardDetails} = props;
-
   return (
     <React.Fragment>
       <section className="movie-card">

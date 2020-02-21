@@ -39,12 +39,12 @@ it(`Should cardMovie be mouseEnter`, () => {
 });
 
 it(`Should cardMovie be click on Card`, () => {
-  const showCardDetails = jest.fn();
+  const showCardOverview = jest.fn();
 
   const movieCard = shallow(
       <MovieCard
         film = {film}
-        showCardDetails = {showCardDetails}
+        showCardOverview = {showCardOverview}
       />
   );
 
@@ -52,24 +52,24 @@ it(`Should cardMovie be click on Card`, () => {
 
   catalogMovieCard.simulate(`click`);
 
-  expect(showCardDetails).toHaveBeenCalledTimes(1);
-  expect(showCardDetails.mock.calls[0][0]).toMatchObject(film);
+  expect(showCardOverview).toHaveBeenCalledTimes(1);
+  expect(showCardOverview.mock.calls[0][0]).toMatchObject(film);
 });
 
 it(`Should cardMovie be click on CardTitle`, () => {
-  const showCardDetails = jest.fn();
+  const showCardOverview = jest.fn();
 
   const movieCard = shallow(
       <MovieCard
         film = {film}
-        showCardDetails = {showCardDetails}
+        showCardOverview = {showCardOverview}
       />
   );
 
   const catalogMovieCardTitle = movieCard.find(`.small-movie-card__title`);
   catalogMovieCardTitle.simulate(`click`, mockEvent);
 
-  expect(showCardDetails).toHaveBeenCalledTimes(1);
-  expect(showCardDetails.mock.calls[0][0]).toMatchObject(film);
+  expect(showCardOverview).toHaveBeenCalledTimes(1);
+  expect(showCardOverview.mock.calls[0][0]).toMatchObject(film);
 });
 

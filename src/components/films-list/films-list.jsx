@@ -20,7 +20,7 @@ class FilmsList extends PureComponent {
 
   render() {
     const {films} = this.props;
-    const {showCardDetails} = this.props;
+    const {showCardOverview} = this.props;
 
     return (
       <div className="catalog__movies-list">
@@ -29,7 +29,7 @@ class FilmsList extends PureComponent {
             <MovieCard key={film.title}
               film={film}
               onCardMouseEnter={this.onCardMouseEnter}
-              showCardDetails={showCardDetails}
+              showCardOverview={showCardOverview}
             />
           );
         })}
@@ -45,6 +45,6 @@ FilmsList.propTypes = {
         src: PropTypes.string.isRequired,
       }).isRequired
   ),
-  showCardDetails: PropTypes.func
+  showCardOverview: PropTypes.func
 };
 export default FilmsList;

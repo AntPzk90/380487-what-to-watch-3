@@ -12,8 +12,6 @@ class VideoPlayer extends PureComponent {
       isMuted: false,
     };
   }
-  _changeAutoplay() {
-  }
 
   componentDidMount() {
     this.setState({

@@ -27,7 +27,7 @@ class MovieCard extends PureComponent {
   }
 
   render() {
-    const {film, onCardMouseEnter, showCardDetails} = this.props;
+    const {film, onCardMouseEnter, showCardOverview} = this.props;
 
     return (
       <article className="small-movie-card catalog__movies-card"
@@ -35,7 +35,7 @@ class MovieCard extends PureComponent {
           onCardMouseEnter(film);
           this._cardHoverHandler();
         }}
-        onClick={() => showCardDetails(film)}
+        onClick={() => showCardOverview(film)}
         onMouseLeave={() => this._cardMouseLeaveHandler()}>
         <div className="small-movie-card__image">
           {this.state.isPlay &&
@@ -49,7 +49,7 @@ class MovieCard extends PureComponent {
         </div>
         <h3 className="small-movie-card__title" onClick={(evt) => {
           evt.preventDefault();
-          showCardDetails(film);
+          showCardOverview(film);
         }}>
           <a className="small-movie-card__link" href="movie-page.html">{film.title}</a>
         </h3>
@@ -64,7 +64,7 @@ MovieCard.propTypes = {
     src: PropTypes.string.isRequired,
   }).isRequired,
   onCardMouseEnter: PropTypes.func,
-  showCardDetails: PropTypes.func
+  showCardOverview: PropTypes.func
 };
 
 export default MovieCard;

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const Tabs = (props) => {
 
   const {changeActivePage} = props;
-  console.log(changeActivePage)
+
   return (
     <ul className="movie-nav__list">
       <li className="movie-nav__item movie-nav__item--active">

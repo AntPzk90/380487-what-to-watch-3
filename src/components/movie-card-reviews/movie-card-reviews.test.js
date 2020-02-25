@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import MovieCardDetails from './../movie-card-details/movie-card-details.jsx';
+import MovieCardReviews from './../movie-card-reviews/movie-card-reviews.jsx';
 
 const film = {
   title: `Dardjeeling limited`,
@@ -11,9 +11,9 @@ const film = {
   releaseDate: `2016`,
 };
 
-it(`SnapshotTest MovieCardDetails`, () => {
+it(`SnapshotTest MovieCardReviews`, () => {
   const tree = renderer
-  .create(<MovieCardDetails
+  .create(<MovieCardReviews
     film = {film}
   />).toJSON();
 

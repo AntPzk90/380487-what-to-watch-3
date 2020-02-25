@@ -4,7 +4,7 @@ import FilmsList from '../films-list/films-list.jsx';
 
 const Main = (props) => {
 
-  const {title, genre, releaseDate, films, onMovieCardTitleMouseEnter, showCardDetails} = props;
+  const {title, genre, releaseDate, films, onMovieCardTitleMouseEnter, showCardOverview} = props;
   return (
     <React.Fragment>
       <section className="movie-card">
@@ -100,7 +100,7 @@ const Main = (props) => {
           </ul>
           <FilmsList
             films = {films}
-            showCardDetails = {showCardDetails}
+            showCardOverview = {showCardOverview}
           />
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -135,7 +135,7 @@ Main.propTypes = {
       }).isRequired
   ),
   onMovieCardTitleMouseEnter: PropTypes.func,
-  showCardDetails: PropTypes.func
+  showCardOverview: PropTypes.func
 };
 
 export default Main;

@@ -15,7 +15,7 @@ class App extends PureComponent {
 
   renderApp() {
     const {title, genre, releaseDate, films} = this.props;
-    const {film} = this.state;
+    const {film, isVideoPlay} = this.state;
     if (film === null) {
       return (
         <Main
@@ -24,6 +24,7 @@ class App extends PureComponent {
           genre={genre}
           releaseDate={releaseDate}
           onMovieCardTitleMouseEnter={() => { }}
+          isVideoPlay={isVideoPlay}
 
           showCardDetails = {(filmData) => {
             this.setState({

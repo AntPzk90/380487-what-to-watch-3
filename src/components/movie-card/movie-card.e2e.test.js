@@ -67,7 +67,6 @@ it(`Should cardMovie be click on CardTitle`, () => {
   );
 
   const catalogMovieCardTitle = movieCard.find(`.small-movie-card__title`);
-
   catalogMovieCardTitle.simulate(`click`, mockEvent);
 
   expect(showCardDetails).toHaveBeenCalledTimes(1);

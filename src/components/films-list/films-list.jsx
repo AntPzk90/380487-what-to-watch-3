@@ -6,18 +6,19 @@ class FilmsList extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      film: null
+      film: null,
     };
 
     this.onCardMouseEnter = this.onCardMouseEnter.bind(this);
   }
 
   onCardMouseEnter(film) {
-    this.setState({film});
+    this.setState({
+      film
+    });
   }
 
   render() {
-
     const {films} = this.props;
     const {showCardDetails} = this.props;
 

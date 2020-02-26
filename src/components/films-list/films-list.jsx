@@ -19,12 +19,21 @@ class FilmsList extends PureComponent {
   }
 
   render() {
-    const {films} = this.props;
-    const {showCardOverview} = this.props;
+
+    const {films, showCardOverview, genreToFilter} = this.props;
+
+    const filteredFilms = (filterFilms, filterGenre) => {
+      switch (filterGenre) {
+        case `All genres`:
+          return filterFilms;
+        default:
+          return filterFilms.filter((it) => it.genre === filterGenre);
+      }
+    };
 
     return (
       <div className="catalog__movies-list">
-        {films.map((film) => {
+        {filteredFilms(films, genreToFilter).map((film) => {
           return (
             <MovieCard key={film.title}
               film={film}
@@ -45,6 +54,9 @@ FilmsList.propTypes = {
         src: PropTypes.string.isRequired,
       }).isRequired
   ),
-  showCardOverview: PropTypes.func
+  showCardOverview: PropTypes.func,
+  genreToFilter: PropTypes.string.isRequired,
 };
+
+
 export default FilmsList;

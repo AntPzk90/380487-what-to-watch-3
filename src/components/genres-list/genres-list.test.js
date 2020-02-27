@@ -1,12 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {Provider} from "react-redux";
-import App from './app.jsx';
-import configureStore from 'redux-mock-store';
+import GenresList from './genres-list.jsx';
 
-const mockStore = configureStore([]);
-
-const filmsMock = [
+const films = [
   {
     title: `Bohemian rhapsody`,
     src: `bohemian-rhapsody.jpg`,
@@ -27,29 +23,19 @@ const filmsMock = [
   },
 ];
 
+const genreToFilter = `All genres`;
 
-it(`SnapshotTest App`, () => {
-
-  const store = mockStore({
-    films: filmsMock,
-    genre: `All genres`
-  });
+it(`SnapshotTest GenresList`, () => {
 
   const tree = renderer
-  .create(
-      <Provider store={store}>
-        <App
-          films = {filmsMock}
-          title = {`Some title`}
-          genre = {`some gemre`}
-          releaseDate = {`some date`}
+    .create(
+        <GenresList
+          films = {films}
+          genreToFilter = {genreToFilter}
+          onGenreClick={() => {}}
         />
-      </Provider>, {
-        createNodeMock: () => {
-          return {};
-        }
-      })
-  .toJSON();
+
+    ).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

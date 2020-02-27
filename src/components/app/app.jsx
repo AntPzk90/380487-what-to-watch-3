@@ -5,6 +5,8 @@ import Main from './../main/main.jsx';
 import MovieCardOverview from '../movie-card-overview/movie-card-overview.jsx';
 import MovieCardDetails from '../movie-card-details/movie-card-details.jsx';
 import MovieCardReviews from '../movie-card-reviews/movie-card-reviews.jsx';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../reducer';
 
 class App extends PureComponent {
   constructor(props) {
@@ -17,16 +19,20 @@ class App extends PureComponent {
   }
 
   renderApp() {
-    const {title, genre, releaseDate, films} = this.props;
+    const {title, genre, releaseDate, onGenreClick, genreToFilter, films} = this.props;
     const {film, activePage} = this.state;
+
     if (film === null) {
       return (
         <Main
           films={films}
+          onGenreClick={onGenreClick}
           title={title}
           genre={genre}
+          genreToFilter={genreToFilter}
           releaseDate={releaseDate}
           onMovieCardTitleMouseEnter={() => { }}
+
           showCardOverview = {(filmData) => {
             this.setState({
               film: filmData
@@ -34,11 +40,12 @@ class App extends PureComponent {
           }}
         />
       );
-    }
+    } else
     if (activePage === `overview`) {
       return (
         <MovieCardOverview
           film = {film}
+          activeTab = {this.state.activePage}
           changeActivePage = {(innerPage) =>{
             this.setState({
               activePage: innerPage
@@ -46,11 +53,12 @@ class App extends PureComponent {
           }}
         />
       );
-    }
+    } else
     if (activePage === `details`) {
       return (
         <MovieCardDetails
           film = {film}
+          activeTab = {this.state.activePage}
           changeActivePage = {(innerPage) =>{
             this.setState({
               activePage: innerPage
@@ -58,11 +66,12 @@ class App extends PureComponent {
           }}
         />
       );
-    }
-    if (film && activePage === `reviews`) {
+    } else
+    if (activePage === `reviews`) {
       return (
         <MovieCardReviews
           film = {film}
+          activeTab = {this.state.activePage}
           changeActivePage = {(innerPage) =>{
             this.setState({
               activePage: innerPage
@@ -70,8 +79,9 @@ class App extends PureComponent {
           }}
         />
       );
+    } else {
+      return null;
     }
-    return null;
   }
 
   render() {
@@ -118,7 +128,20 @@ App.propTypes = {
         src: PropTypes.string.isRequired,
       }).isRequired
   ),
-  onMovieCardTitleMouseEnter: PropTypes.func
+  onMovieCardTitleMouseEnter: PropTypes.func,
+  onGenreClick: PropTypes.func,
+  genreToFilter: PropTypes.string.isRequired
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  films: state.films,
+  genreToFilter: state.genre
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onGenreClick(filterGenre) {
+    dispatch(ActionCreator.filterByName(filterGenre));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -4,7 +4,7 @@ import Tabs from './../tabs/tabs.jsx';
 
 const MovieCardOverview = (props) => {
 
-  const {film, changeActivePage} = props;
+  const {film, changeActivePage, activeTab} = props;
   const {title, poster, titlePoster, genre, releaseDate} = film;
 
   return (
@@ -63,6 +63,7 @@ const MovieCardOverview = (props) => {
               <nav className="movie-nav movie-card__nav">
                 <Tabs
                   changeActivePage={changeActivePage}
+                  activeTab={activeTab}
                 />
               </nav>
               <div className="movie-rating">
@@ -147,7 +148,8 @@ MovieCardOverview.propTypes = {
     genre: PropTypes.string.isRequired,
     releaseDate: PropTypes.string.isRequired,
   }),
-  changeActivePage: PropTypes.func
+  changeActivePage: PropTypes.func,
+  activeTab: PropTypes.string,
 };
 
 export default MovieCardOverview;

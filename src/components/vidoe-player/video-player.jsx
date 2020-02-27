@@ -24,7 +24,7 @@ class VideoPlayer extends PureComponent {
     const {film} = this.props;
     return (
       <video src={film.preview} poster={`img/${film.src}`}
-        className="small-movie-card__image" autoPlay={this.state.isAutoplay ? `autoPlay` : ``} muted={this.state.isMuted ? `muted` : ``}>
+        className="small-movie-card__image"  autoPlay={this.state.isAutoplay ? `autoPlay` : ``} muted={this.state.isMuted ? `muted` : ``}>
       </video>
     );
   }

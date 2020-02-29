@@ -1,12 +1,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import MovieCard from './../movie-card/movie-card.jsx';
+import MovieInfo from './movie-info.jsx';
 import {Provider} from "react-redux";
 import configureStore from 'redux-mock-store';
 
 const mockStore = configureStore([]);
 
-const filmMock = {
+const showFilmCardMock = {
   title: `Bohemian rhapsody`,
   src: `bohemian-rhapsody.jpg`,
   poster: `bohemian-rhapsody.jpg`,
@@ -16,22 +16,26 @@ const filmMock = {
   preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
 };
 
-it(`SnapshotTest MovieCard`, () => {
+it(`SnapshotTest MovieInfo`, () => {
+
   const store = mockStore({
-    film: filmMock,
+    showFilmCard: showFilmCardMock,
+    activePage: `overview`,
   });
 
   const tree = renderer
-  .create(
-      <Provider store={store}>
-        <MovieCard
-          film = {filmMock}
-        />
-      </Provider>, {
-        createNodeMock: () => {
-          return {};
-        }
-      })
+    .create(
+        <Provider store={store}>
+          <MovieInfo
+            film = {store.showFilmCard}
+            activePage = {store.activePage}
+            onTabClick={() => {}}
+          />
+        </Provider>, {
+          createNodeMock: () => {
+            return {};
+          }
+        })
     .toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -1,15 +1,30 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import Tabs from './tabs.jsx';
+import {Provider} from "react-redux";
+import configureStore from 'redux-mock-store';
 
-const activeTab = `overview`;
+const mockStore = configureStore([]);
 
 it(`SnapshotTest Tabs`, () => {
+
+  const store = mockStore({
+    activePage: `overview`,
+  });
+
   const tree = renderer
-  .create(<Tabs
-    changeActivePage = {() => {}}
-    activeTab = {activeTab}
-  />).toJSON();
+  .create(
+      <Provider store={store}>
+        <Tabs
+          changeActivePage = {() => {}}
+          activeTab = {store.activePage}
+        />
+      </Provider>, {
+        createNodeMock: () => {
+          return {};
+        }
+      })
+  .toJSON();
 
   expect(tree).toMatchSnapshot();
 });

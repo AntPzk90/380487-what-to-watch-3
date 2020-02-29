@@ -1,26 +1,54 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import Main from './main.jsx';
+import {Provider} from "react-redux";
+import configureStore from 'redux-mock-store';
 
-const films = [
+const mockStore = configureStore([]);
+
+const filmsMock = [
   {
-    title: `Midnight special`,
-    src: `midnight-special.jpg`,
+    title: `Bohemian rhapsody`,
+    src: `bohemian-rhapsody.jpg`,
+    poster: `bohemian-rhapsody.jpg`,
+    titlePoster: `bohemian-rhapsody.jpg`,
+    genre: `Comedy`,
+    releaseDate: `2015`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
-    title: `Revenant`,
-    src: `revenant.jpg`,
+    title: `Bohemian rhapsody`,
+    src: `bohemian-rhapsody.jpg`,
+    poster: `bohemian-rhapsody.jpg`,
+    titlePoster: `bohemian-rhapsody.jpg`,
+    genre: `Comedy`,
+    releaseDate: `2015`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
 ];
 
+
 it(`SnapshotTest Main`, () => {
+
+  const store = mockStore({
+    films: filmsMock,
+  });
+
   const tree = renderer
-  .create(<Main
-    films = {films}
-    title = {`Some title`}
-    genre = {`some gemre`}
-    releaseDate = {`some date`}
-  />).toJSON();
+  .create(
+      <Provider store={store}>
+        <Main
+          films = {filmsMock}
+          title = {`Some title`}
+          genre = {`some gemre`}
+          releaseDate = {`some date`}
+        />
+      </Provider>, {
+        createNodeMock: () => {
+          return {};
+        }
+      })
+  .toJSON();
 
   expect(tree).toMatchSnapshot();
 });

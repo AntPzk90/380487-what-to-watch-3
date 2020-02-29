@@ -1,26 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import {connect} from 'react-redux';
 
 const Tabs = (props) => {
 
-  const {changeActivePage, activeTab} = props;
+  const {changeActivePage, activePage} = props;
 
   return (
     <ul className="movie-nav__list">
-      <li className={`movie-nav__item ${activeTab === `overview` ? `movie-nav__item--active` : ``}`}>
+      <li className={`movie-nav__item ${activePage === `overview` ? `movie-nav__item--active` : ``}`}>
         <a href="#" className="movie-nav__link" onClick={(evt) => {
           evt.preventDefault();
           changeActivePage(`overview`);
         }}>Overview</a>
       </li>
-      <li className={`movie-nav__item ${activeTab === `details` ? `movie-nav__item--active` : ``}`}>
+      <li className={`movie-nav__item ${activePage === `details` ? `movie-nav__item--active` : ``}`}>
         <a href="#" className="movie-nav__link" onClick={(evt) => {
           evt.preventDefault();
           changeActivePage(`details`);
         }}>Details</a>
       </li>
-      <li className={`movie-nav__item ${activeTab === `reviews` ? `movie-nav__item--active` : ``}`}>
+      <li className={`movie-nav__item ${activePage === `reviews` ? `movie-nav__item--active` : ``}`}>
         <a href="#" className="movie-nav__link" onClick={(evt) => {
           evt.preventDefault();
           changeActivePage(`reviews`);
@@ -32,7 +32,11 @@ const Tabs = (props) => {
 
 Tabs.propTypes = {
   changeActivePage: PropTypes.func,
-  activeTab: PropTypes.string,
+  activePage: PropTypes.string,
 };
 
-export default Tabs;
+const mapStateToProps = (state) => ({
+  activePage: state.activeTab
+});
+
+export default connect(mapStateToProps)(Tabs);

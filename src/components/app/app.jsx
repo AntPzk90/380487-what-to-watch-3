@@ -2,82 +2,37 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import Main from './../main/main.jsx';
-import MovieCardOverview from '../movie-card-overview/movie-card-overview.jsx';
-import MovieCardDetails from '../movie-card-details/movie-card-details.jsx';
-import MovieCardReviews from '../movie-card-reviews/movie-card-reviews.jsx';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer';
+import MovieInfo from '../movie-info/movie-info.jsx';
+
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      film: null,
-      activePage: `overview`,
-    };
   }
 
   renderApp() {
-    const {title, genre, releaseDate, onGenreClick, genreToFilter, films} = this.props;
-    const {film, activePage} = this.state;
 
-    if (film === null) {
+    const {
+      poster,
+      films,
+      showFilmCard,
+    } = this.props;
+
+    if (showFilmCard === null) {
+
       return (
         <Main
           films={films}
-          onGenreClick={onGenreClick}
-          title={title}
-          genre={genre}
-          genreToFilter={genreToFilter}
-          releaseDate={releaseDate}
-          onMovieCardTitleMouseEnter={() => { }}
-
-          showCardOverview = {(filmData) => {
-            this.setState({
-              film: filmData
-            });
-          }}
+          title={poster.title}
+          genre={poster.genre}
+          releaseDate={poster.releaseDate}
         />
       );
     } else
-    if (activePage === `overview`) {
+    if (showFilmCard) {
       return (
-        <MovieCardOverview
-          film = {film}
-          activeTab = {this.state.activePage}
-          changeActivePage = {(innerPage) =>{
-            this.setState({
-              activePage: innerPage
-            });
-          }}
-        />
-      );
-    } else
-    if (activePage === `details`) {
-      return (
-        <MovieCardDetails
-          film = {film}
-          activeTab = {this.state.activePage}
-          changeActivePage = {(innerPage) =>{
-            this.setState({
-              activePage: innerPage
-            });
-          }}
-        />
-      );
-    } else
-    if (activePage === `reviews`) {
-      return (
-        <MovieCardReviews
-          film = {film}
-          activeTab = {this.state.activePage}
-          changeActivePage = {(innerPage) =>{
-            this.setState({
-              activePage: innerPage
-            });
-          }}
-        />
+        <MovieInfo/>
       );
     } else {
       return null;
@@ -86,8 +41,6 @@ class App extends PureComponent {
 
   render() {
 
-    const {film} = this.state;
-
     return (
       <BrowserRouter>
         <Switch>
@@ -95,22 +48,7 @@ class App extends PureComponent {
             {this.renderApp()}
           </Route>
           <Route exact path="/dev-film">
-            <MovieCardOverview
-              film = {film}
-              changeActivePage={() => {}}
-            />
-          </Route>
-          <Route exact path="/dev-film-details">
-            <MovieCardDetails
-              film = {film}
-              changeActivePage={() => {}}
-            />
-          </Route>
-          <Route exact path="/dev-film-reviews">
-            <MovieCardReviews
-              film = {film}
-              changeActivePage={() => {}}
-            />
+            <MovieInfo/>
           </Route>
         </Switch>
       </BrowserRouter>
@@ -119,29 +57,35 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  releaseDate: PropTypes.string.isRequired,
+  poster: PropTypes.shape({
+    title: PropTypes.string,
+    genre: PropTypes.string,
+    releaseDate: PropTypes.string,
+  }),
   films: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         src: PropTypes.string.isRequired,
+        poster: PropTypes.string.isRequired,
+        titlePoster: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        releaseDate: PropTypes.string.isRequired,
       }).isRequired
   ),
-  onMovieCardTitleMouseEnter: PropTypes.func,
-  onGenreClick: PropTypes.func,
-  genreToFilter: PropTypes.string.isRequired
+  showFilmCard: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    src: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
+    titlePoster: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    releaseDate: PropTypes.string.isRequired,
+  })
 };
 
 const mapStateToProps = (state) => ({
+  poster: state.poster,
   films: state.films,
-  genreToFilter: state.genre
+  showFilmCard: state.showFilmCard,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onGenreClick(filterGenre) {
-    dispatch(ActionCreator.filterByName(filterGenre));
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

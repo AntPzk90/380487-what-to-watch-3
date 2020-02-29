@@ -1,30 +1,18 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import withVideo from '../../hocs/with-video/with-video.jsx';
 
 class VideoPlayer extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      isPlay: false,
-      isPause: false,
-      isAutoplay: false,
-      isMuted: false,
-    };
-  }
-
-  componentDidMount() {
-    this.setState({
-      isAutoplay: true,
-      isMuted: true
-    });
   }
 
   render() {
-    const {film} = this.props;
+    const {film, isAutoplay, isMuted} = this.props;
+
     return (
       <video src={film.preview} poster={`img/${film.src}`}
-        className="small-movie-card__image"  autoPlay={this.state.isAutoplay ? `autoPlay` : ``} muted={this.state.isMuted ? `muted` : ``}>
+        className="small-movie-card__image" autoPlay={isAutoplay ? `autoPlay` : ``} muted={isMuted ? `muted` : ``}>
       </video>
     );
   }
@@ -35,7 +23,9 @@ VideoPlayer.propTypes = {
     title: PropTypes.string.isRequired,
     src: PropTypes.string.isRequired,
     preview: PropTypes.string.isRequired,
-  }).isRequired
+  }).isRequired,
+  isAutoplay: PropTypes.string.isRequired,
+  isMuted: PropTypes.string.isRequired
 };
 
-export default VideoPlayer;
+export default withVideo(VideoPlayer);

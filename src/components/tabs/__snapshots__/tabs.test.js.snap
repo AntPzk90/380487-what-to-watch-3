@@ -5,7 +5,7 @@ exports[`SnapshotTest Tabs 1`] = `
   className="movie-nav__list"
 >
   <li
-    className="movie-nav__item movie-nav__item--active"
+    className="movie-nav__item "
   >
     <a
       className="movie-nav__link"

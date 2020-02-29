@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SnapshotTest withVideo 1`] = `
+<withVideo
+  isAutopla={true}
+  isMutedMock={true}
+  isPause={false}
+  isPlay={false}
+/>
+`;

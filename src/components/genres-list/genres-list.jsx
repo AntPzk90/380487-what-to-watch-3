@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../reducer';
 
 const GenresList = (props) => {
 
@@ -39,9 +41,23 @@ GenresList.propTypes = {
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         src: PropTypes.string.isRequired,
+        poster: PropTypes.string.isRequired,
+        titlePoster: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        releaseDate: PropTypes.string.isRequired,
       }).isRequired
   ),
   genreToFilter: PropTypes.string.isRequired,
 };
 
-export default GenresList;
+const mapStateToProps = (state) => ({
+  genreToFilter: state.genre,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onGenreClick(filterGenre) {
+    dispatch(ActionCreator.filterByName(filterGenre));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GenresList);

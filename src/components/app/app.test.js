@@ -36,19 +36,19 @@ it(`SnapshotTest App`, () => {
   });
 
   const tree = renderer
-  .create(
-      <Provider store={store}>
-        <App
-          films = {filmsMock}
-          title = {`Some title`}
-          genre = {`some gemre`}
-          releaseDate = {`some date`}
-        />
-      </Provider>, {
-        createNodeMock: () => {
-          return {};
-        }
-      })
+    .create(
+        <Provider store={store}>
+          <App
+            films = {filmsMock}
+            title = {`Some title`}
+            genre = {`some gemre`}
+            releaseDate = {`some date`}
+          />
+        </Provider>, {
+          createNodeMock: () => {
+            return {};
+          }
+        })
   .toJSON();
 
   expect(tree).toMatchSnapshot();

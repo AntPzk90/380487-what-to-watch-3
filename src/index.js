@@ -5,12 +5,6 @@ import {createStore} from 'redux';
 import {Provider} from "react-redux";
 import {reducer} from "./reducer.js";
 
-const Settings = {
-  title: `The Grand Budapest Hotel`,
-  genre: `Drama`,
-  releaseDate: `2014`,
-};
-
 const store = createStore(
     reducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
@@ -19,9 +13,6 @@ const store = createStore(
 ReactDOM.render(
     <Provider store={store}>
       <App
-        title = {Settings.title}
-        genre = {Settings.genre}
-        releaseDate = {Settings.releaseDate}
       />
     </Provider>,
     document.querySelector(`#root`)

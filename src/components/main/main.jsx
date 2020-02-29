@@ -5,7 +5,8 @@ import GenresList from '../genres-list/genres-list.jsx';
 
 const Main = (props) => {
 
-  const {title, genre, releaseDate, films, onMovieCardTitleMouseEnter, showCardOverview, onGenreClick, genreToFilter} = props;
+  const {title, genre, releaseDate, films} = props;
+
   return (
     <React.Fragment>
       <section className="movie-card">
@@ -38,7 +39,7 @@ const Main = (props) => {
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title" onClick={onMovieCardTitleMouseEnter}>{title}</h2>
+              <h2 className="movie-card__title">{title}</h2>
               <p className="movie-card__meta">
                 <span className="movie-card__genre">{genre}</span>
                 <span className="movie-card__year">{releaseDate}</span>
@@ -68,13 +69,9 @@ const Main = (props) => {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenresList
             films={films}
-            onGenreClick={onGenreClick}
-            genreToFilter={genreToFilter}
           />
           <FilmsList
-            films = {films}
-            showCardOverview = {showCardOverview}
-            genreToFilter={genreToFilter}
+            films={films}
           />
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -106,12 +103,14 @@ Main.propTypes = {
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         src: PropTypes.string.isRequired,
+        poster: PropTypes.string.isRequired,
+        titlePoster: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        releaseDate: PropTypes.string.isRequired,
       }).isRequired
   ),
-  onMovieCardTitleMouseEnter: PropTypes.func,
-  showCardOverview: PropTypes.func,
+  onMovieCardClick: PropTypes.func,
   onGenreClick: PropTypes.func,
-  genreToFilter: PropTypes.string.isRequired
 };
 
 export default Main;

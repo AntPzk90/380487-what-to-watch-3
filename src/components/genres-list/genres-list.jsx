@@ -6,7 +6,7 @@ import {ActionCreator} from '../../reducer';
 const GenresList = (props) => {
 
   const {onGenreClick, films, genreToFilter} = props;
-
+  const genres = Array.from(new Set(films.map((it) => it.genre)));
   return (
     <ul className="catalog__genres-list">
       <li className={`catalog__genres-item ${genreToFilter === `All genres` ? `catalog__genres-item--active` : ``}`}>
@@ -18,7 +18,7 @@ const GenresList = (props) => {
           href="#"
           className="catalog__genres-link">All genres</a>
       </li>
-      {films.map((it) => it.genre).filter((it, pos) => films.map((item) => item.genre).indexOf(it) === pos).map((itemGenre) => {
+      { genres.map((itemGenre) => {
         return (
           <li className={`catalog__genres-item ${genreToFilter === itemGenre ? `catalog__genres-item--active` : ``}`} key={itemGenre}>
             <a

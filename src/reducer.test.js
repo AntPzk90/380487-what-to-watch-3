@@ -1,5 +1,9 @@
 import {reducer, ActionType} from "./reducer.js";
-
+const posterMock = {
+  title: `The Grand Budapest Hotel`,
+  genre: `Drama`,
+  releaseDate: `2014`,
+};
 const filmsMock = [
   {
     title: `Grand budapest hotel`,
@@ -77,20 +81,48 @@ const filmsMock = [
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void `All genres`, {})).toEqual({
+    poster: posterMock,
     genre: `All genres`,
     films: filmsMock,
+    showFilmCard: null,
+    activeTab: `overview`,
   });
 });
 
-it(`Reducer should increment current step by a given value`, () => {
+it(`Reducer current step by a given value`, () => {
   expect(reducer({
-    genre: `All Ganres`,
+    poster: posterMock,
+    genre: `All genres`,
     films: filmsMock,
+    showFilmCard: null,
+    activeTab: `overview`,
   }, {
     type: ActionType.FILTER_BY_NAME,
     payload: `Drama`,
   })).toEqual({
+    poster: posterMock,
     genre: `Drama`,
     films: filmsMock,
+    showFilmCard: null,
+    activeTab: `overview`,
+  });
+});
+
+it(`Reducer current step by a given value`, () => {
+  expect(reducer({
+    poster: posterMock,
+    genre: `All genres`,
+    films: filmsMock,
+    showFilmCard: null,
+    activeTab: `overview`,
+  }, {
+    type: ActionType.ACTIVE_TAB,
+    payload: `details`,
+  })).toEqual({
+    poster: posterMock,
+    genre: `All genres`,
+    films: filmsMock,
+    showFilmCard: null,
+    activeTab: `details`,
   });
 });

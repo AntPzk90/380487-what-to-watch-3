@@ -1,8 +1,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import MovieCardOverview from './../movie-card-overview/movie-card-overview.jsx';
+import {Provider} from "react-redux";
+import configureStore from 'redux-mock-store';
 
-const film = {
+const mockStore = configureStore([]);
+
+const filmMock = {
   title: `Dardjeeling limited`,
   src: `dardjeeling-limited.jpg`,
   poster: `dardjeeling-limited.jpg`,
@@ -12,10 +16,23 @@ const film = {
 };
 
 it(`SnapshotTest MovieCardOverview`, () => {
+
+  const store = mockStore({
+    films: filmMock,
+  });
+
   const tree = renderer
-  .create(<MovieCardOverview
-    film = {film}
-  />).toJSON();
+  .create(
+      <Provider store={store}>
+        <MovieCardOverview
+          film = {filmMock}
+        />
+      </Provider>, {
+        createNodeMock: () => {
+          return {};
+        }
+      })
+  .toJSON();
 
   expect(tree).toMatchSnapshot();
 });

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SnapshotTest withFilmsList 1`] = `
+<withFilmsList
+  film={
+    Object {
+      "genre": "Comedy",
+      "poster": "bohemian-rhapsody.jpg",
+      "preview": "https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4",
+      "releaseDate": "2015",
+      "src": "bohemian-rhapsody.jpg",
+      "title": "Bohemian rhapsody",
+      "titlePoster": "bohemian-rhapsody.jpg",
+    }
+  }
+  onCardMouseEnter={[Function]}
+/>
+`;

@@ -1,62 +1,54 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import MovieCard from './../movie-card/movie-card.jsx';
+import withFilmsList from './../../hocs/with-films-list/with-films-list.jsx';
+import {connect} from 'react-redux';
 
-class FilmsList extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      film: null,
-    };
+const FilmsList = (props) => {
 
-    this.onCardMouseEnter = this.onCardMouseEnter.bind(this);
-  }
+  const {films, genreToFilter, onCardMouseEnter} = props;
 
-  onCardMouseEnter(film) {
-    this.setState({
-      film
-    });
-  }
+  const filteredFilms = (filterFilms, filterGenre) => {
+    switch (filterGenre) {
+      case `All genres`:
+        return filterFilms;
+      default:
+        return filterFilms.filter((it) => it.genre === filterGenre);
+    }
+  };
 
-  render() {
-
-    const {films, showCardOverview, genreToFilter} = this.props;
-
-    const filteredFilms = (filterFilms, filterGenre) => {
-      switch (filterGenre) {
-        case `All genres`:
-          return filterFilms;
-        default:
-          return filterFilms.filter((it) => it.genre === filterGenre);
-      }
-    };
-
-    return (
-      <div className="catalog__movies-list">
-        {filteredFilms(films, genreToFilter).map((film) => {
-          return (
-            <MovieCard key={film.title}
-              film={film}
-              onCardMouseEnter={this.onCardMouseEnter}
-              showCardOverview={showCardOverview}
-            />
-          );
-        })}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="catalog__movies-list">
+      {filteredFilms(films, genreToFilter).map((film) => {
+        return (
+          <MovieCard key={film.title}
+            film={film}
+            onCardMouseEnter={onCardMouseEnter}
+          />
+        );
+      })}
+    </div>
+  );
+};
 
 FilmsList.propTypes = {
   films: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         src: PropTypes.string.isRequired,
+        poster: PropTypes.string.isRequired,
+        titlePoster: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        releaseDate: PropTypes.string.isRequired,
       }).isRequired
   ),
-  showCardOverview: PropTypes.func,
   genreToFilter: PropTypes.string.isRequired,
+  onCardMouseEnter: PropTypes.func,
+  onMovieCardClick: PropTypes.func,
 };
 
+const mapStateToProps = (state) => ({
+  genreToFilter: state.genre,
+});
 
-export default FilmsList;
+export default connect(mapStateToProps)(withFilmsList(FilmsList));

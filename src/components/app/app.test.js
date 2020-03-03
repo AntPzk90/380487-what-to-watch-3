@@ -41,7 +41,7 @@ it(`SnapshotTest App`, () => {
           <App
             films = {filmsMock}
             title = {`Some title`}
-            genre = {`some gemre`}
+            genre = {`some genre`}
             releaseDate = {`some date`}
           />
         </Provider>, {

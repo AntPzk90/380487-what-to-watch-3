@@ -101,12 +101,22 @@ Main.propTypes = {
   releaseDate: PropTypes.string.isRequired,
   films: PropTypes.arrayOf(
       PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        src: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
         poster: PropTypes.string.isRequired,
-        titlePoster: PropTypes.string.isRequired,
-        genre: PropTypes.string.isRequired,
-        releaseDate: PropTypes.string.isRequired,
+        previewImage: PropTypes.string,
+        backgroundImage: PropTypes.string,
+        backgroundColor: PropTypes.string,
+        decription: PropTypes.string,
+        rating: PropTypes.number,
+        scoresCount: PropTypes.number,
+        director: PropTypes.string,
+        starring: PropTypes.array,
+        genre: PropTypes.string,
+        released: PropTypes.number,
+        id: PropTypes.number,
+        isFavorite: PropTypes.bool,
+        videoLink: PropTypes.string,
+        previewVideoLink: PropTypes.string
       }).isRequired
   ),
   onMovieCardClick: PropTypes.func,

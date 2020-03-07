@@ -6,14 +6,14 @@ import Tabs from './../tabs/tabs.jsx';
 const MovieCardDetails = (props) => {
 
   const {film, changeActivePage, activeTab} = props;
-  const {title, poster, titlePoster, genre, releaseDate} = film;
+  const {name, poster, backgroundImage, runTime, genre, released, starring} = film;
 
   return (
     <React.Fragment>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={`img/${titlePoster}`} alt={title} />
+            <img src={backgroundImage} alt={name} />
           </div>
           <h1 className="visually-hidden">WTW</h1>
           <header className="page-header movie-card__head">
@@ -32,10 +32,10 @@ const MovieCardDetails = (props) => {
           </header>
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{title}</h2>
+              <h2 className="movie-card__title">{name}</h2>
               <p className="movie-card__meta">
                 <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{releaseDate}</span>
+                <span className="movie-card__year">{released}</span>
               </p>
               <div className="movie-card__buttons">
                 <button className="btn btn--play movie-card__button" type="button">
@@ -58,7 +58,7 @@ const MovieCardDetails = (props) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={`img/${poster}`} alt={`${title} poster`} width={218} height={327} />
+              <img src={poster} alt={`${name} poster`} width={218} height={327} />
             </div>
             <div className="movie-card__desc">
               <nav className="movie-nav movie-card__nav">
@@ -76,7 +76,11 @@ const MovieCardDetails = (props) => {
                   <p className="movie-card__details-item">
                     <strong className="movie-card__details-name">Starring</strong>
                     <span className="movie-card__details-value">
-                      Bill Murray, <br />
+                      {starring.map((it) => {
+                          return(<span key={it}>{it} <br /></span>)
+                        })
+                      }
+                      {/* Bill Murray, <br />
                       Edward Norton, <br />
                       Jude Law, <br />
                       Willem Dafoe, <br />
@@ -87,14 +91,14 @@ const MovieCardDetails = (props) => {
                       Owen Wilkinson, <br />
                       Adrien Brody, <br />
                       Ralph Fiennes, <br />
-                      Jeff Goldblum
+                      Jeff Goldblum */}
                     </span>
                   </p>
                 </div>
                 <div className="movie-card__text-col">
                   <p className="movie-card__details-item">
                     <strong className="movie-card__details-name">Run Time</strong>
-                    <span className="movie-card__details-value">1h 39m</span>
+                    <span className="movie-card__details-value">{runTime}</span>
                   </p>
                   <p className="movie-card__details-item">
                     <strong className="movie-card__details-name">Genre</strong>
@@ -102,7 +106,7 @@ const MovieCardDetails = (props) => {
                   </p>
                   <p className="movie-card__details-item">
                     <strong className="movie-card__details-name">Released</strong>
-                    <span className="movie-card__details-value">{releaseDate}</span>
+                    <span className="movie-card__details-value">{released}</span>
                   </p>
                 </div>
               </div>
@@ -167,12 +171,22 @@ const MovieCardDetails = (props) => {
 
 MovieCardDetails.propTypes = {
   film: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
-    titlePoster: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.string.isRequired,
+    previewImage: PropTypes.string,
+    backgroundImage: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    decription: PropTypes.string,
+    rating: PropTypes.number,
+    scoresCount: PropTypes.number,
+    director: PropTypes.string,
+    starring: PropTypes.array,
+    genre: PropTypes.string,
+    released: PropTypes.number,
+    id: PropTypes.number,
+    isFavorite: PropTypes.bool,
+    videoLink: PropTypes.string,
+    previewVideoLink: PropTypes.string
   }),
   changeActivePage: PropTypes.func,
   activeTab: PropTypes.string

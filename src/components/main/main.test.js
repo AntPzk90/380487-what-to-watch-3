@@ -32,6 +32,7 @@ it(`SnapshotTest Main`, () => {
 
   const store = mockStore({
     films: filmsMock,
+    APPLICATION: {genre: 'drama'}
   });
 
   const tree = renderer
@@ -40,7 +41,7 @@ it(`SnapshotTest Main`, () => {
         <Main
           films = {filmsMock}
           title = {`Some title`}
-          genre = {`some gemre`}
+          genre = {store.genre}
           releaseDate = {`some date`}
         />
       </Provider>, {

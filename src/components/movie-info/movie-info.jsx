@@ -5,9 +5,10 @@ import {ActionCreator} from '../../reducer';
 import MovieCardOverview from '../movie-card-overview/movie-card-overview.jsx';
 import MovieCardDetails from '../movie-card-details/movie-card-details.jsx';
 import MovieCardReviews from '../movie-card-reviews/movie-card-reviews.jsx';
+import {getShowFilmsCard, getActiveTab} from '../../reducer/application/selectors.js';
 
 const MovieInfo = (props) => {
-
+  console.log(props)
   const {activePage, showFilmCard, onTabClick} = props;
   switch (activePage) {
     case `overview`:
@@ -43,20 +44,30 @@ const MovieInfo = (props) => {
 
 MovieInfo.propTypes = {
   showFilmCard: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
-    titlePoster: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.string.isRequired,
+    previewImage: PropTypes.string,
+    backgroundImage: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    decription: PropTypes.string,
+    rating: PropTypes.number,
+    scoresCount: PropTypes.number,
+    director: PropTypes.string,
+    starring: PropTypes.array,
+    genre: PropTypes.string,
+    released: PropTypes.number,
+    id: PropTypes.number,
+    isFavorite: PropTypes.bool,
+    videoLink: PropTypes.string,
+    previewVideoLink: PropTypes.string
   }),
   activePage: PropTypes.string.isRequired,
   onTabClick: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
-  showFilmCard: state.showFilmCard,
-  activePage: state.activeTab,
+  activePage: getActiveTab(state),
+  showFilmCard: getShowFilmsCard(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

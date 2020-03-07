@@ -13,7 +13,7 @@ exports[`SnapshotTest MovieCard 1`] = `
     <img
       alt="Fantastic Beasts: The Crimes of Grindelwald"
       height="175"
-      src="img/bohemian-rhapsody.jpg"
+      src="bohemian-rhapsody.jpg"
       width="280"
     />
   </div>
@@ -24,9 +24,7 @@ exports[`SnapshotTest MovieCard 1`] = `
     <a
       className="small-movie-card__link"
       href="movie-page.html"
-    >
-      Bohemian rhapsody
-    </a>
+    />
   </h3>
 </article>
 `;

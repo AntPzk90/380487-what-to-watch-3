@@ -3,25 +3,16 @@ import PropTypes from 'prop-types';
 import MovieCard from './../movie-card/movie-card.jsx';
 import withFilmsList from './../../hocs/with-films-list/with-films-list.jsx';
 import {connect} from 'react-redux';
+import {getGenre, getFilteredFilms} from './../../reducer/data/selectors.js'
 
 const FilmsList = (props) => {
-
-  const {films, genreToFilter, onCardMouseEnter} = props;
-
-  const filteredFilms = (filterFilms, filterGenre) => {
-    switch (filterGenre) {
-      case `All genres`:
-        return filterFilms;
-      default:
-        return filterFilms.filter((it) => it.genre === filterGenre);
-    }
-  };
+  const {onCardMouseEnter, filteredFilms} = props;
 
   return (
     <div className="catalog__movies-list">
-      {filteredFilms(films, genreToFilter).map((film) => {
+      {filteredFilms.map((film) => {
         return (
-          <MovieCard key={film.title}
+          <MovieCard key={film.id}
             film={film}
             onCardMouseEnter={onCardMouseEnter}
           />
@@ -34,12 +25,22 @@ const FilmsList = (props) => {
 FilmsList.propTypes = {
   films: PropTypes.arrayOf(
       PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        src: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
         poster: PropTypes.string.isRequired,
-        titlePoster: PropTypes.string.isRequired,
-        genre: PropTypes.string.isRequired,
-        releaseDate: PropTypes.string.isRequired,
+        previewImage: PropTypes.string,
+        backgroundImage: PropTypes.string,
+        backgroundColor: PropTypes.string,
+        decription: PropTypes.string,
+        rating: PropTypes.number,
+        scoresCount: PropTypes.number,
+        director: PropTypes.string,
+        starring: PropTypes.array,
+        genre: PropTypes.string,
+        released: PropTypes.number,
+        id: PropTypes.number,
+        isFavorite: PropTypes.bool,
+        videoLink: PropTypes.string,
+        previewVideoLink: PropTypes.string
       }).isRequired
   ),
   genreToFilter: PropTypes.string.isRequired,
@@ -48,7 +49,8 @@ FilmsList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  genreToFilter: state.genre,
+  genreToFilter: getGenre(state),
+  filteredFilms: getFilteredFilms(state)
 });
 
 export default connect(mapStateToProps)(withFilmsList(FilmsList));

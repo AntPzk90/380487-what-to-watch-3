@@ -18,7 +18,7 @@ const mockEvent = {
 it(`Should tabs be click`, () => {
 
   const store = mockStore({
-    activePage: `overview`,
+    APPLICATION: {activePage: 'overview'},
   });
 
   const changeActivePage = jest.fn();

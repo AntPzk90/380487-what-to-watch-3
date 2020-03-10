@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import MovieCard from './../movie-card/movie-card.jsx';
 import withFilmsList from './../../hocs/with-films-list/with-films-list.jsx';
 import {connect} from 'react-redux';
-import {getGenre, getFilteredFilms} from './../../reducer/data/selectors.js'
+import {getGenre, getFilteredFilms} from './../../reducer/data/selectors.js';
 
 const FilmsList = (props) => {
   const {onCardMouseEnter, filteredFilms} = props;
@@ -46,6 +46,7 @@ FilmsList.propTypes = {
   genreToFilter: PropTypes.string.isRequired,
   onCardMouseEnter: PropTypes.func,
   onMovieCardClick: PropTypes.func,
+  filteredFilms: PropTypes.array,
 };
 
 const mapStateToProps = (state) => ({

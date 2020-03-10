@@ -11,8 +11,11 @@ import {createAPI} from './api.js';
 const api = createAPI();
 
 const store = createStore(
-  reducer,
-    applyMiddleware(thunk.withExtraArgument(api)),
+    reducer,
+    compose(
+        applyMiddleware(thunk.withExtraArgument(api)),
+        window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+    )
 );
 
 store.dispatch(DataOperation.getFilms());

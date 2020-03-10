@@ -38,7 +38,7 @@ const ActionCreator = {
 const DataOperation = {
   getFilms: () => (dispatch, getState, api) => {
     return api.get(`/films`)
-      .then(response => dispatch(ActionCreator.loadFilms(response.data)));
+      .then((response) => dispatch(ActionCreator.loadFilms(response.data)));
   }
 };
 

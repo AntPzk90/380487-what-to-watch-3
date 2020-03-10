@@ -4,7 +4,7 @@ import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import Main from './../main/main.jsx';
 import {connect} from 'react-redux';
 import MovieInfo from '../movie-info/movie-info.jsx';
-import {getAllFilms} from '../../reducer/data/selectors.js'
+import {getAllFilms} from '../../reducer/data/selectors.js';
 import {getShowFilmsCard} from '../../reducer/application/selectors.js';
 
 class App extends PureComponent {
@@ -104,12 +104,11 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     poster: state.APPLICATION.poster,
     films: getAllFilms(state),
     showFilmCard: getShowFilmsCard(state),
-  }
+  };
 };
 
 export default connect(mapStateToProps)(App);

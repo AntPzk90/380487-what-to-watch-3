@@ -9,7 +9,7 @@ const mockStore = configureStore([]);
 it(`SnapshotTest Tabs`, () => {
 
   const store = mockStore({
-    APPLICATION: {activePage: 'overview'}
+    APPLICATION: {activePage: `overview`}
   });
 
   const tree = renderer

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import VideoPlayer from '../vidoe-player/video-player.jsx';
 import withMovieCard from './../../hocs/with-movie-card/with-movie-card.jsx';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer';
+import {ActionCreator} from '../../reducer/application/application.js';
 
 const MovieCard = (props) => {
   const {

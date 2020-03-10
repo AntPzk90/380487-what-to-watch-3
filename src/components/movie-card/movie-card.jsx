@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import VideoPlayer from '../vidoe-player/video-player.jsx';
 import withMovieCard from './../../hocs/with-movie-card/with-movie-card.jsx';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer';
+import {ActionCreator} from '../../reducer/application/application.js';
 
 const MovieCard = (props) => {
-
   const {
     film,
     onCardMouseEnter,
@@ -31,14 +30,14 @@ const MovieCard = (props) => {
           />
         }
         {isPlay ||
-          <img src={`img/${film.src}`} alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175"/>
+          <img src={film.poster} alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175"/>
         }
       </div>
       <h3 className="small-movie-card__title" onClick={(evt) => {
         evt.preventDefault();
         onMovieCardClick(film);
       }}>
-        <a className="small-movie-card__link" href="movie-page.html">{film.title}</a>
+        <a className="small-movie-card__link" href="movie-page.html">{film.name}</a>
       </h3>
     </article>
   );
@@ -46,12 +45,22 @@ const MovieCard = (props) => {
 
 MovieCard.propTypes = {
   film: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
-    titlePoster: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.string.isRequired,
+    previewImage: PropTypes.string,
+    backgroundImage: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    decription: PropTypes.string,
+    rating: PropTypes.number,
+    scoresCount: PropTypes.number,
+    director: PropTypes.string,
+    starring: PropTypes.array,
+    genre: PropTypes.string,
+    released: PropTypes.number,
+    id: PropTypes.number,
+    isFavorite: PropTypes.bool,
+    videoLink: PropTypes.string,
+    previewVideoLink: PropTypes.string
   }).isRequired,
   onCardMouseEnter: PropTypes.func,
   onCardMouseHover: PropTypes.func,

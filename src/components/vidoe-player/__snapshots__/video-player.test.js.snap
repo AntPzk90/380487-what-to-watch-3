@@ -6,6 +6,5 @@ exports[`SnapshotTest VideoPlayer 1`] = `
   className="small-movie-card__image"
   muted="muted"
   poster="img/shutter-island.jpg"
-  src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
 />
 `;

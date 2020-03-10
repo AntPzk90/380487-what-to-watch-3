@@ -88,9 +88,7 @@ Array [
           >
             <span
               className="movie-card__genre"
-            >
-              some gemre
-            </span>
+            />
             <span
               className="movie-card__year"
             >
@@ -172,7 +170,7 @@ Array [
             href="#"
             onClick={[Function]}
           >
-            Comedy
+            Adventure
           </a>
         </li>
       </ul>

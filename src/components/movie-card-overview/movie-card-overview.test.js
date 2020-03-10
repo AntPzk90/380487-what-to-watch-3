@@ -2,30 +2,17 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import MovieCardOverview from './../movie-card-overview/movie-card-overview.jsx';
 import {Provider} from "react-redux";
-import configureStore from 'redux-mock-store';
+import store, {filmsMock} from '../../mock-service';
 
-const mockStore = configureStore([]);
-
-const filmMock = {
-  title: `Dardjeeling limited`,
-  src: `dardjeeling-limited.jpg`,
-  poster: `dardjeeling-limited.jpg`,
-  titlePoster: `dardjeeling-limited.jpg`,
-  genre: `Comedy`,
-  releaseDate: `2016`,
-};
 
 it(`SnapshotTest MovieCardOverview`, () => {
 
-  const store = mockStore({
-    films: filmMock,
-  });
 
   const tree = renderer
   .create(
       <Provider store={store}>
         <MovieCardOverview
-          film = {filmMock}
+          film = {filmsMock[0]}
         />
       </Provider>, {
         createNodeMock: () => {

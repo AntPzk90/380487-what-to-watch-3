@@ -1,455 +1,100 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SnapshotTest MovieCardDetails 1`] = `
-Array [
-  <section
-    className="movie-card movie-card--full"
-  >
-    <div
-      className="movie-card__hero"
-    >
-      <div
-        className="movie-card__bg"
-      >
-        <img
-          alt="Dardjeeling limited"
-          src="img/dardjeeling-limited.jpg"
-        />
-      </div>
-      <h1
-        className="visually-hidden"
-      >
-        WTW
-      </h1>
-      <header
-        className="page-header movie-card__head"
-      >
-        <div
-          className="logo"
-        >
-          <a
-            className="logo__link"
-            href="main.html"
-          >
-            <span
-              className="logo__letter logo__letter--1"
-            >
-              W
-            </span>
-            <span
-              className="logo__letter logo__letter--2"
-            >
-              T
-            </span>
-            <span
-              className="logo__letter logo__letter--3"
-            >
-              W
-            </span>
-          </a>
-        </div>
-        <div
-          className="user-block"
-        >
-          <div
-            className="user-block__avatar"
-          >
-            <img
-              alt="User avatar"
-              height={63}
-              src="img/avatar.jpg"
-              width={63}
-            />
-          </div>
-        </div>
-      </header>
-      <div
-        className="movie-card__wrap"
-      >
-        <div
-          className="movie-card__desc"
-        >
-          <h2
-            className="movie-card__title"
-          >
-            Dardjeeling limited
-          </h2>
-          <p
-            className="movie-card__meta"
-          >
-            <span
-              className="movie-card__genre"
-            >
-              Comedy
-            </span>
-            <span
-              className="movie-card__year"
-            >
-              2016
-            </span>
-          </p>
-          <div
-            className="movie-card__buttons"
-          >
-            <button
-              className="btn btn--play movie-card__button"
-              type="button"
-            >
-              <svg
-                height={19}
-                viewBox="0 0 19 19"
-                width={19}
-              >
-                <use
-                  xlinkHref="#play-s"
-                />
-              </svg>
-              <span>
-                Play
-              </span>
-            </button>
-            <button
-              className="btn btn--list movie-card__button"
-              type="button"
-            >
-              <svg
-                height={20}
-                viewBox="0 0 19 20"
-                width={19}
-              >
-                <use
-                  xlinkHref="#add"
-                />
-              </svg>
-              <span>
-                My list
-              </span>
-            </button>
-            <a
-              className="btn movie-card__button"
-              href="add-review.html"
-            >
-              Add review
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="movie-card__wrap movie-card__translate-top"
-    >
-      <div
-        className="movie-card__info"
-      >
-        <div
-          className="movie-card__poster movie-card__poster--big"
-        >
-          <img
-            alt="Dardjeeling limited poster"
-            height={327}
-            src="img/dardjeeling-limited.jpg"
-            width={218}
-          />
-        </div>
-        <div
-          className="movie-card__desc"
-        >
-          <nav
-            className="movie-nav movie-card__nav"
-          >
-            <ul
-              className="movie-nav__list"
-            >
-              <li
-                className="movie-nav__item "
-              >
-                <a
-                  className="movie-nav__link"
-                  href="#"
-                  onClick={[Function]}
-                >
-                  Overview
-                </a>
-              </li>
-              <li
-                className="movie-nav__item "
-              >
-                <a
-                  className="movie-nav__link"
-                  href="#"
-                  onClick={[Function]}
-                >
-                  Details
-                </a>
-              </li>
-              <li
-                className="movie-nav__item "
-              >
-                <a
-                  className="movie-nav__link"
-                  href="#"
-                  onClick={[Function]}
-                >
-                  Reviews
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div
-            className="movie-card__text movie-card__row"
-          >
-            <div
-              className="movie-card__text-col"
-            >
-              <p
-                className="movie-card__details-item"
-              >
-                <strong
-                  className="movie-card__details-name"
-                >
-                  Director
-                </strong>
-                <span
-                  className="movie-card__details-value"
-                >
-                  Wes Andreson
-                </span>
-              </p>
-              <p
-                className="movie-card__details-item"
-              >
-                <strong
-                  className="movie-card__details-name"
-                >
-                  Starring
-                </strong>
-                <span
-                  className="movie-card__details-value"
-                >
-                  Bill Murray, 
-                  <br />
-                  Edward Norton, 
-                  <br />
-                  Jude Law, 
-                  <br />
-                  Willem Dafoe, 
-                  <br />
-                  Saoirse Ronan, 
-                  <br />
-                  Tony Revoloru, 
-                  <br />
-                  Tilda Swinton, 
-                  <br />
-                  Tom Wilkinson, 
-                  <br />
-                  Owen Wilkinson, 
-                  <br />
-                  Adrien Brody, 
-                  <br />
-                  Ralph Fiennes, 
-                  <br />
-                  Jeff Goldblum
-                </span>
-              </p>
-            </div>
-            <div
-              className="movie-card__text-col"
-            >
-              <p
-                className="movie-card__details-item"
-              >
-                <strong
-                  className="movie-card__details-name"
-                >
-                  Run Time
-                </strong>
-                <span
-                  className="movie-card__details-value"
-                >
-                  1h 39m
-                </span>
-              </p>
-              <p
-                className="movie-card__details-item"
-              >
-                <strong
-                  className="movie-card__details-name"
-                >
-                  Genre
-                </strong>
-                <span
-                  className="movie-card__details-value"
-                >
-                  Comedy
-                </span>
-              </p>
-              <p
-                className="movie-card__details-item"
-              >
-                <strong
-                  className="movie-card__details-name"
-                >
-                  Released
-                </strong>
-                <span
-                  className="movie-card__details-value"
-                >
-                  2016
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>,
+<div
+  className="movie-card__text movie-card__row"
+>
   <div
-    className="page-content"
+    className="movie-card__text-col"
   >
-    <section
-      className="catalog catalog--like-this"
+    <p
+      className="movie-card__details-item"
     >
-      <h2
-        className="catalog__title"
+      <strong
+        className="movie-card__details-name"
       >
-        More like this
-      </h2>
-      <div
-        className="catalog__movies-list"
+        Director
+      </strong>
+      <span
+        className="movie-card__details-value"
       >
-        <article
-          className="small-movie-card catalog__movies-card"
-        >
-          <div
-            className="small-movie-card__image"
-          >
-            <img
-              alt="Fantastic Beasts: The Crimes of Grindelwald"
-              height={175}
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-              width={280}
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-            >
-              Fantastic Beasts: The Crimes of Grindelwald
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-        >
-          <div
-            className="small-movie-card__image"
-          >
-            <img
-              alt="Bohemian Rhapsody"
-              height={175}
-              src="img/bohemian-rhapsody.jpg"
-              width={280}
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-            >
-              Bohemian Rhapsody
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-        >
-          <div
-            className="small-movie-card__image"
-          >
-            <img
-              alt="Macbeth"
-              height={175}
-              src="img/macbeth.jpg"
-              width={280}
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-            >
-              Macbeth
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-        >
-          <div
-            className="small-movie-card__image"
-          >
-            <img
-              alt="Aviator"
-              height={175}
-              src="img/aviator.jpg"
-              width={280}
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-            >
-              Aviator
-            </a>
-          </h3>
-        </article>
-      </div>
-    </section>
-    <footer
-      className="page-footer"
+        Wes Andreson
+      </span>
+    </p>
+    <p
+      className="movie-card__details-item"
     >
-      <div
-        className="logo"
+      <strong
+        className="movie-card__details-name"
       >
-        <a
-          className="logo__link logo__link--light"
-          href="main.html"
-        >
-          <span
-            className="logo__letter logo__letter--1"
-          >
-            W
-          </span>
-          <span
-            className="logo__letter logo__letter--2"
-          >
-            T
-          </span>
-          <span
-            className="logo__letter logo__letter--3"
-          >
-            W
-          </span>
-        </a>
-      </div>
-      <div
-        className="copyright"
+        Starring
+      </strong>
+      <span
+        className="movie-card__details-value"
       >
-        <p>
-          © 2019 What to watch Ltd.
-        </p>
-      </div>
-    </footer>
-  </div>,
-]
+        <span>
+          Tom Cruise
+           
+          <br />
+        </span>
+        <span>
+          Dakota Fanning
+           
+          <br />
+        </span>
+        <span>
+          Tim Robbins
+           
+          <br />
+        </span>
+      </span>
+    </p>
+  </div>
+  <div
+    className="movie-card__text-col"
+  >
+    <p
+      className="movie-card__details-item"
+    >
+      <strong
+        className="movie-card__details-name"
+      >
+        Run Time
+      </strong>
+      <span
+        className="movie-card__details-value"
+      >
+        116
+      </span>
+    </p>
+    <p
+      className="movie-card__details-item"
+    >
+      <strong
+        className="movie-card__details-name"
+      >
+        Genre
+      </strong>
+      <span
+        className="movie-card__details-value"
+      >
+        Adventure
+      </span>
+    </p>
+    <p
+      className="movie-card__details-item"
+    >
+      <strong
+        className="movie-card__details-name"
+      >
+        Released
+      </strong>
+      <span
+        className="movie-card__details-value"
+      >
+        2005
+      </span>
+    </p>
+  </div>
+</div>
 `;

@@ -9,7 +9,7 @@ const mockStore = configureStore([]);
 it(`SnapshotTest Tabs`, () => {
 
   const store = mockStore({
-    activePage: `overview`,
+    APPLICATION: {activePage: `overview`}
   });
 
   const tree = renderer
@@ -17,7 +17,7 @@ it(`SnapshotTest Tabs`, () => {
       <Provider store={store}>
         <Tabs
           changeActivePage = {() => {}}
-          activeTab = {store.activePage}
+          activeTab = {store.APPLICATION}
         />
       </Provider>, {
         createNodeMock: () => {

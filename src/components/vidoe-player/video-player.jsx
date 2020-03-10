@@ -11,7 +11,7 @@ class VideoPlayer extends PureComponent {
     const {film, isAutoplay, isMuted} = this.props;
 
     return (
-      <video src={film.preview} poster={`img/${film.src}`}
+      <video src={film.previewVideoLink} poster={`img/${film.poster}`}
         className="small-movie-card__image" autoPlay={isAutoplay ? `autoPlay` : ``} muted={isMuted ? `muted` : ``}>
       </video>
     );
@@ -20,12 +20,25 @@ class VideoPlayer extends PureComponent {
 
 VideoPlayer.propTypes = {
   film: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired,
-    preview: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
+    previewImage: PropTypes.string,
+    backgroundImage: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    decription: PropTypes.string,
+    rating: PropTypes.number,
+    scoresCount: PropTypes.number,
+    director: PropTypes.string,
+    starring: PropTypes.array,
+    genre: PropTypes.string,
+    released: PropTypes.number,
+    id: PropTypes.number,
+    isFavorite: PropTypes.bool,
+    videoLink: PropTypes.string,
+    previewVideoLink: PropTypes.string
   }).isRequired,
-  isAutoplay: PropTypes.string.isRequired,
-  isMuted: PropTypes.string.isRequired
+  isAutoplay: PropTypes.bool,
+  isMuted: PropTypes.bool
 };
 
 export default withVideo(VideoPlayer);

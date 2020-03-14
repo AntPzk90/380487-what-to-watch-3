@@ -4,8 +4,11 @@ import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import Main from './../main/main.jsx';
 import {connect} from 'react-redux';
 import MovieInfo from '../movie-info/movie-info.jsx';
+import SignIn from '../sign-in/sign-in.jsx';
 import {getAllFilms} from '../../reducer/data/selectors.js';
 import {getShowFilmsCard} from '../../reducer/application/selectors.js';
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {Operation as UserOperation} from "../../reducer/user/user.js";
 
 class App extends PureComponent {
   constructor(props) {
@@ -15,6 +18,7 @@ class App extends PureComponent {
   renderApp() {
 
     const {
+      // authorizationStatus,
       poster,
       films,
       showFilmCard,
@@ -42,6 +46,8 @@ class App extends PureComponent {
 
   render() {
 
+    const {login} = this.props;
+
     return (
       <BrowserRouter>
         <Switch>
@@ -50,6 +56,11 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/dev-film">
             <MovieInfo/>
+          </Route>
+          <Route exact path="/sign">
+            <SignIn
+              onSubmit={login}
+            />
           </Route>
         </Switch>
       </BrowserRouter>
@@ -100,15 +111,27 @@ App.propTypes = {
     isFavorite: PropTypes.bool,
     videoLink: PropTypes.string,
     previewVideoLink: PropTypes.string
-  })
+  }),
+  login: PropTypes.func,
+
 };
 
 const mapStateToProps = (state) => {
   return {
+    authorizationStatus: getAuthorizationStatus(state),
     poster: state.APPLICATION.poster,
     films: getAllFilms(state),
     showFilmCard: getShowFilmsCard(state),
   };
 };
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login(authData) {
+      dispatch(UserOperation.login(authData));
+    }
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

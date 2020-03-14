@@ -35,7 +35,7 @@ const ActionCreator = {
   loadFilms: (data) => ({type: ActionType.LOAD_FILMS, payload: data}),
 };
 
-const DataOperation = {
+const Operation = {
   getFilms: () => (dispatch, getState, api) => {
     return api.get(`/films`)
       .then((response) => dispatch(ActionCreator.loadFilms(response.data)));
@@ -52,4 +52,4 @@ const reducer = (state = initialState, action) => {
 };
 
 
-export {reducer, DataOperation, ActionType, ActionCreator};
+export {reducer, Operation, ActionType, ActionCreator};

@@ -13,11 +13,8 @@ it(`SnapshotTest App`, () => {
           <App
             films = {filmsMock}
           />
-        </Provider>, {
-          createNodeMock: () => {
-            return {};
-          }
-        })
+        </Provider>
+    )
   .toJSON();
 
   expect(tree).toMatchSnapshot();

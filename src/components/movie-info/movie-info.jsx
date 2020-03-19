@@ -4,11 +4,18 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer/application/application';
 import MovieInfoContent from './../movie-info-content/movie-info-content.jsx';
 import Tabs from './../tabs/tabs.jsx';
-import {getShowFilmsCard, getActiveTab} from '../../reducer/application/selectors.js';
+import {Operation} from '../../reducer/data/data.js';
+import {getActiveTab} from '../../reducer/application/selectors.js';
+import {getFilmForId} from '../../reducer/data/selectors';
+import withIndicator from '../../hocs/with-indicator/with-indicator.jsx';
+import Logo from '../logo/logo.jsx';
+import UserBlock from '../user-block/user-block.jsx';
 
 const MovieInfo = (props) => {
-  const {activePage, showFilmCard, onTabClick} = props;
-  const {name, poster, backgroundImage, genre, released} = showFilmCard;
+
+  const {activePage, showFilmCard, onTabClick, changeFavoriteStatus, id} = props;
+  const {name, poster, backgroundImage, genre, released, isFavorite} = showFilmCard;
+
 
   return (
     <React.Fragment>
@@ -19,18 +26,8 @@ const MovieInfo = (props) => {
           </div>
           <h1 className="visually-hidden">WTW</h1>
           <header className="page-header movie-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
-              </div>
-            </div>
+            <Logo/>
+            <UserBlock/>
           </header>
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
@@ -46,10 +43,18 @@ const MovieInfo = (props) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
+                <button className="btn btn--list movie-card__button" type="button"
+                  onClick={() => {changeFavoriteStatus(showFilmCard)}}
+                >
+                  {isFavorite ?
+                  <svg viewBox="0 0 18 14" width="18" height="14">
+                    <use xlinkHref="#in-list"/>
+                  </svg>
+                  :
                   <svg viewBox="0 0 19 20" width={19} height={20}>
                     <use xlinkHref="#add" />
                   </svg>
+                  }
                   <span>My list</span>
                 </button>
                 <a href="add-review.html" className="btn movie-card__button">Add review</a>
@@ -145,16 +150,20 @@ MovieInfo.propTypes = {
   onTabClick: PropTypes.func
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, {id}) => ({
   activePage: getActiveTab(state),
-  showFilmCard: getShowFilmsCard(state),
+  showFilmCard: getFilmForId(state, id),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onTabClick(activeTab) {
     dispatch(ActionCreator.changeActiveTab(activeTab));
+  },
+  changeFavoriteStatus(data) {
+    let status = data.isFavorite ? 0 : 1;
+    dispatch(Operation.changeFavoriteStatus(data, status))
   }
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(MovieInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(withIndicator(MovieInfo));

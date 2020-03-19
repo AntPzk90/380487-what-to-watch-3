@@ -3,6 +3,8 @@ import renderer from 'react-test-renderer';
 import Main from './main.jsx';
 import {Provider} from "react-redux";
 import configureStore from 'redux-mock-store';
+import {Router} from "react-router-dom";
+import history from "../../history.js";
 
 const mockStore = configureStore([]);
 
@@ -51,19 +53,22 @@ const filmsMock = [
 it(`SnapshotTest Main`, () => {
 
   const store = mockStore({
-    DATA: {films: filmsMock},
-    APPLICATION: {genre: `drama`}
+    DATA: {films: filmsMock, promoFilm: filmsMock[0]},
+    APPLICATION: {genre: `drama`},
+    USER: {authorizationStatus: `AUTH`}
   });
 
   const tree = renderer
   .create(
       <Provider store={store}>
+        <Router
+          history={history}
+        >
         <Main
           films = {filmsMock}
-          title = {`Some title`}
-          genre = {store.genre}
-          releaseDate = {`some date`}
+          promoFilm= {filmsMock[0]}
         />
+        </Router>
       </Provider>, {
         createNodeMock: () => {
           return {};

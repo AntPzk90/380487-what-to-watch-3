@@ -3,6 +3,8 @@ import renderer from 'react-test-renderer';
 import MovieCard from './../movie-card/movie-card.jsx';
 import {Provider} from "react-redux";
 import configureStore from 'redux-mock-store';
+import {Router} from "react-router-dom";
+import history from "../../history.js";
 
 const mockStore = configureStore([]);
 
@@ -24,9 +26,13 @@ it(`SnapshotTest MovieCard`, () => {
   const tree = renderer
   .create(
       <Provider store={store}>
+        <Router
+          history={history}
+        >
         <MovieCard
           film = {filmMock}
         />
+        </Router>
       </Provider>, {
         createNodeMock: () => {
           return {};

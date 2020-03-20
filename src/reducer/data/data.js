@@ -2,6 +2,9 @@ import {extend} from "../../utils.js";
 
 const initialState = {
   films: [],
+  favoriteFilms: [],
+  changedFilm: {},
+  promoFilm: {},
 };
 
 const adapter = (film) => {
@@ -28,17 +31,35 @@ const adapter = (film) => {
 };
 
 const ActionType = {
-  LOAD_FILMS: `LOAD_FILMS`
+  LOAD_FILMS: `LOAD_FILMS`,
+  LOAD_FAVORITE_FILMS: `LOAD_FAVORITES_FILMS`,
+  CHANGE_FAVORITE_STATUS: `CHANGE_FAVORITE_STATUS`,
+  LOAD_PROMO_FILM: `LOAD_PROMO_FILM`,
 };
 
 const ActionCreator = {
   loadFilms: (data) => ({type: ActionType.LOAD_FILMS, payload: data}),
+  loadFavoriteFilms: (data) => ({type: ActionType.LOAD_FAVORITE_FILMS, payload: data}),
+  changeFavoriteStatus: (data) => ({type: ActionType.CHANGE_FAVORITE_STATUS, payload: data}),
+  loadPromoFilm: (data) => ({type: ActionType.LOAD_PROMO_FILM, payload: data})
 };
 
 const Operation = {
   getFilms: () => (dispatch, getState, api) => {
     return api.get(`/films`)
       .then((response) => dispatch(ActionCreator.loadFilms(response.data)));
+  },
+  getPromoFilm: () => (dispatch, getState, api) => {
+    return api.get(`/films/promo`).
+      then((response) => dispatch(ActionCreator.loadPromoFilm(response.data)));
+  },
+  getFavoriteFilms: () => (dispatch, getState, api) => {
+    return api.get(`/favorite`)
+      .then((response) => dispatch(ActionCreator.loadFavoriteFilms(response.data)));
+  },
+  changeFavoriteStatus: (data, status) => (dispatch, getState, api) => {
+    return api.post(`/favorite/${data.id}/${status}`)
+      .then((response) => dispatch(ActionCreator.changeFavoriteStatus(response.data)));
   }
 };
 
@@ -46,6 +67,12 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.LOAD_FILMS:
       return extend(state, {films: action.payload.map(adapter)});
+    case ActionType.LOAD_FAVORITE_FILMS:
+      return extend(state, {favoriteFilms: action.payload.map(adapter)});
+    case ActionType.CHANGE_FAVORITE_STATUS:
+      return extend(state, {changedFilm: action.payload});
+    case ActionType.LOAD_PROMO_FILM:
+      return extend(state, {promoFilm: adapter(action.payload)});
   }
 
   return state;

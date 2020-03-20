@@ -23,6 +23,7 @@ const store = createStore(
     )
 );
 
+store.dispatch(DataOperation.getPromoFilm());
 store.dispatch(DataOperation.getFilms());
 store.dispatch(UserOperation.checkAuth());
 

@@ -3,6 +3,8 @@ import renderer from 'react-test-renderer';
 import FilmsList from './films-list.jsx';
 import {Provider} from "react-redux";
 import store, {filmsMock} from '../../mock-service';
+import {Router} from "react-router-dom";
+import history from "../../history.js";
 
 it(`SnapshotTest FilmList`, () => {
 
@@ -10,11 +12,15 @@ it(`SnapshotTest FilmList`, () => {
   const tree = renderer
   .create(
       <Provider store={store}>
-        <FilmsList
-          films = {filmsMock}
-          showCardOverview = {() => {}}
-          genreToFilter = {store.genreToFilter}
-        />
+        <Router
+          history={history}
+        >
+          <FilmsList
+            films = {filmsMock}
+            showCardOverview = {() => {}}
+            genreToFilter = {store.genreToFilter}
+          />
+        </Router>
       </Provider>, {
         createNodeMock: () => {
           return {};

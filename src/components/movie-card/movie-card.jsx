@@ -4,6 +4,9 @@ import VideoPlayer from '../vidoe-player/video-player.jsx';
 import withMovieCard from './../../hocs/with-movie-card/with-movie-card.jsx';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer/application/application.js';
+import history from "../../history.js";
+import {Link} from 'react-router-dom';
+import {AppRoute} from "../../const.js";
 
 const MovieCard = (props) => {
   const {
@@ -23,7 +26,11 @@ const MovieCard = (props) => {
       }}
       onClick={() => onMovieCardClick(film)}
       onMouseLeave={() => onCardMouseLeave()}>
-      <div className="small-movie-card__image">
+      <div className="small-movie-card__image"
+        onClick={() => {
+          history.push(`${AppRoute.FILM}/${film.id}`);
+        }}
+      >
         {isPlay &&
           <VideoPlayer
             film={film}
@@ -37,7 +44,7 @@ const MovieCard = (props) => {
         evt.preventDefault();
         onMovieCardClick(film);
       }}>
-        <a className="small-movie-card__link" href="movie-page.html">{film.name}</a>
+        <Link to={`${AppRoute.FILM}/${film.id}`} className="small-movie-card__link" href="movie-page.html">{film.name}</Link>
       </h3>
     </article>
   );

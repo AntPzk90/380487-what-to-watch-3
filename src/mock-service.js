@@ -33,6 +33,7 @@ const store = mockStore({
   },
   DATA: {
     films: filmsMock,
+    promofilm: filmsMock[0]
   },
   USER: {
     authorizationStatus: `AUTH`,

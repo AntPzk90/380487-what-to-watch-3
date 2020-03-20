@@ -1,8 +1,6 @@
 import {extend} from './../../utils.js';
-import posterMock from './../../mocks/poster.js';
 
 const initialState = {
-  poster: posterMock,
   genre: `All genres`,
   showFilmCard: null,
   activeTab: `overview`,

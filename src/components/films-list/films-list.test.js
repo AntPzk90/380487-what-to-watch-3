@@ -15,11 +15,11 @@ it(`SnapshotTest FilmList`, () => {
         <Router
           history={history}
         >
-        <FilmsList
-          films = {filmsMock}
-          showCardOverview = {() => {}}
-          genreToFilter = {store.genreToFilter}
-        />
+          <FilmsList
+            films = {filmsMock}
+            showCardOverview = {() => {}}
+            genreToFilter = {store.genreToFilter}
+          />
         </Router>
       </Provider>, {
         createNodeMock: () => {

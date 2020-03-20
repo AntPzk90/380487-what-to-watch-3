@@ -27,7 +27,9 @@ const MovieCard = (props) => {
       onClick={() => onMovieCardClick(film)}
       onMouseLeave={() => onCardMouseLeave()}>
       <div className="small-movie-card__image"
-      onClick={() => {history.push(`${AppRoute.FILM}/${film.id}`)}}
+        onClick={() => {
+          history.push(`${AppRoute.FILM}/${film.id}`);
+        }}
       >
         {isPlay &&
           <VideoPlayer

@@ -33,7 +33,7 @@ class App extends PureComponent {
             render={({match}) => {
               return <MovieInfo id={match.params.id}/>;
             }
-          }>
+            }>
           </Route>
           <Route exact path={AppRoute.LOGIN}>
             <SignIn

@@ -38,7 +38,7 @@ const ActionType = {
 };
 
 const ActionCreator = {
-  loadFilms: (data) => (console.log(data),{type: ActionType.LOAD_FILMS, payload: data}),
+  loadFilms: (data) => ({type: ActionType.LOAD_FILMS, payload: data}),
   loadFavoriteFilms: (data) => ({type: ActionType.LOAD_FAVORITE_FILMS, payload: data}),
   changeFavoriteStatus: (data) => ({type: ActionType.CHANGE_FAVORITE_STATUS, payload: data}),
   loadPromoFilm: (data) => ({type: ActionType.LOAD_PROMO_FILM, payload: data})
@@ -57,8 +57,7 @@ const Operation = {
     return api.get(`/favorite`)
       .then((response) => dispatch(ActionCreator.loadFavoriteFilms(response.data)));
   },
-  changeFavoriteStatus: (data,status) => (dispatch, getState, api) => {
-    console.log(status)
+  changeFavoriteStatus: (data, status) => (dispatch, getState, api) => {
     return api.post(`/favorite/${data.id}/${status}`)
       .then((response) => dispatch(ActionCreator.changeFavoriteStatus(response.data)));
   }

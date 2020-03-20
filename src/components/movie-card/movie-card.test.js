@@ -29,9 +29,9 @@ it(`SnapshotTest MovieCard`, () => {
         <Router
           history={history}
         >
-        <MovieCard
-          film = {filmMock}
-        />
+          <MovieCard
+            film = {filmMock}
+          />
         </Router>
       </Provider>, {
         createNodeMock: () => {

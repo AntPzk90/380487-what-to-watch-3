@@ -7,13 +7,16 @@ import Tabs from './../tabs/tabs.jsx';
 import {Operation} from '../../reducer/data/data.js';
 import {getActiveTab} from '../../reducer/application/selectors.js';
 import {getFilmForId} from '../../reducer/data/selectors';
-import withIndicator from '../../hocs/with-indicator/with-indicator.jsx';
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import withMovieInfo from '../../hocs/with-movie-info/with-movie-info.jsx';
 import Logo from '../logo/logo.jsx';
 import UserBlock from '../user-block/user-block.jsx';
+import {AppRoute} from '../../const';
+import history from '../../history.js';
 
 const MovieInfo = (props) => {
 
-  const {activePage, showFilmCard, onTabClick, changeFavoriteStatus, id} = props;
+  const {activePage, showFilmCard, onTabClick, changeFavoriteStatus, authorizationStatus} = props;
   const {name, poster, backgroundImage, genre, released, isFavorite} = showFilmCard;
 
 
@@ -44,16 +47,18 @@ const MovieInfo = (props) => {
                   <span>Play</span>
                 </button>
                 <button className="btn btn--list movie-card__button" type="button"
-                  onClick={() => {changeFavoriteStatus(showFilmCard)}}
+                  onClick={() => {
+                    changeFavoriteStatus(showFilmCard, authorizationStatus);
+                  }}
                 >
                   {isFavorite ?
-                  <svg viewBox="0 0 18 14" width="18" height="14">
-                    <use xlinkHref="#in-list"/>
-                  </svg>
-                  :
-                  <svg viewBox="0 0 19 20" width={19} height={20}>
-                    <use xlinkHref="#add" />
-                  </svg>
+                    <svg viewBox="0 0 18 14" width="18" height="14">
+                      <use xlinkHref="#in-list"/>
+                    </svg>
+                    :
+                    <svg viewBox="0 0 19 20" width={19} height={20}>
+                      <use xlinkHref="#add" />
+                    </svg>
                   }
                   <span>My list</span>
                 </button>
@@ -145,25 +150,32 @@ MovieInfo.propTypes = {
     backgroundImage: PropTypes.string,
     genre: PropTypes.string,
     released: PropTypes.number,
+    isFavorite: PropTypes.bool
   }),
+  changeFavoriteStatus: PropTypes.func,
   activePage: PropTypes.string.isRequired,
-  onTabClick: PropTypes.func
+  onTabClick: PropTypes.func,
+  authorizationStatus: PropTypes.string,
 };
 
 const mapStateToProps = (state, {id}) => ({
   activePage: getActiveTab(state),
   showFilmCard: getFilmForId(state, id),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onTabClick(activeTab) {
     dispatch(ActionCreator.changeActiveTab(activeTab));
   },
-  changeFavoriteStatus(data) {
+  changeFavoriteStatus(data, authorizationStatus) {
+    if (authorizationStatus === `NO_AUTH`) {
+      history.push(AppRoute.LOGIN);
+    }
     let status = data.isFavorite ? 0 : 1;
-    dispatch(Operation.changeFavoriteStatus(data, status))
+    dispatch(Operation.changeFavoriteStatus(data, status));
   }
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(withIndicator(MovieInfo));
+export default connect(mapStateToProps, mapDispatchToProps)(withMovieInfo(MovieInfo));

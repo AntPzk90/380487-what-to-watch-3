@@ -64,10 +64,10 @@ it(`SnapshotTest Main`, () => {
         <Router
           history={history}
         >
-        <Main
-          films = {filmsMock}
-          promoFilm= {filmsMock[0]}
-        />
+          <Main
+            films = {filmsMock}
+            promoFilm= {filmsMock[0]}
+          />
         </Router>
       </Provider>, {
         createNodeMock: () => {

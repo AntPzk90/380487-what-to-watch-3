@@ -2,8 +2,8 @@ import React, {PureComponent, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {getAuthorizationStatus} from '../../reducer/user/selectors';
-import {Redirect, Link} from 'react-router-dom';
 import Logo from '../logo/logo.jsx';
+import {Redirect} from 'react-router-dom';
 
 class SignIn extends PureComponent {
   constructor(props) {
@@ -28,8 +28,8 @@ class SignIn extends PureComponent {
 
   render() {
     const {logged} = this.props;
-    if (logged === 'AUTH') {
-      return <Redirect to="/"/>
+    if (logged === `AUTH`) {
+      return <Redirect to="/"/>;
     }
     return (
       <div className="user-page">
@@ -79,18 +79,11 @@ class SignIn extends PureComponent {
 
 SignIn.propTypes = {
   onSubmit: PropTypes.func,
+  logged: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
   logged: getAuthorizationStatus(state)
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    login(authData) {
-      dispatch(UserOperation.login(authData));
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps)(SignIn);

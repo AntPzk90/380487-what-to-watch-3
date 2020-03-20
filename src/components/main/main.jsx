@@ -7,8 +7,6 @@ import UserBlock from '../user-block/user-block.jsx';
 import {connect} from 'react-redux';
 import {getAllFilms, getPoster} from '../../reducer/data/selectors.js';
 
-
-
 const Main = (props) => {
 
   const {promoFilm, films} = props;
@@ -31,7 +29,7 @@ const Main = (props) => {
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-            <img src={promoFilm.poster} alt={`${promoFilm.name} poster`} width={218} height={327} />
+              <img src={promoFilm.poster} alt={`${promoFilm.name} poster`} width={218} height={327} />
             </div>
 
             <div className="movie-card__desc">
@@ -115,6 +113,24 @@ Main.propTypes = {
         previewVideoLink: PropTypes.string
       }).isRequired
   ),
+  promoFilm: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
+    previewImage: PropTypes.string,
+    backgroundImage: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    decription: PropTypes.string,
+    rating: PropTypes.number,
+    scoresCount: PropTypes.number,
+    director: PropTypes.string,
+    starring: PropTypes.array,
+    genre: PropTypes.string,
+    released: PropTypes.number,
+    id: PropTypes.number,
+    isFavorite: PropTypes.bool,
+    videoLink: PropTypes.string,
+    previewVideoLink: PropTypes.string
+  }).isRequired,
   onMovieCardClick: PropTypes.func,
   onGenreClick: PropTypes.func,
 };

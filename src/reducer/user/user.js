@@ -36,8 +36,10 @@ const reducer = (state = initialState, action) => {
 const Operation = {
   checkAuth: () => (dispatch, getState, api) => {
     return api.get(`/login`)
-      .then(() => {
-        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        }
       })
       .catch((err) => {
         throw err;

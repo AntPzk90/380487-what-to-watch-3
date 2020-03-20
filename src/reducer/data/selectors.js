@@ -7,28 +7,27 @@ export const getAllFilms = (state) => {
 
 const getIdFilm = (_, id) => {
   return id;
-}
+};
 
 export const getGenre = (state) => {
   return state[NameSpace.APPLICATION].genre;
 };
 
 export const getFavoriteFilms = (state) => {
-  console.log(state[NameSpace.DATA].favoriteFilms)
   return state[NameSpace.DATA].favoriteFilms;
-}
+};
 
 export const getPoster = (state) => {
-  return state[NameSpace.DATA].promoFilm
-}
+  return state[NameSpace.DATA].promoFilm;
+};
+
 export const getFilmForId = createSelector(
-  getAllFilms,
-  getIdFilm,
-  (one, two) => {
-    console.log(one, two)
-    return one.find((it) => it.id === Number(two));
-  }
-)
+    getAllFilms,
+    getIdFilm,
+    (one, two) => {
+      return one.find((it) => it.id === Number(two));
+    }
+);
 
 export const getFilteredFilms = createSelector(
     getGenre,

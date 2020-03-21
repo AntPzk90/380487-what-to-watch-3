@@ -8,16 +8,17 @@ import {Operation} from '../../reducer/data/data.js';
 import {getActiveTab} from '../../reducer/application/selectors.js';
 import {getFilmForId} from '../../reducer/data/selectors';
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
-import withMovieInfo from '../../hocs/with-movie-info/with-movie-info.jsx';
 import Logo from '../logo/logo.jsx';
 import UserBlock from '../user-block/user-block.jsx';
 import {AppRoute} from '../../const';
 import history from '../../history.js';
+import AddReviewBtn from '../add-review-btn/add-review-btn.jsx';
+import withLoadingIndicator from '../../hocs/with-loading-indicator/with-loading-indicator.jsx';
 
 const MovieInfo = (props) => {
 
   const {activePage, showFilmCard, onTabClick, changeFavoriteStatus, authorizationStatus} = props;
-  const {name, poster, backgroundImage, genre, released, isFavorite} = showFilmCard;
+  const {name, poster, backgroundImage, genre, released, isFavorite, id} = showFilmCard;
 
 
   return (
@@ -62,7 +63,9 @@ const MovieInfo = (props) => {
                   }
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                <AddReviewBtn
+                  id={id}
+                />
               </div>
             </div>
           </div>
@@ -177,5 +180,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(withMovieInfo(MovieInfo));
+export default connect(mapStateToProps, mapDispatchToProps)(withLoadingIndicator(MovieInfo));

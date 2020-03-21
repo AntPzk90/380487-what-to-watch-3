@@ -1,8 +1,8 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-const withMovieInfo = (Component) => {
-  class WithMovieInfo extends PureComponent {
+const withLoadingIndicator = (Component) => {
+  class WithLoadingIndicator extends PureComponent {
     constructor(props) {
       super(props);
 
@@ -28,17 +28,17 @@ const withMovieInfo = (Component) => {
     render() {
 
       if (this.state.isLoading) {
-        return <div>Загрузка...</div>;
+        return <div>Loading...</div>;
       }
       return <Component {...this.props}/>;
     }
   }
 
-  WithMovieInfo.propTypes = {
+  WithLoadingIndicator.propTypes = {
     showFilmCard: PropTypes.object
   };
 
-  return WithMovieInfo;
+  return WithLoadingIndicator;
 };
 
-export default withMovieInfo;
+export default withLoadingIndicator;

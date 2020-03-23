@@ -6,11 +6,11 @@ import {connect} from 'react-redux';
 import {getGenre, getFilteredFilms} from './../../reducer/data/selectors.js';
 
 const FilmsList = (props) => {
-  const {onCardMouseEnter, filteredFilms} = props;
+  const {onCardMouseEnter, filteredFilms, count} = props;
 
   return (
     <div className="catalog__movies-list">
-      {filteredFilms.map((film) => {
+      {filteredFilms.slice(0, count).map((film) => {
         return (
           <MovieCard key={film.id}
             film={film}

@@ -11,6 +11,7 @@ import {Operation as UserOperation} from "../../reducer/user/user.js";
 import history from "../../history.js";
 import {AppRoute} from "../../const.js";
 import AddReviewPage from '../add-review-page/add-review-page.jsx';
+import Player from '../player/player.jsx';
 
 
 class App extends PureComponent {
@@ -44,6 +45,12 @@ class App extends PureComponent {
           <Route exact path={`${AppRoute.FILM}/:id${AppRoute.REVIEW}`}
             render={({match}) => {
                 return <AddReviewPage id={match.params.id}/>;
+            }
+            }>
+          </Route>
+          <Route exact path={`${AppRoute.PLAYER}/:id`}
+            render={({match}) => {
+              return <Player id={match.params.id}/>;
             }
             }>
           </Route>

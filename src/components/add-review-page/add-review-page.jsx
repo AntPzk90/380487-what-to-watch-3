@@ -7,7 +7,6 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const.js';
 import {Operation} from '../../reducer/data/data.js';
 import {compose} from 'recompose';
-//import withLoadingIndicator from '../../hocs/with-loading-indicator/with-loading-indicator.jsx';
 import withAddRewiewPage from '../../hocs/with-add-review-page/with-add-review-page.jsx';
 import withLoadingIndicator from '../../hocs/with-loading-indicator/with-loading-indicator.jsx';
 
@@ -19,7 +18,7 @@ class AddReviewPage extends PureComponent {
 
   render() {
 
-    const {id, showFilmCard, isBlocked, isBlockedForm, isShowMassege, onChangeRating, sendReview, onChangeComment, rating, comment} = this.props;
+    const {id, showFilmCard, isBlocked, isBlockedForm, isShowMassege, isError, onChangeRating, sendReview, onChangeComment, rating, comment} = this.props;
     const {name, poster, backgroundImage} = showFilmCard;
 
     return (
@@ -79,8 +78,12 @@ class AddReviewPage extends PureComponent {
               {isShowMassege
                 ? <div className="add-review__text" style={{marginTop: `10px`, textAlign: `center`}}>
                   {isBlocked
-                    ? <span> ups... min.length massege 50 letters :(</span>
-                    : <span> it`s OK my friend You can send your review ;)</span>
+                    ? <span> ups... min.length massege 50 letters max length 400 letters :(</span>
+                    : <span> it`s OK my friend. You can send your review ;)</span>
+                  }
+                  {!isError
+                    ? ``
+                    :<span> Sorry we have a problem. try again later :(</span>
                   }
                 </div>
                 : ``

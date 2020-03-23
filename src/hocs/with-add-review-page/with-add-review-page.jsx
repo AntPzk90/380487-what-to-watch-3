@@ -1,4 +1,6 @@
 import React, {PureComponent} from 'react';
+import history from "../../history.js";
+import {AppRoute} from "../../const.js";
 
 const withAddRewiewPage = (Component) => {
   class WithAddRewiewPage extends PureComponent {
@@ -11,6 +13,7 @@ const withAddRewiewPage = (Component) => {
         isBlocked : true,
         isShowMassege: false,
         isBlockedForm: false,
+        isError: false,
       };
 
       this.sendReview = this.sendReview.bind(this);
@@ -64,7 +67,16 @@ const withAddRewiewPage = (Component) => {
       console.log(rating, comment)
       evt.preventDefault();
       this.blockForm();
-      this.props.handleSubmit(id, rating, comment).then(this.unblockForm);
+      this.props.handleSubmit(id, rating, comment)
+        .then((res) => { if (res.status === 200) {
+          this.unblockForm,
+          history.push(`${AppRoute.FILM}/${id}`)
+        } else {
+          this.setState({
+            isError: true,
+          })
+        }}
+      );
     }
 
     render() {
@@ -76,6 +88,7 @@ const withAddRewiewPage = (Component) => {
           isBlocked = {this.state.isBlocked}
           isShowMassege = {this.state.isShowMassege}
           isBlockedForm = {this.state.isBlockedForm}
+          isError = {this.state.isError}
           onChangeComment = {this.onChangeComment}
           onChangeRating = {this.onChangeRating}
           rating = {this.state.rating}

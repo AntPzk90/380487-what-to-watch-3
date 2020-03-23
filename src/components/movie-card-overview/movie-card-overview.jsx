@@ -15,8 +15,11 @@ const MovieCardOverview = (props) => {
     } else
     if (rating > 5 && rating <= 8) {
       return `Good`;
-    } else {
+    } else
+    if (rating >8 && rating < 10) {
       return `Very good`;
+    } else {
+      return `Awesome`;
     }
   };
 

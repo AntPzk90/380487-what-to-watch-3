@@ -4,7 +4,7 @@ import MovieCardReviews from './../movie-card-reviews/movie-card-reviews.jsx';
 import {Provider} from "react-redux";
 import store, {filmsMock} from '../../mock-service';
 
-const reviews = [
+const reviewsMock = [
   {
     "id": 1,
     "user": {
@@ -32,7 +32,7 @@ it(`SnapshotTest MovieCardReviews`, () => {
   .create(
       <Provider store={store}>
         <MovieCardReviews
-          reviews = {reviews}
+          reviews = {reviewsMock}
         />
       </Provider>, {
         createNodeMock: () => {

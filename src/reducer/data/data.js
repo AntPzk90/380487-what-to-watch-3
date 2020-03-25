@@ -59,6 +59,10 @@ const Operation = {
   },
   changeFavoriteStatus: (data, status) => (dispatch, getState, api) => {
     return api.post(`/favorite/${data.id}/${status}`)
+      .then((response) => {if ( response.status === 200) {
+        console.log(response.data)
+      }
+    })
   },
   getAllReviews:(id) => (dispatch, getState, api) => {
     return api.get(`comments/${id}`)

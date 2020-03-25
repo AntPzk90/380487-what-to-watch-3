@@ -1,36 +1,26 @@
 import React, {PureComponent, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {getAuthorizationStatus} from '../../reducer/user/selectors';
+import {getAuthorizationStatus, getErrorStatus} from '../../reducer/user/selectors';
 import Logo from '../logo/logo.jsx';
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
+import withSignIn from '../../hocs/with-sign-in/with-sign-in.jsx';
 
 class SignIn extends PureComponent {
   constructor(props) {
     super(props);
+
     this.loginRef = createRef();
     this.passwordRef = createRef();
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(evt) {
-    const {onSubmit} = this.props;
-
-    evt.preventDefault();
-
-    onSubmit({
-      login: this.loginRef.current.value,
-      password: this.passwordRef.current.value,
-    });
-
   }
 
   render() {
-    const {logged} = this.props;
+    const {logged, error, handleSubmit, checkValidEmail, isEmailInputValid} = this.props;
+
     if (logged === `AUTH`) {
       return <Redirect to="/"/>;
     }
+
     return (
       <div className="user-page">
         <header className="page-header user-page__head">
@@ -39,10 +29,22 @@ class SignIn extends PureComponent {
         </header>
         <div className="sign-in user-page__content">
           <form action="#" className="sign-in__form"
-            onSubmit={this.handleSubmit}
+            onSubmit={(evt)=>{
+              evt.preventDefault();
+              handleSubmit(this.loginRef.current.value, this.passwordRef.current.value)}}
           >
+            {error || !isEmailInputValid
+              ?<div className="sign-in__message">
+                {!isEmailInputValid
+                  ? <p>Please enter a valid email address</p>
+                  : <p>We can’t recognize this email
+                    and password combination. Please try again.</p>
+                }
+              </div>
+              : ``
+            }
             <div className="sign-in__fields">
-              <div className="sign-in__field">
+              <div className={`sign-in__field" ${!isEmailInputValid ? `sign-in__field--error`: ``}`}>
                 <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email"
                   ref={this.loginRef}
                 />
@@ -56,17 +58,21 @@ class SignIn extends PureComponent {
               </div>
             </div>
             <div className="sign-in__submit">
-              <button className="sign-in__btn" type="submit">Sign in</button>
+              <button className="sign-in__btn" type="submit"
+                onClick={()=>{
+                  checkValidEmail(this.loginRef.current)
+                }}
+              >Sign in</button>
             </div>
           </form>
         </div>
         <footer className="page-footer">
           <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
+            <Link to="/" className="logo__link logo__link--light">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
           <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>
@@ -83,7 +89,9 @@ SignIn.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  logged: getAuthorizationStatus(state)
+  logged: getAuthorizationStatus(state),
+  error: getErrorStatus(state),
+
 });
 
-export default connect(mapStateToProps)(SignIn);
+export default connect(mapStateToProps)(withSignIn(SignIn));

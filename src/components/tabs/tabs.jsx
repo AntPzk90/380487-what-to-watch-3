@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {getActiveTab} from '../../reducer/application/selectors.js';
 
 const Tabs = (props) => {
 
@@ -36,8 +34,4 @@ Tabs.propTypes = {
   activePage: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
-  activePage: getActiveTab(state)
-});
-
-export default connect(mapStateToProps)(Tabs);
+export default Tabs;

@@ -1,4 +1,5 @@
 import React, {PureComponent, createRef} from 'react';
+import history from '../../history.js';
 
 const withPlayer = (Component) => {
   class WithPlayer extends PureComponent {
@@ -16,7 +17,8 @@ const withPlayer = (Component) => {
       }
       this.onPlayBtnClick = this.onPlayBtnClick.bind(this)
       this.onFullScreenCkick = this.onFullScreenCkick.bind(this);
-      this.player = this.player.bind(this);
+      this.initPlayer = this.initPlayer.bind(this);
+      this.onExitBtnClick = this.onExitBtnClick.bind(this);
     }
 
     convertationSecondsToTime(time) {
@@ -114,6 +116,11 @@ const withPlayer = (Component) => {
       });
     }
 
+    onExitBtnClick() {
+      this.initPlayer().pause();
+      history.goBack();
+    }
+
     render() {
       return(
         <Component
@@ -126,6 +133,7 @@ const withPlayer = (Component) => {
           onFullScreenCkick={this.onFullScreenCkick}
           onPlayBtnClick={this.onPlayBtnClick}
           playerRef={this.playerRef}
+          onExitBtnClick={this.onExitBtnClick}
         />
       );
     }

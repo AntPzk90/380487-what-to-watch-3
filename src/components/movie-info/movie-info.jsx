@@ -16,10 +16,12 @@ import history from '../../history.js';
 import AddReviewBtn from '../add-review-btn/add-review-btn.jsx';
 import withLoadingIndicator from '../../hocs/with-loading-indicator/with-loading-indicator.jsx';
 import SimilarFilms from '../similar-films/similar-films.jsx';
+import {compose} from 'recompose';
+import withMovieInfo from '../../hocs/with-movie-info/with-movie-info.jsx';
 
 const MovieInfo = (props) => {
 
-  const {activePage, showFilmCard, onTabClick, changeFavoriteStatus, authorizationStatus} = props;
+  const {activePage, showFilmCard, onTabClick, changeFavoriteStatus, authorizationStatus, changeActivePage} = props;
   const {name, poster, backgroundImage, genre, released, isFavorite, id} = showFilmCard;
 
 
@@ -83,7 +85,7 @@ const MovieInfo = (props) => {
             <div className="movie-card__desc">
               <nav className="movie-nav movie-card__nav">
                 <Tabs
-                  changeActivePage={onTabClick}
+                  changeActivePage={changeActivePage}
                   activePage={activePage}
                 />
               </nav>
@@ -133,15 +135,11 @@ MovieInfo.propTypes = {
 };
 
 const mapStateToProps = (state, {id}) => ({
-  activePage: getActiveTab(state),
   showFilmCard: getFilmForId(state, id),
   authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onTabClick(activeTab) {
-    dispatch(ActionCreator.changeActiveTab(activeTab));
-  },
   changeFavoriteStatus(data, authorizationStatus) {
     if (authorizationStatus === `NO_AUTH`) {
       history.push(AppRoute.LOGIN);
@@ -151,4 +149,7 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withLoadingIndicator(MovieInfo));
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withLoadingIndicator,
+  withMovieInfo)(MovieInfo);

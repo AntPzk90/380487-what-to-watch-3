@@ -3,7 +3,6 @@ import {getFilmForId} from '../../reducer/data/selectors.js';
 import withLoadingIndicator from '../../hocs/with-loading-indicator/with-loading-indicator.jsx';
 import {compose} from 'recompose';
 import {connect} from 'react-redux';
-import history from '../../history.js';
 import withPlayer from '../../hocs/with-player/with-player.jsx';
 
 class Player extends PureComponent {
@@ -12,14 +11,14 @@ class Player extends PureComponent {
   }
 
   render() {
-    const {showFilmCard, isElepsed, isFullScreen, isPlaying, onPlayBtnClick, onFullScreenCkick, fullTime, playerRef} = this.props;
+    const {showFilmCard, isElepsed, isFullScreen, isPlaying, onPlayBtnClick, onFullScreenCkick, onExitBtnClick, fullTime, playerRef} = this.props;
     const {backgroundImage, videoLink, name} = showFilmCard;
-    console.log(showFilmCard)
+
     return (
       <div className="player">
-        <video src={videoLink} className="player__video" poster={backgroundImage} ref={playerRef} muted/>
+        <video src={videoLink} className="player__video" poster={backgroundImage} ref={playerRef}/>
         <button type="button" className="player__exit"
-          onClick={() => {history.goBack()}}
+          onClick={() => {onExitBtnClick()}}
         >Exit</button>
         {!isFullScreen
           ? <div className="player__controls">

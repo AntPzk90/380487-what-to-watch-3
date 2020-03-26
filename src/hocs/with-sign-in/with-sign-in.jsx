@@ -1,26 +1,25 @@
-import React, {PureComponent, createRef} from 'react'
+import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
 
 const withSignIn = (Component) => {
   class WithSignIn extends PureComponent {
-    constructor(props){
-      super(props)
-      this.loginRef = createRef();
-      this.passwordRef = createRef();
+    constructor(props) {
+      super(props);
 
       this.state = {
         isEmailInputValid: true
-      }
+      };
 
       this.handleSubmit = this.handleSubmit.bind(this);
       this.checkValidEmail = this.checkValidEmail.bind(this);
     }
 
-    handleSubmit(login, password) {
+    handleSubmit(loginValue, passwordValue) {
       const {onSubmit} = this.props;
 
       onSubmit({
-        login: login,
-        password: password,
+        login: loginValue,
+        password: passwordValue,
       });
     }
 
@@ -28,20 +27,20 @@ const withSignIn = (Component) => {
       if (!ref.validity.valid) {
         this.setState({
           isEmailInputValid: false
-        })
+        });
       } else {
         this.setState({
           isEmailInputValid: true
-        })
+        });
       }
     }
 
     render() {
-      return(
+      return (
         <Component
           {...this.props}
-          handleSubmit={this.handleSubmit}
-          checkValidEmail={this.checkValidEmail}
+          onSendForm={this.handleSubmit}
+          onSubmitBtnClick={this.checkValidEmail}
           isEmailInputValid={this.state.isEmailInputValid}
           loginRef={this.loginRef}
           password={this.passwordRef}
@@ -49,7 +48,12 @@ const withSignIn = (Component) => {
       );
     }
   }
+
+  WithSignIn.propTypes = {
+    onSubmit: PropTypes.func
+  };
+
   return WithSignIn;
-}
+};
 
 export default withSignIn;

@@ -23,7 +23,7 @@ export const getPoster = (state) => {
 
 export const getReviews = (state) => {
   return state[NameSpace.DATA].reviews;
-}
+};
 
 export const getFilmForId = createSelector(
     getAllFilms,

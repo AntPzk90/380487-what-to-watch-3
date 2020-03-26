@@ -9,11 +9,11 @@ const withMovieCard = (Component) => {
       this.state = {
         isPlay: false,
       };
-      this._onCardMouseHover = this._onCardMouseHover.bind(this);
-      this._onCardMouseLeave = this._onCardMouseLeave.bind(this);
+      this.changeStatusMouseHover = this.changeStatusMouseHover.bind(this);
+      this.changeStatusMouseLeave = this.changeStatusMouseLeave.bind(this);
     }
 
-    _onCardMouseHover() {
+    changeStatusMouseHover() {
       setTimeout(() => {
         this.setState(({isPlay}) => {
           return {isPlay: !isPlay};
@@ -21,7 +21,7 @@ const withMovieCard = (Component) => {
       }, 1000);
     }
 
-    _onCardMouseLeave() {
+    changeStatusMouseLeave() {
       this.setState(({isPlay}) => {
         return {isPlay: !isPlay};
       });
@@ -31,8 +31,8 @@ const withMovieCard = (Component) => {
       return (
         <Component
           {...this.props}
-          onCardMouseHover={this._onCardMouseHover}
-          onCardMouseLeave={this._onCardMouseLeave}
+          onCardMouseHover={this.changeStatusMouseHover}
+          onCardMouseLeave={this.changeStatusMouseLeave}
           isPlay={this.state.isPlay}
         />
       );

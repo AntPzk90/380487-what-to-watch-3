@@ -63,11 +63,11 @@ const Operation = {
       email: authData.login,
       password: authData.password,
     })
-      .then((res) => {
+      .then(() => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
       })
-      .catch((err) => {
-        dispatch(ActionCreator.createErrorMassege())
+      .catch(() => {
+        dispatch(ActionCreator.createErrorMassege());
       });
   },
 };

@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {Redirect} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {AppRoute} from '../../const.js';
 import history from '../../history.js';
@@ -16,11 +16,10 @@ class AddReviewBtn extends PureComponent {
 
   _onAddReviewBtnClick(evt) {
     evt.preventDefault();
-    console.log(this.props.authorizationStatus)
     if (this.props.authorizationStatus === `NO_AUTH`) {
-      history.push(AppRoute.LOGIN)
+      history.push(AppRoute.LOGIN);
     } else {
-      history.push(`${AppRoute.FILM}/${this.id}${AppRoute.REVIEW}`)
+      history.push(`${AppRoute.FILM}/${this.id}${AppRoute.REVIEW}`);
     }
   }
 
@@ -33,6 +32,11 @@ class AddReviewBtn extends PureComponent {
       </a>
     );
   }
+}
+
+AddReviewBtn.propTypes = {
+  id: PropTypes.number.isRequired,
+  authorizationStatus: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({

@@ -1,13 +1,14 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 
 const withMovieInfo = (Component) => {
   class WithMovieInfo extends PureComponent {
-    constructor(props){
-      super(props)
+    constructor(props) {
+      super(props);
 
       this.state = {
         activePage: `overview`,
-      }
+      };
+
       this.changeActivePage = this.changeActivePage.bind(this);
     }
 
@@ -18,10 +19,11 @@ const withMovieInfo = (Component) => {
     }
 
     render() {
-      return(
+
+      return (
         <Component
           {...this.props}
-          changeActivePage={this.changeActivePage}
+          onTabClick={this.changeActivePage}
           activePage={this.state.activePage}
         />
       );
@@ -29,6 +31,6 @@ const withMovieInfo = (Component) => {
   }
 
   return WithMovieInfo;
-}
+};
 
 export default withMovieInfo;

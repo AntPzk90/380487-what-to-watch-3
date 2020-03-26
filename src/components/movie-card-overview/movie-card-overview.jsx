@@ -7,7 +7,7 @@ const MovieCardOverview = (props) => {
 
   const getStatus = (rating) => {
 
-    if (rating === 0 && rating <= 3) {
+    if (rating >= 0 && rating <= 3) {
       return `Bad`;
     } else
     if (rating > 3 && rating <= 5) {
@@ -16,7 +16,7 @@ const MovieCardOverview = (props) => {
     if (rating > 5 && rating <= 8) {
       return `Good`;
     } else
-    if (rating >8 && rating < 10) {
+    if (rating > 8 && rating < 10) {
       return `Very good`;
     } else {
       return `Awesome`;
@@ -28,7 +28,7 @@ const MovieCardOverview = (props) => {
       <div className="movie-rating">
         <div className="movie-rating__score">{film.rating}</div>
         <p className="movie-rating__meta">
-        <span className="movie-rating__level">{getStatus(film.rating)}</span>
+          <span className="movie-rating__level">{getStatus(film.rating)}</span>
           <span className="movie-rating__count">{film.scoresCount} ratings</span>
         </p>
       </div>
@@ -47,6 +47,7 @@ MovieCardOverview.propTypes = {
     director: PropTypes.string,
     starring: PropTypes.array,
     description: PropTypes.string,
+    scoresCount: PropTypes.number
   })
 };
 

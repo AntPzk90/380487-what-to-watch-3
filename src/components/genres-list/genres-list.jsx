@@ -5,7 +5,7 @@ import {ActionCreator} from '../../reducer/application/application.js';
 
 const GenresList = (props) => {
 
-  const {onGenreClick, films, genreToFilter} = props;
+  const {onGenreLinkClick, films, genreToFilter} = props;
   const genres = Array.from(new Set(films.map((it) => it.genre)));
   return (
     <ul className="catalog__genres-list">
@@ -13,7 +13,7 @@ const GenresList = (props) => {
         <a
           onClick={(evt) => {
             evt.preventDefault();
-            onGenreClick(`All genres`);
+            onGenreLinkClick(`All genres`);
           }}
           href="#"
           className="catalog__genres-link">All genres</a>
@@ -24,7 +24,7 @@ const GenresList = (props) => {
             <a
               onClick={(evt) => {
                 evt.preventDefault();
-                onGenreClick(itemGenre);
+                onGenreLinkClick(itemGenre);
               }}
               href="#"
               className="catalog__genres-link">{itemGenre}</a>
@@ -36,7 +36,7 @@ const GenresList = (props) => {
 };
 
 GenresList.propTypes = {
-  onGenreClick: PropTypes.func,
+  onGenreLinkClick: PropTypes.func,
   films: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
@@ -65,7 +65,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onGenreClick(filterGenre) {
+  onGenreLinkClick(filterGenre) {
     dispatch(ActionCreator.filterByName(filterGenre));
   },
 });

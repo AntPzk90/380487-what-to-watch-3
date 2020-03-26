@@ -12,6 +12,7 @@ const withLoadingIndicator = (Component) => {
     }
 
     componentDidUpdate(prevProps) {
+
       if (this.props.showFilmCard) {
         if (prevProps.showFilmCard !== this.props.showFilmCard) {
           this.setState({isLoading: false});

@@ -44,7 +44,7 @@ class App extends PureComponent {
           </Route>
           <Route exact path={`${AppRoute.FILM}/:id${AppRoute.REVIEW}`}
             render={({match}) => {
-                return <AddReviewPage id={match.params.id}/>;
+              return <AddReviewPage id={match.params.id}/>;
             }
             }>
           </Route>

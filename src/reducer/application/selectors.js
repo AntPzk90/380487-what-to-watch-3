@@ -6,4 +6,4 @@ export const getShowFilmsCard = (state) => {
 
 export const getErrorStatus = (state) => {
   return state[NameSpace.APPLICATION].error;
-}
+};

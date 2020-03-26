@@ -3,8 +3,8 @@ import history from '../../history.js';
 
 const withPlayer = (Component) => {
   class WithPlayer extends PureComponent {
-    constructor(props){
-      super(props)
+    constructor(props) {
+      super(props);
 
       this.playerRef = createRef();
 
@@ -14,38 +14,39 @@ const withPlayer = (Component) => {
         fullTime: null,
         isElepsed: 0,
         isFullScreen: false,
-      }
-      this.onPlayBtnClick = this.onPlayBtnClick.bind(this)
-      this.onFullScreenCkick = this.onFullScreenCkick.bind(this);
+      };
+
+      this.startPlay = this.startPlay.bind(this);
+      this.fullScreenOn = this.fullScreenOn.bind(this);
       this.initPlayer = this.initPlayer.bind(this);
-      this.onExitBtnClick = this.onExitBtnClick.bind(this);
+      this.exitPlayer = this.exitPlayer.bind(this);
     }
 
     convertationSecondsToTime(time) {
-      let fulltime = 0,
-          h = Math.floor(time / (60 * 60)),
-          dm = time % (60 * 60),
-          m = Math.floor(dm / 60),
-          ds = dm % 60,
-          s = Math.ceil(ds);
+      let fulltime = 0;
+      let h = Math.floor(time / (60 * 60));
+      let dm = time % (60 * 60);
+      let m = Math.floor(dm / 60);
+      let ds = dm % 60;
+      let s = Math.ceil(ds);
       if (s === 60) {
-          s = 0;
-          m = m + 1;
+        s = 0;
+        m = m + 1;
       }
       if (s < 10) {
-          s = '0' + s;
+        s = `0` + s;
       }
       if (m === 60) {
-          m = 0;
-          h = h + 1;
+        m = 0;
+        h = h + 1;
       }
       if (m < 10) {
-          m = '0' + m;
+        m = `0` + m;
       }
       if (h === 0) {
-          fulltime = m + ':' + s;
+        fulltime = m + `:` + s;
       } else {
-          fulltime = h + ':' + m + ':' + s;
+        fulltime = h + `:` + m + `:` + s;
       }
       return fulltime;
     }
@@ -56,19 +57,19 @@ const withPlayer = (Component) => {
 
     componentDidMount() {
 
-      document.addEventListener('keydown',(evt) => {
-        if(evt.key === "Escape"){
+      document.addEventListener(`keydown`, (evt) => {
+        if (evt.key === `Escape`) {
           this.setState({
             isFullScreen: false
           });
         }
       });
-      this.initPlayer().addEventListener('canplaythrough', ()=> {
+      this.initPlayer().addEventListener(`canplaythrough`, ()=> {
         this.setState({
           fullTime: this.convertationSecondsToTime(Math.floor(this.initPlayer().duration)),
         });
       });
-      this.initPlayer().addEventListener('timeupdate', () => {
+      this.initPlayer().addEventListener(`timeupdate`, () => {
         this.setState({
           fullTime: this.convertationSecondsToTime(Math.floor(this.initPlayer().currentTime)),
         });
@@ -76,8 +77,8 @@ const withPlayer = (Component) => {
     }
 
     componentWillUnmount() {
-      document.removeEventListener('keydown',(evt) => {
-        if(evt.key === "Escape"){
+      document.removeEventListener(`keydown`, (evt) => {
+        if (evt.key === `Escape`) {
           this.setState({
             isFullScreen: false
           });
@@ -85,7 +86,7 @@ const withPlayer = (Component) => {
       });
     }
 
-    onPlayBtnClick() {
+    startPlay() {
       if (this.state.isPause === true) {
         this.initPlayer().play();
         this.setState({
@@ -100,29 +101,29 @@ const withPlayer = (Component) => {
         });
       }
 
-      this.initPlayer().addEventListener('timeupdate', () => {
+      this.initPlayer().addEventListener(`timeupdate`, () => {
         let fullTime = Math.floor(this.initPlayer().duration);
-        let elapsedTime = Math.floor(this.initPlayer().currentTime)
+        let elapsedTime = Math.floor(this.initPlayer().currentTime);
         this.setState({
-          isElepsed: Math.floor(elapsedTime/fullTime * 100)
+          isElepsed: Math.floor(elapsedTime / fullTime * 100)
         });
       });
 
     }
 
-    onFullScreenCkick() {
+    fullScreenOn() {
       this.setState({
         isFullScreen: true,
       });
     }
 
-    onExitBtnClick() {
+    exitPlayer() {
       this.initPlayer().pause();
       history.goBack();
     }
 
     render() {
-      return(
+      return (
         <Component
           {...this.props}
           isElepsed={this.state.isElepsed}
@@ -130,15 +131,15 @@ const withPlayer = (Component) => {
           isPause={this.state.isPause}
           fullTime={this.state.fullTime}
           isFullScreen={this.state.isFullScreen}
-          onFullScreenCkick={this.onFullScreenCkick}
-          onPlayBtnClick={this.onPlayBtnClick}
+          onFullScreenCkick={this.fullScreenOn}
+          onPlayBtnClick={this.startPlay}
           playerRef={this.playerRef}
-          onExitBtnClick={this.onExitBtnClick}
+          onExitBtnClick={this.exitPlayer}
         />
       );
     }
   }
   return WithPlayer;
-}
+};
 
 export default withPlayer;

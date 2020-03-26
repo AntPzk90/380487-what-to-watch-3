@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 
 const FavoriteFilmsList = (props) => {
   const {onCardMouseEnter, favoriteFilms} = props;
-  console.log(props)
+
   return (
     <div className="catalog__movies-list">
       {favoriteFilms.map((film) => {

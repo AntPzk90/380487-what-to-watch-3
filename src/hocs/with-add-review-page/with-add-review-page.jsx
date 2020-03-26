@@ -1,16 +1,17 @@
 import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
 import history from "../../history.js";
 import {AppRoute} from "../../const.js";
 
 const withAddRewiewPage = (Component) => {
   class WithAddRewiewPage extends PureComponent {
-    constructor(props){
+    constructor(props) {
       super(props);
 
       this.state = {
         rating: 5,
         comment: ``,
-        isBlocked : true,
+        isBlocked: true,
         isShowMassege: false,
         isBlockedForm: false,
         isError: false,
@@ -18,21 +19,20 @@ const withAddRewiewPage = (Component) => {
 
       this.sendReview = this.sendReview.bind(this);
       this.unblockForm = this.unblockForm.bind(this);
-      this.onChangeComment = this.onChangeComment.bind(this);
+      this.changeComment = this.changeComment.bind(this);
       this.sendReview = this.sendReview.bind(this);
-      this.onChangeRating = this.onChangeRating.bind(this);
+      this.changeRating = this.changeRating.bind(this);
     }
 
-    onChangeRating(rating) {
+    changeRating(ratingNumber) {
       this.setState({
-        rating: rating
+        rating: ratingNumber
       });
-    };
+    }
 
     calcCommentLenght() {
 
       if (this.state.comment.length >= 50 && this.state.comment.length <= 400) {
-        console.log(this.state.comment.length)
         this.setState({
           isBlocked: false
         });
@@ -43,13 +43,13 @@ const withAddRewiewPage = (Component) => {
       }
     }
 
-    onChangeComment(evt) {
+    changeComment(evt) {
       this.setState({
         comment: evt.target.value,
         isShowMassege: true
       });
       this.calcCommentLenght();
-    };
+    }
 
     blockForm() {
       this.setState({
@@ -64,41 +64,64 @@ const withAddRewiewPage = (Component) => {
     }
 
     sendReview(evt, id, rating, comment) {
-      console.log(rating, comment)
       evt.preventDefault();
       this.blockForm();
       this.props.handleSubmit(id, rating, comment)
-        .then((res) => { if (res.status === 200) {
-          this.unblockForm,
-          history.push(`${AppRoute.FILM}/${id}`)
-        } else {
-          this.setState({
-            isError: true,
-          })
-        }}
-      );
+        .then((res) => {
+          if (res.status === 200) {
+            this.unblockForm();
+            history.push(`${AppRoute.FILM}/${id}`);
+          } else {
+            this.setState({
+              isError: true,
+            });
+          }
+        });
     }
 
     render() {
-      return(
+
+      return (
         <Component
           {...this.props}
-          sendReview = {this.sendReview}
-          unblockForm = {this.unblockForm}
-          isBlocked = {this.state.isBlocked}
+          onFormSubmit={this.sendReview}
+          isBlocked={this.state.isBlocked}
           isShowMassege = {this.state.isShowMassege}
           isBlockedForm = {this.state.isBlockedForm}
           isError = {this.state.isError}
-          onChangeComment = {this.onChangeComment}
-          onChangeRating = {this.onChangeRating}
+          onInputComment = {this.changeComment}
+          onChangeRating = {this.changeRating}
           rating = {this.state.rating}
           comment = {this.state.comment}
         />
-      )
+      );
     }
   }
 
+  WithAddRewiewPage.propTypes = {
+    id: PropTypes.string.isRequired,
+    showFilmCard: PropTypes.shape({
+      name: PropTypes.string,
+      poster: PropTypes.string,
+      previewImage: PropTypes.string,
+      backgroundImage: PropTypes.string,
+      backgroundColor: PropTypes.string,
+      decription: PropTypes.string,
+      rating: PropTypes.number,
+      scoresCount: PropTypes.number,
+      director: PropTypes.string,
+      starring: PropTypes.array,
+      genre: PropTypes.string,
+      released: PropTypes.number,
+      id: PropTypes.number,
+      isFavorite: PropTypes.bool,
+      videoLink: PropTypes.string,
+      previewVideoLink: PropTypes.string
+    }).isRequired,
+    handleSubmit: PropTypes.func,
+  };
+
   return WithAddRewiewPage;
-}
+};
 
 export default withAddRewiewPage;

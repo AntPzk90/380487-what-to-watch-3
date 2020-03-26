@@ -15,7 +15,13 @@ class SignIn extends PureComponent {
   }
 
   render() {
-    const {logged, error, handleSubmit, checkValidEmail, isEmailInputValid} = this.props;
+    const {
+      logged,
+      error,
+      onSendForm,
+      onSubmitBtnClick,
+      isEmailInputValid
+    } = this.props;
 
     if (logged === `AUTH`) {
       return <Redirect to="/"/>;
@@ -31,10 +37,11 @@ class SignIn extends PureComponent {
           <form action="#" className="sign-in__form"
             onSubmit={(evt)=>{
               evt.preventDefault();
-              handleSubmit(this.loginRef.current.value, this.passwordRef.current.value)}}
+              onSendForm(this.loginRef.current.value, this.passwordRef.current.value);
+            }}
           >
             {error || !isEmailInputValid
-              ?<div className="sign-in__message">
+              ? <div className="sign-in__message">
                 {!isEmailInputValid
                   ? <p>Please enter a valid email address</p>
                   : <p>We can’t recognize this email
@@ -44,7 +51,7 @@ class SignIn extends PureComponent {
               : ``
             }
             <div className="sign-in__fields">
-              <div className={`sign-in__field" ${!isEmailInputValid ? `sign-in__field--error`: ``}`}>
+              <div className={`sign-in__field" ${!isEmailInputValid ? `sign-in__field--error` : ``}`}>
                 <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email"
                   ref={this.loginRef}
                 />
@@ -60,7 +67,7 @@ class SignIn extends PureComponent {
             <div className="sign-in__submit">
               <button className="sign-in__btn" type="submit"
                 onClick={()=>{
-                  checkValidEmail(this.loginRef.current)
+                  onSubmitBtnClick(this.loginRef.current);
                 }}
               >Sign in</button>
             </div>
@@ -86,6 +93,10 @@ class SignIn extends PureComponent {
 SignIn.propTypes = {
   onSubmit: PropTypes.func,
   logged: PropTypes.string,
+  error: PropTypes.bool,
+  onSendForm: PropTypes.func,
+  onSubmitBtnClick: PropTypes.func,
+  isEmailInputValid: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({

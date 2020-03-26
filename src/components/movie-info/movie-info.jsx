@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer/application/application';
 import MovieInfoContent from './../movie-info-content/movie-info-content.jsx';
 import Tabs from './../tabs/tabs.jsx';
 import {Operation} from '../../reducer/data/data.js';
-import {getActiveTab} from '../../reducer/application/selectors.js';
-import {getFilmForId} from '../../reducer/data/selectors';
+import {getFilmForId} from '../../reducer/data/selectors.js';
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import Logo from '../logo/logo.jsx';
 import {Link} from 'react-router-dom';
@@ -21,9 +19,23 @@ import withMovieInfo from '../../hocs/with-movie-info/with-movie-info.jsx';
 
 const MovieInfo = (props) => {
 
-  const {activePage, showFilmCard, onTabClick, changeFavoriteStatus, authorizationStatus, changeActivePage} = props;
-  const {name, poster, backgroundImage, genre, released, isFavorite, id} = showFilmCard;
+  const {
+    activePage,
+    showFilmCard,
+    onMyListBtnClick,
+    authorizationStatus,
+    onTabClick
+  } = props;
 
+  const {
+    name,
+    poster,
+    backgroundImage,
+    genre,
+    released,
+    isFavorite,
+    id
+  } = showFilmCard;
 
   return (
     <React.Fragment>
@@ -47,7 +59,7 @@ const MovieInfo = (props) => {
               <div className="movie-card__buttons">
                 <button className="btn btn--play movie-card__button" type="button"
                   onClick={()=>{
-                    history.push(`${AppRoute.PLAYER}/${showFilmCard.id}`)
+                    history.push(`${AppRoute.PLAYER}/${id}`);
                   }}>
                   <svg viewBox="0 0 19 19" width={19} height={19}>
                     <use xlinkHref="#play-s" />
@@ -56,7 +68,7 @@ const MovieInfo = (props) => {
                 </button>
                 <button className="btn btn--list movie-card__button" type="button"
                   onClick={() => {
-                    changeFavoriteStatus(showFilmCard, authorizationStatus);
+                    onMyListBtnClick(showFilmCard, authorizationStatus);
                   }}
                 >
                   {isFavorite ?
@@ -85,7 +97,7 @@ const MovieInfo = (props) => {
             <div className="movie-card__desc">
               <nav className="movie-nav movie-card__nav">
                 <Tabs
-                  changeActivePage={changeActivePage}
+                  onTabClick={onTabClick}
                   activePage={activePage}
                 />
               </nav>
@@ -121,6 +133,7 @@ const MovieInfo = (props) => {
 
 MovieInfo.propTypes = {
   showFilmCard: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
     backgroundImage: PropTypes.string,
@@ -128,7 +141,7 @@ MovieInfo.propTypes = {
     released: PropTypes.number,
     isFavorite: PropTypes.bool
   }),
-  changeFavoriteStatus: PropTypes.func,
+  onMyListBtnClick: PropTypes.func,
   activePage: PropTypes.string.isRequired,
   onTabClick: PropTypes.func,
   authorizationStatus: PropTypes.string,
@@ -140,7 +153,7 @@ const mapStateToProps = (state, {id}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeFavoriteStatus(data, authorizationStatus) {
+  onMyListBtnClick(data, authorizationStatus) {
     if (authorizationStatus === `NO_AUTH`) {
       history.push(AppRoute.LOGIN);
     }
@@ -150,6 +163,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withLoadingIndicator,
-  withMovieInfo)(MovieInfo);
+    connect(mapStateToProps, mapDispatchToProps),
+    withLoadingIndicator,
+    withMovieInfo
+)(MovieInfo);

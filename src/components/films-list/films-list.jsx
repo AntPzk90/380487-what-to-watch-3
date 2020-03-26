@@ -23,7 +23,7 @@ const FilmsList = (props) => {
 };
 
 FilmsList.propTypes = {
-  films: PropTypes.arrayOf(
+  filteredFilms: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
         poster: PropTypes.string.isRequired,
@@ -43,10 +43,9 @@ FilmsList.propTypes = {
         previewVideoLink: PropTypes.string
       }).isRequired
   ),
-  genreToFilter: PropTypes.string.isRequired,
   onCardMouseEnter: PropTypes.func,
   onMovieCardClick: PropTypes.func,
-  filteredFilms: PropTypes.array,
+  count: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({

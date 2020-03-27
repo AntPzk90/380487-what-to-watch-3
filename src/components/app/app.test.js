@@ -1,10 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Main from './main.jsx';
 import {Provider} from "react-redux";
+import App from './app.jsx';
 import configureStore from 'redux-mock-store';
-import {Router} from "react-router-dom";
-import history from "../../history.js";
 
 const mockStore = configureStore([]);
 
@@ -49,7 +47,7 @@ const filmsMock = [
   },
 ];
 
-it(`SnapshotTest Main`, () => {
+it(`SnapshotTest App`, () => {
 
   const store = mockStore({
     DATA: {films: filmsMock, promoFilm: filmsMock[0]},
@@ -58,21 +56,14 @@ it(`SnapshotTest Main`, () => {
   });
 
   const tree = renderer
-  .create(
-      <Provider store={store}>
-        <Router
-          history={history}
-        >
-          <Main
+    .create(
+        <Provider store={store}>
+          <App
             films={filmsMock}
-            promoFilm={filmsMock[0]}
+            propmoFilm={filmsMock[0]}
           />
-        </Router>
-      </Provider>, {
-        createNodeMock: () => {
-          return {};
-        }
-      })
+        </Provider>
+    )
   .toJSON();
 
   expect(tree).toMatchSnapshot();

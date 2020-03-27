@@ -22,15 +22,16 @@ class MovieCardReviews extends PureComponent {
   }
 
   render() {
+
     const {reviews} = this.props;
 
     return (
       <React.Fragment>
         <div className="movie-card__reviews movie-card__row">
           <div className="movie-card__reviews-col">
-            {reviews.map((review, i) => (
+            {reviews.map((review) => (
               <div
-                key={i}
+                key={review.user.id}
                 className="review"
               >
                 <blockquote className="review__quote">

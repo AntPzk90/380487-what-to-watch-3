@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SnapshotTest withPlayer 1`] = `
+<withPlayer
+  fullTime={null}
+  isElepsed={0}
+  isFullScreen={false}
+  isPause={false}
+  isPlaying={true}
+  onExitBtnClick={[Function]}
+  onFullScreenCkick={[Function]}
+  onPlayBtnClick={[Function]}
+  playerRef={[Function]}
+/>
+`;

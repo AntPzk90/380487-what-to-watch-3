@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Main from './main.jsx';
+import MovieInfoContent from './movie-info-content.jsx';
 import {Provider} from "react-redux";
 import configureStore from 'redux-mock-store';
 import {Router} from "react-router-dom";
@@ -49,7 +49,8 @@ const filmsMock = [
   },
 ];
 
-it(`SnapshotTest Main`, () => {
+
+it(`SnapshotTest MovieInfoContent`, () => {
 
   const store = mockStore({
     DATA: {films: filmsMock, promoFilm: filmsMock[0]},
@@ -63,9 +64,8 @@ it(`SnapshotTest Main`, () => {
         <Router
           history={history}
         >
-          <Main
-            films={filmsMock}
-            promoFilm={filmsMock[0]}
+          <MovieInfoContent
+            film={filmsMock[0]}
           />
         </Router>
       </Provider>, {

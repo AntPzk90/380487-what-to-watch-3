@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SnapshotTest withMain 1`] = `
+<withMain
+  count={8}
+  isShowBtn={false}
+  onShowMoreBtnClick={[Function]}
+/>
+`;

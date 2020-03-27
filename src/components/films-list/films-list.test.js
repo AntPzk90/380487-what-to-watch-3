@@ -17,7 +17,6 @@ it(`SnapshotTest FilmList`, () => {
         >
           <FilmsList
             films = {filmsMock}
-            showCardOverview = {() => {}}
             genreToFilter = {store.genreToFilter}
           />
         </Router>

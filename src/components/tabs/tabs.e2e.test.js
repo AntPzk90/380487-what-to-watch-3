@@ -26,7 +26,7 @@ it(`Should tabs be click`, () => {
   const tabs = mount(
       <Provider store={store}>
         <Tabs
-          changeActivePage={changeActivePage}
+          onTabClick={changeActivePage}
           activeTab={store.activePage}
         />
       </Provider>, {

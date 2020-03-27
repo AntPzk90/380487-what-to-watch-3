@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SnapshotTest AddrevireBtn 1`] = `
+<a
+  className="btn movie-card__button"
+  href="#"
+  onClick={[Function]}
+>
+  Add review
+</a>
+`;

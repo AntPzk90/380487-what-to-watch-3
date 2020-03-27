@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SnapshotTest withSignIn 1`] = `
+<withSignIn
+  isEmailInputValid={true}
+  loginRef={[Function]}
+  onSendForm={[Function]}
+  onSubmitBtnClick={[Function]}
+  password={[Function]}
+/>
+`;

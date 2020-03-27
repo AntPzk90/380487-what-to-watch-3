@@ -1,10 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Main from './main.jsx';
+import UserBlock from './user-block.jsx';
 import {Provider} from "react-redux";
-import configureStore from 'redux-mock-store';
 import {Router} from "react-router-dom";
 import history from "../../history.js";
+import configureStore from 'redux-mock-store';
 
 const mockStore = configureStore([]);
 
@@ -49,10 +49,10 @@ const filmsMock = [
   },
 ];
 
-it(`SnapshotTest Main`, () => {
+it(`SnapshotTest SimilarFilms`, () => {
 
   const store = mockStore({
-    DATA: {films: filmsMock, promoFilm: filmsMock[0]},
+    DATA: {film: filmsMock, promoFilm: filmsMock[0]},
     APPLICATION: {genre: `drama`},
     USER: {authorizationStatus: `AUTH`}
   });
@@ -63,9 +63,8 @@ it(`SnapshotTest Main`, () => {
         <Router
           history={history}
         >
-          <Main
-            films={filmsMock}
-            promoFilm={filmsMock[0]}
+          <UserBlock
+            authorizationStatus={`AUTH`}
           />
         </Router>
       </Provider>, {
@@ -73,7 +72,7 @@ it(`SnapshotTest Main`, () => {
           return {};
         }
       })
-  .toJSON();
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });

@@ -1,12 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Main from './main.jsx';
+import Player from './player.jsx';
 import {Provider} from "react-redux";
 import configureStore from 'redux-mock-store';
 import {Router} from "react-router-dom";
 import history from "../../history.js";
+import thunk from 'redux-thunk';
 
-const mockStore = configureStore([]);
+const mockStore = configureStore([thunk]);
 
 const filmsMock = [
   {
@@ -49,10 +50,11 @@ const filmsMock = [
   },
 ];
 
-it(`SnapshotTest Main`, () => {
+
+it(`SnapshotTest Player`, () => {
 
   const store = mockStore({
-    DATA: {films: filmsMock, promoFilm: filmsMock[0]},
+    DATA: {fims: filmsMock, promoFilm: filmsMock[0]},
     APPLICATION: {genre: `drama`},
     USER: {authorizationStatus: `AUTH`}
   });
@@ -63,9 +65,15 @@ it(`SnapshotTest Main`, () => {
         <Router
           history={history}
         >
-          <Main
-            films={filmsMock}
-            promoFilm={filmsMock[0]}
+          <Player
+            showFilmCard={filmsMock[0]}
+            isElepsed={0}
+            isFullScreen={false}
+            isPlaying={false}
+            onPlayBtnClick={() => {}}
+            onFullScreenCkick={() => {}}
+            onExitBtnClick={() => {}}
+            fullTime={`00:00`}
           />
         </Router>
       </Provider>, {

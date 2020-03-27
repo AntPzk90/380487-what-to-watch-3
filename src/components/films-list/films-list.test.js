@@ -16,7 +16,7 @@ it(`SnapshotTest FilmList`, () => {
           history={history}
         >
           <FilmsList
-            films = {filmsMock}
+            filteredFilms = {filmsMock}
             genreToFilter = {store.genreToFilter}
           />
         </Router>

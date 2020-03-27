@@ -16,11 +16,11 @@ const withMain = (Component) => {
 
     componentDidUpdate() {
 
-      const {films} = this.props;
+      const {filteredFilms} = this.props;
 
       if (this.state.count >= 25) {
         this.setState({
-          count: films.length,
+          count: filteredFilms.length,
           isShowBtn: false
         });
       }
@@ -28,11 +28,12 @@ const withMain = (Component) => {
 
     changeCountFilms() {
 
-      const {films} = this.props;
+      const {filteredFilms} = this.props;
 
-      if (this.state.count >= films.length) {
+      if (this.state.count >= filteredFilms.length) {
         this.setState({
-          count: films.length,
+          count: filteredFilms.length,
+          isShowBtn: false
         });
       }
 

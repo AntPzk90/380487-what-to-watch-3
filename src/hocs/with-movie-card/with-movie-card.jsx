@@ -4,7 +4,7 @@ const withMovieCard = (Component) => {
   class WithMovieCard extends PureComponent {
     constructor(props) {
       super(props);
-      // this.timer = null;
+      this.timer = null;
 
       this.state = {
         isPlay: false,
@@ -14,7 +14,7 @@ const withMovieCard = (Component) => {
     }
 
     changeStatusMouseHover() {
-      setTimeout(() => {
+      this.timer = setTimeout(() => {
         this.setState(({isPlay}) => {
           return {isPlay: !isPlay};
         });
@@ -25,6 +25,10 @@ const withMovieCard = (Component) => {
       this.setState(({isPlay}) => {
         return {isPlay: !isPlay};
       });
+    }
+
+    componentWillUnmount() {
+      clearTimeout(this.timer)
     }
 
     render() {

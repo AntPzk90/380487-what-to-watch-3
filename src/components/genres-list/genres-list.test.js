@@ -30,8 +30,9 @@ const filmsMock = [
 it(`SnapshotTest GenresList`, () => {
 
   const store = mockStore({
-    films: filmsMock,
-    genreToFilter: `All genres`
+    DATA: {films: filmsMock, promoFilm: filmsMock[0]},
+    APPLICATION: {genre: `drama`},
+    USER: {authorizationStatus: `AUTH`}
   });
 
   const tree = renderer

@@ -13,15 +13,15 @@ const withLoadingIndicator = (Component) => {
 
     componentDidUpdate(prevProps) {
 
-      if (this.props.showFilmCard) {
-        if (prevProps.showFilmCard !== this.props.showFilmCard) {
+      if (this.props.showFilmCard || this.props.filteredFilms) {
+        if (prevProps.showFilmCard !== this.props.showFilmCard || prevProps.filteredFilms !== this.props.filteredFilms) {
           this.setState({isLoading: false});
         }
       }
     }
 
     componentDidMount() {
-      if (this.props.showFilmCard) {
+      if (this.props.showFilmCard || this.props.filteredFilms) {
         this.setState({isLoading: false});
       }
     }

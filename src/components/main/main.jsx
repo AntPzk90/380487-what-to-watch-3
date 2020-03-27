@@ -5,17 +5,20 @@ import GenresList from '../genres-list/genres-list.jsx';
 import Logo from '../logo/logo.jsx';
 import UserBlock from '../user-block/user-block.jsx';
 import {connect} from 'react-redux';
-import {getAllFilms, getPoster} from '../../reducer/data/selectors.js';
-import withMain from '../../hocs/with-main/with-main.jsx';
+import {getAllFilms, getPoster, getFilteredFilms} from '../../reducer/data/selectors.js';
 import history from '../../history.js';
+import {compose} from 'recompose';
 import {AppRoute} from '../../const.js';
 import {Operation} from '../../reducer/data/data.js';
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import withMain from '../../hocs/with-main/with-main.jsx';
+import withLoadingIndicator from '../../hocs/with-loading-indicator/with-loading-indicator.jsx';
 
 const Main = (props) => {
   const {
     promoFilm,
     films,
+    filteredFilms,
     count,
     isShowBtn,
     onShowMoreBtnClick,
@@ -92,6 +95,7 @@ const Main = (props) => {
           />
           <FilmsList
             count={count}
+            filteredFilms={filteredFilms}
           />
           {isShowBtn
             ? <div className="catalog__more">
@@ -141,6 +145,26 @@ Main.propTypes = {
         previewVideoLink: PropTypes.string
       }).isRequired
   ),
+  filteredFilms: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      poster: PropTypes.string.isRequired,
+      previewImage: PropTypes.string,
+      backgroundImage: PropTypes.string,
+      backgroundColor: PropTypes.string,
+      decription: PropTypes.string,
+      rating: PropTypes.number,
+      scoresCount: PropTypes.number,
+      director: PropTypes.string,
+      starring: PropTypes.array,
+      genre: PropTypes.string,
+      released: PropTypes.number,
+      id: PropTypes.number,
+      isFavorite: PropTypes.bool,
+      videoLink: PropTypes.string,
+      previewVideoLink: PropTypes.string
+    }).isRequired
+),
   promoFilm: PropTypes.shape({
     name: PropTypes.string,
     poster: PropTypes.string,
@@ -171,6 +195,7 @@ const mapStateToProps = (state) => {
     films: getAllFilms(state),
     promoFilm: getPoster(state),
     authorizationStatus: getAuthorizationStatus(state),
+    filteredFilms: getFilteredFilms(state),
   };
 };
 
@@ -184,4 +209,8 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withMain(Main));
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withLoadingIndicator,
+  withMain
+)(Main);

@@ -2,11 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer/application/application.js';
+import {getGenre} from './../../reducer/data/selectors.js';
 
 const GenresList = (props) => {
 
-  const {onGenreLinkClick, films, genreToFilter} = props;
-  const genres = Array.from(new Set(films.map((it) => it.genre)));
+  const {
+    onGenreLinkClick,
+    films,
+    genreToFilter
+  } = props;
+
+  const genres = Array.from(new Set(films.map((it) => it.genre))).slice(0, 8);
+
   return (
     <ul className="catalog__genres-list">
       <li className={`catalog__genres-item ${genreToFilter === `All genres` ? `catalog__genres-item--active` : ``}`}>
@@ -61,7 +68,7 @@ GenresList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  genreToFilter: state.genre,
+  genreToFilter: getGenre(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

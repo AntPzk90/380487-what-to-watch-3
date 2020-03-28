@@ -1,5 +1,4 @@
 import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
 
 const withMovieInfo = (Component) => {
   class WithMovieInfo extends PureComponent {
@@ -7,36 +6,29 @@ const withMovieInfo = (Component) => {
       super(props);
 
       this.state = {
-        isLoading: true
+        activePage: `overview`,
       };
+
+      this.changeActivePage = this.changeActivePage.bind(this);
     }
 
-    componentDidUpdate(prevProps) {
-      if (this.props.showFilmCard) {
-        if (prevProps.showFilmCard !== this.props.showFilmCard) {
-          this.setState({isLoading: false});
-        }
-      }
-    }
-
-    componentDidMount() {
-      if (this.props.showFilmCard) {
-        this.setState({isLoading: false});
-      }
+    changeActivePage(activeTab) {
+      this.setState({
+        activePage: activeTab,
+      });
     }
 
     render() {
 
-      if (this.state.isLoading) {
-        return <div>Загрузка...</div>;
-      }
-      return <Component {...this.props}/>;
+      return (
+        <Component
+          {...this.props}
+          onTabClick={this.changeActivePage}
+          activePage={this.state.activePage}
+        />
+      );
     }
   }
-
-  WithMovieInfo.propTypes = {
-    showFilmCard: PropTypes.object
-  };
 
   return WithMovieInfo;
 };

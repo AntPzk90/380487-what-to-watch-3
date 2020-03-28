@@ -4,8 +4,6 @@ export const getShowFilmsCard = (state) => {
   return state[NameSpace.APPLICATION].showFilmCard;
 };
 
-export const getActiveTab = (state) => {
-  return state[NameSpace.APPLICATION].activeTab;
+export const getErrorStatus = (state) => {
+  return state[NameSpace.APPLICATION].error;
 };
-
-

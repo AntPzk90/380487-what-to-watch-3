@@ -49,7 +49,6 @@ const filmsMock = [
   },
 ];
 
-
 it(`SnapshotTest Main`, () => {
 
   const store = mockStore({
@@ -65,8 +64,8 @@ it(`SnapshotTest Main`, () => {
           history={history}
         >
           <Main
-            films = {filmsMock}
-            promoFilm= {filmsMock[0]}
+            films={filmsMock}
+            promoFilm={filmsMock[0]}
           />
         </Router>
       </Provider>, {

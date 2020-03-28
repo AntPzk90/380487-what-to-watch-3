@@ -14,7 +14,7 @@ const MovieCard = (props) => {
     onCardMouseEnter,
     onCardMouseHover,
     onCardMouseLeave,
-    onMovieCardClick,
+    onCardClick,
     isPlay
   } = props;
 
@@ -24,7 +24,7 @@ const MovieCard = (props) => {
         onCardMouseEnter(film);
         onCardMouseHover();
       }}
-      onClick={() => onMovieCardClick(film)}
+      onClick={() => onCardClick(film)}
       onMouseLeave={() => onCardMouseLeave()}>
       <div className="small-movie-card__image"
         onClick={() => {
@@ -42,7 +42,7 @@ const MovieCard = (props) => {
       </div>
       <h3 className="small-movie-card__title" onClick={(evt) => {
         evt.preventDefault();
-        onMovieCardClick(film);
+        onCardClick(film);
       }}>
         <Link to={`${AppRoute.FILM}/${film.id}`} className="small-movie-card__link" href="movie-page.html">{film.name}</Link>
       </h3>
@@ -72,12 +72,12 @@ MovieCard.propTypes = {
   onCardMouseEnter: PropTypes.func,
   onCardMouseHover: PropTypes.func,
   onCardMouseLeave: PropTypes.func,
-  onMovieCardClick: PropTypes.func,
+  onCardClick: PropTypes.func,
   isPlay: PropTypes.bool,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onMovieCardClick(film) {
+  onCardClick(film) {
     dispatch(ActionCreator.showFilmCard(film));
   }
 });

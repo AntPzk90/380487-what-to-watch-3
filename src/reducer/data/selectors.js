@@ -21,6 +21,10 @@ export const getPoster = (state) => {
   return state[NameSpace.DATA].promoFilm;
 };
 
+export const getReviews = (state) => {
+  return state[NameSpace.DATA].reviews;
+};
+
 export const getFilmForId = createSelector(
     getAllFilms,
     getIdFilm,

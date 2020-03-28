@@ -5,11 +5,26 @@ import GenresList from '../genres-list/genres-list.jsx';
 import Logo from '../logo/logo.jsx';
 import UserBlock from '../user-block/user-block.jsx';
 import {connect} from 'react-redux';
-import {getAllFilms, getPoster} from '../../reducer/data/selectors.js';
+import {getAllFilms, getPoster, getFilteredFilms} from '../../reducer/data/selectors.js';
+import history from '../../history.js';
+import {compose} from 'recompose';
+import {AppRoute} from '../../const.js';
+import {Operation} from '../../reducer/data/data.js';
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import withMain from '../../hocs/with-main/with-main.jsx';
+import withLoadingIndicator from '../../hocs/with-loading-indicator/with-loading-indicator.jsx';
 
 const Main = (props) => {
-
-  const {promoFilm, films} = props;
+  const {
+    promoFilm,
+    films,
+    filteredFilms,
+    count,
+    isShowBtn,
+    onShowMoreBtnClick,
+    authorizationStatus,
+    onMyListBtnClick
+  } = props;
 
   return (
     <React.Fragment>
@@ -40,16 +55,30 @@ const Main = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button"
+                  onClick={()=>{
+                    history.push(`${AppRoute.PLAYER}/${promoFilm.id}`);
+                  }}
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
+                <button className="btn btn--list movie-card__button" type="button"
+                  onClick={() => {
+                    onMyListBtnClick(promoFilm, authorizationStatus);
+                  }}
+                >
+                  {promoFilm.isFavorite ?
+                    <svg viewBox="0 0 18 14" width="18" height="14">
+                      <use xlinkHref="#in-list"/>
+                    </svg>
+                    :
+                    <svg viewBox="0 0 19 20" width={19} height={20}>
+                      <use xlinkHref="#add" />
+                    </svg>
+                  }
                   <span>My list</span>
                 </button>
               </div>
@@ -65,11 +94,17 @@ const Main = (props) => {
             films={films}
           />
           <FilmsList
-            films={films}
+            count={count}
+            filteredFilms={filteredFilms}
           />
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {isShowBtn
+            ? <div className="catalog__more">
+              <button className="catalog__button" type="button" onClick = {() => {
+                onShowMoreBtnClick();
+              }}>Show more</button>
+            </div>
+            : ``
+          }
         </section>
         <footer className="page-footer">
           <div className="logo">
@@ -90,9 +125,6 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  releaseDate: PropTypes.string.isRequired,
   films: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
@@ -113,9 +145,29 @@ Main.propTypes = {
         previewVideoLink: PropTypes.string
       }).isRequired
   ),
+  filteredFilms: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        poster: PropTypes.string.isRequired,
+        previewImage: PropTypes.string,
+        backgroundImage: PropTypes.string,
+        backgroundColor: PropTypes.string,
+        decription: PropTypes.string,
+        rating: PropTypes.number,
+        scoresCount: PropTypes.number,
+        director: PropTypes.string,
+        starring: PropTypes.array,
+        genre: PropTypes.string,
+        released: PropTypes.number,
+        id: PropTypes.number,
+        isFavorite: PropTypes.bool,
+        videoLink: PropTypes.string,
+        previewVideoLink: PropTypes.string
+      }).isRequired
+  ),
   promoFilm: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    poster: PropTypes.string,
     previewImage: PropTypes.string,
     backgroundImage: PropTypes.string,
     backgroundColor: PropTypes.string,
@@ -131,15 +183,34 @@ Main.propTypes = {
     videoLink: PropTypes.string,
     previewVideoLink: PropTypes.string
   }).isRequired,
-  onMovieCardClick: PropTypes.func,
-  onGenreClick: PropTypes.func,
+  onMyListBtnClick: PropTypes.func,
+  onShowMoreBtnClick: PropTypes.func,
+  count: PropTypes.number.isRequired,
+  isShowBtn: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => {
   return {
     films: getAllFilms(state),
     promoFilm: getPoster(state),
+    authorizationStatus: getAuthorizationStatus(state),
+    filteredFilms: getFilteredFilms(state),
   };
 };
 
-export default connect(mapStateToProps)(Main);
+const mapDispatchToProps = (dispatch) => ({
+  onMyListBtnClick(data, authorizationStatus) {
+    if (authorizationStatus === `NO_AUTH`) {
+      history.push(AppRoute.LOGIN);
+    }
+    let status = data.isFavorite ? 0 : 1;
+    dispatch(Operation.changeFavoriteStatus(data, status));
+  }
+});
+
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withLoadingIndicator,
+    withMain
+)(Main);

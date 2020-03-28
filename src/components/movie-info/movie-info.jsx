@@ -1,24 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer/application/application';
 import MovieInfoContent from './../movie-info-content/movie-info-content.jsx';
 import Tabs from './../tabs/tabs.jsx';
 import {Operation} from '../../reducer/data/data.js';
-import {getActiveTab} from '../../reducer/application/selectors.js';
-import {getFilmForId} from '../../reducer/data/selectors';
+import {getFilmForId} from '../../reducer/data/selectors.js';
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
-import withMovieInfo from '../../hocs/with-movie-info/with-movie-info.jsx';
 import Logo from '../logo/logo.jsx';
+import {Link} from 'react-router-dom';
 import UserBlock from '../user-block/user-block.jsx';
-import {AppRoute} from '../../const';
+import {AppRoute} from '../../const.js';
 import history from '../../history.js';
+import AddReviewBtn from '../add-review-btn/add-review-btn.jsx';
+import withLoadingIndicator from '../../hocs/with-loading-indicator/with-loading-indicator.jsx';
+import SimilarFilms from '../similar-films/similar-films.jsx';
+import {compose} from 'recompose';
+import withMovieInfo from '../../hocs/with-movie-info/with-movie-info.jsx';
 
 const MovieInfo = (props) => {
 
-  const {activePage, showFilmCard, onTabClick, changeFavoriteStatus, authorizationStatus} = props;
-  const {name, poster, backgroundImage, genre, released, isFavorite} = showFilmCard;
+  const {
+    activePage,
+    showFilmCard,
+    onMyListBtnClick,
+    authorizationStatus,
+    onTabClick
+  } = props;
 
+  const {
+    name,
+    poster,
+    backgroundImage,
+    genre,
+    released,
+    isFavorite,
+    id
+  } = showFilmCard;
 
   return (
     <React.Fragment>
@@ -40,7 +57,10 @@ const MovieInfo = (props) => {
                 <span className="movie-card__year">{released}</span>
               </p>
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button"
+                  onClick={()=>{
+                    history.push(`${AppRoute.PLAYER}/${id}`);
+                  }}>
                   <svg viewBox="0 0 19 19" width={19} height={19}>
                     <use xlinkHref="#play-s" />
                   </svg>
@@ -48,7 +68,7 @@ const MovieInfo = (props) => {
                 </button>
                 <button className="btn btn--list movie-card__button" type="button"
                   onClick={() => {
-                    changeFavoriteStatus(showFilmCard, authorizationStatus);
+                    onMyListBtnClick(showFilmCard, authorizationStatus);
                   }}
                 >
                   {isFavorite ?
@@ -62,7 +82,9 @@ const MovieInfo = (props) => {
                   }
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                <AddReviewBtn
+                  id={id}
+                />
               </div>
             </div>
           </div>
@@ -75,7 +97,7 @@ const MovieInfo = (props) => {
             <div className="movie-card__desc">
               <nav className="movie-nav movie-card__nav">
                 <Tabs
-                  changeActivePage={onTabClick}
+                  onTabClick={onTabClick}
                   activePage={activePage}
                 />
               </nav>
@@ -89,50 +111,16 @@ const MovieInfo = (props) => {
       </section>
 
       <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
-          <div className="catalog__movies-list">
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width={280} height={175} />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
-              </h3>
-            </article>
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width={280} height={175} />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Bohemian Rhapsody</a>
-              </h3>
-            </article>
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/macbeth.jpg" alt="Macbeth" width={280} height={175} />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Macbeth</a>
-              </h3>
-            </article>
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width={280} height={175} />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Aviator</a>
-              </h3>
-            </article>
-          </div>
-        </section>
+        <SimilarFilms
+          genre={genre}
+        />
         <footer className="page-footer">
           <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
+            <Link to="/" className="logo__link logo__link--light">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
           <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>
@@ -145,6 +133,7 @@ const MovieInfo = (props) => {
 
 MovieInfo.propTypes = {
   showFilmCard: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
     backgroundImage: PropTypes.string,
@@ -152,23 +141,19 @@ MovieInfo.propTypes = {
     released: PropTypes.number,
     isFavorite: PropTypes.bool
   }),
-  changeFavoriteStatus: PropTypes.func,
+  onMyListBtnClick: PropTypes.func,
   activePage: PropTypes.string.isRequired,
   onTabClick: PropTypes.func,
   authorizationStatus: PropTypes.string,
 };
 
 const mapStateToProps = (state, {id}) => ({
-  activePage: getActiveTab(state),
   showFilmCard: getFilmForId(state, id),
   authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onTabClick(activeTab) {
-    dispatch(ActionCreator.changeActiveTab(activeTab));
-  },
-  changeFavoriteStatus(data, authorizationStatus) {
+  onMyListBtnClick(data, authorizationStatus) {
     if (authorizationStatus === `NO_AUTH`) {
       history.push(AppRoute.LOGIN);
     }
@@ -177,5 +162,8 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(withMovieInfo(MovieInfo));
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withLoadingIndicator,
+    withMovieInfo
+)(MovieInfo);

@@ -8,10 +8,10 @@ const withFilmsList = (Component) => {
       this.state = {
         film: null,
       };
-      this._onCardMouseEnter = this._onCardMouseEnter.bind(this);
+      this.changeState = this.changeState.bind(this);
     }
 
-    _onCardMouseEnter(film) {
+    changeState(film) {
       this.setState({
         film
       });
@@ -22,7 +22,7 @@ const withFilmsList = (Component) => {
         <Component
           {...this.props}
           film={this.state.film}
-          onCardMouseEnter={this._onCardMouseEnter}
+          onCardMouseEnter={this.changeState}
         />
       );
     }

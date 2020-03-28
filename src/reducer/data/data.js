@@ -3,11 +3,11 @@ import {extend} from "../../utils.js";
 const initialState = {
   films: [],
   favoriteFilms: [],
-  changedFilm: {},
   promoFilm: {},
+  reviews: [],
 };
 
-const adapter = (film) => {
+export const adapter = (film) => {
 
   return {
     name: film[`name`],
@@ -33,15 +33,19 @@ const adapter = (film) => {
 const ActionType = {
   LOAD_FILMS: `LOAD_FILMS`,
   LOAD_FAVORITE_FILMS: `LOAD_FAVORITES_FILMS`,
-  CHANGE_FAVORITE_STATUS: `CHANGE_FAVORITE_STATUS`,
   LOAD_PROMO_FILM: `LOAD_PROMO_FILM`,
+  LOAD_ALL_REVIEWS: `LOAD_ALL_REVIEWS`,
+  CHANGE_FAVORITE_FILM: `CHANGE_FAVORITE_FILM`,
+  CHANGE_PROMO_FILM: `CHANGE_PROMO_FILM`,
 };
 
 const ActionCreator = {
   loadFilms: (data) => ({type: ActionType.LOAD_FILMS, payload: data}),
   loadFavoriteFilms: (data) => ({type: ActionType.LOAD_FAVORITE_FILMS, payload: data}),
-  changeFavoriteStatus: (data) => ({type: ActionType.CHANGE_FAVORITE_STATUS, payload: data}),
-  loadPromoFilm: (data) => ({type: ActionType.LOAD_PROMO_FILM, payload: data})
+  loadPromoFilm: (data) => ({type: ActionType.LOAD_PROMO_FILM, payload: data}),
+  loadAllReviews: (data) => ({type: ActionType.LOAD_ALL_REVIEWS, payload: data}),
+  changeFavoriteFilm: (data) => ({type: ActionType.CHANGE_FAVORITE_FILM, payload: data}),
+  changePromoFilm: (data) => ({type: ActionType.CHANGE_PROMO_FILM, payload: data}),
 };
 
 const Operation = {
@@ -59,7 +63,21 @@ const Operation = {
   },
   changeFavoriteStatus: (data, status) => (dispatch, getState, api) => {
     return api.post(`/favorite/${data.id}/${status}`)
-      .then((response) => dispatch(ActionCreator.changeFavoriteStatus(response.data)));
+      .then((response) => {
+        if (response.status === 200) {
+          if (data.id === 1) {
+            dispatch(ActionCreator.changePromoFilm(response.data));
+          }
+          dispatch(ActionCreator.changeFavoriteFilm(response.data));
+        }
+      });
+  },
+  getAllReviews: (id) => (dispatch, getState, api) => {
+    return api.get(`comments/${id}`)
+    .then((response) => dispatch(ActionCreator.loadAllReviews(response.data)));
+  },
+  sendReview: (id, rating, comment) => (dispatch, getState, api) => {
+    return api.post(`comments/${id}`, {rating, comment});
   }
 };
 
@@ -69,10 +87,20 @@ const reducer = (state = initialState, action) => {
       return extend(state, {films: action.payload.map(adapter)});
     case ActionType.LOAD_FAVORITE_FILMS:
       return extend(state, {favoriteFilms: action.payload.map(adapter)});
-    case ActionType.CHANGE_FAVORITE_STATUS:
-      return extend(state, {changedFilm: action.payload});
     case ActionType.LOAD_PROMO_FILM:
       return extend(state, {promoFilm: adapter(action.payload)});
+    case ActionType.LOAD_ALL_REVIEWS:
+      return extend(state, {reviews: action.payload});
+    case ActionType.CHANGE_FAVORITE_FILM:
+      return Object.assign({}, state, {
+        films: state.films.map((it) => {
+          return it.id === action.payload.id ? adapter(action.payload) : it;
+        })
+      });
+    case ActionType.CHANGE_PROMO_FILM:
+      return Object.assign({}, state, {
+        promoFilm: adapter(action.payload)
+      });
   }
 
   return state;

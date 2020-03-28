@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import Logo from '../logo/logo.jsx';
+import {Link} from 'react-router-dom';
 import {Operation as DataOperation} from '../../reducer/data/data.js';
 import UserBlock from '../user-block/user-block.jsx';
 import FavoriteFilmsList from '../favorite-films-list/favorite-films-list.jsx';
@@ -31,11 +32,11 @@ class MyList extends PureComponent {
           </section>
           <footer className="page-footer">
             <div className="logo">
-              <a href="main.html" className="logo__link logo__link--light">
+              <Link to="/" className="logo__link logo__link--light">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
-              </a>
+              </Link>
             </div>
             <div className="copyright">
               <p>© 2019 What to watch Ltd.</p>

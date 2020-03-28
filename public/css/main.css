@@ -814,9 +814,11 @@ main {
   padding-top: 20px; }
 
 .movie-card__reviews-col {
-  width: calc((100% - 60px) / 2);
+  width: 100%;
   margin-right: 60px;
-  max-width: 380px; }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;}
   .movie-card__reviews-col:last-child {
     margin-right: 0; }
 
@@ -1126,10 +1128,10 @@ main {
   padding-bottom: 20px;
   padding-right: 75px;
   position: relative;
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+  max-width: 380px; }
   .review:last-child {
-    margin-bottom: 0px;
-    border-bottom: none; }
+    margin-bottom: 0px; }
 
 .review__quote {
   margin: 0;

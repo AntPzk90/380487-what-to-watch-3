@@ -1,12 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import SimilarFilms from './similar-films.jsx';
-import {Provider} from "react-redux";
 import {Router} from "react-router-dom";
 import history from "../../history.js";
-import configureStore from 'redux-mock-store';
-
-const mockStore = configureStore([]);
+import {Provider} from "react-redux";
+import reducer from '../../reducer/reducer.js';
+import {applyMiddleware, createStore} from 'redux';
+import thunk from 'redux-thunk';
+import {createAPI} from '../../api.js';
 
 const filmsMock = [
   {
@@ -51,11 +52,9 @@ const filmsMock = [
 
 it(`SnapshotTest SimilarFilms`, () => {
 
-  const store = mockStore({
-    DATA: {film: filmsMock, promoFilm: filmsMock[0]},
-    APPLICATION: {genre: `drama`},
-    USER: {authorizationStatus: `AUTH`}
-  });
+  const api = createAPI();
+
+  const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument(api)));
 
   const tree = renderer
   .create(

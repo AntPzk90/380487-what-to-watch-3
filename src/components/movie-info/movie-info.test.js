@@ -48,7 +48,7 @@ const filmsMock = [
 ];
 
 
-it(`SnapshotTest Main`, () => {
+it(`SnapshotTest Movie-info`, () => {
 
   const store = mockStore({
     DATA: {films: filmsMock, promoFilm: filmsMock[0]},
@@ -59,9 +59,9 @@ it(`SnapshotTest Main`, () => {
   const tree = renderer
   .create(
       <Provider store={store}>
-          <MovieInfo
-            film = {filmsMock[0]}
-          />
+        <MovieInfo
+          showFilmCard = {filmsMock[0]}
+        />
       </Provider>, {
         createNodeMock: () => {
           return {};

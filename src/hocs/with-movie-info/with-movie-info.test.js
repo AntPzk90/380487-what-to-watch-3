@@ -10,7 +10,7 @@ it(`SnapshotTest withMovieInfo`, () => {
       <withMovieInfo
         onTabClick={() => {}}
         activePage={`overview`}
-        />
+      />
   )
   .toJSON();
 

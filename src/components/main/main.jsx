@@ -146,25 +146,25 @@ Main.propTypes = {
       }).isRequired
   ),
   filteredFilms: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      poster: PropTypes.string.isRequired,
-      previewImage: PropTypes.string,
-      backgroundImage: PropTypes.string,
-      backgroundColor: PropTypes.string,
-      decription: PropTypes.string,
-      rating: PropTypes.number,
-      scoresCount: PropTypes.number,
-      director: PropTypes.string,
-      starring: PropTypes.array,
-      genre: PropTypes.string,
-      released: PropTypes.number,
-      id: PropTypes.number,
-      isFavorite: PropTypes.bool,
-      videoLink: PropTypes.string,
-      previewVideoLink: PropTypes.string
-    }).isRequired
-),
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        poster: PropTypes.string.isRequired,
+        previewImage: PropTypes.string,
+        backgroundImage: PropTypes.string,
+        backgroundColor: PropTypes.string,
+        decription: PropTypes.string,
+        rating: PropTypes.number,
+        scoresCount: PropTypes.number,
+        director: PropTypes.string,
+        starring: PropTypes.array,
+        genre: PropTypes.string,
+        released: PropTypes.number,
+        id: PropTypes.number,
+        isFavorite: PropTypes.bool,
+        videoLink: PropTypes.string,
+        previewVideoLink: PropTypes.string
+      }).isRequired
+  ),
   promoFilm: PropTypes.shape({
     name: PropTypes.string,
     poster: PropTypes.string,
@@ -210,7 +210,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withLoadingIndicator,
-  withMain
+    connect(mapStateToProps, mapDispatchToProps),
+    withLoadingIndicator,
+    withMain
 )(Main);

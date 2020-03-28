@@ -9,8 +9,8 @@ const withPlayer = (Component) => {
       this.playerRef = createRef();
 
       this.state = {
-        isPlaying: false,
-        isPause: true,
+        isPlaying: true,
+        isPause: false,
         fullTime: null,
         isElepsed: 0,
         isFullScreen: false,
@@ -76,15 +76,6 @@ const withPlayer = (Component) => {
       });
     }
 
-    componentWillUnmount() {
-      document.removeEventListener(`keydown`, (evt) => {
-        if (evt.key === `Escape`) {
-          this.setState({
-            isFullScreen: false
-          });
-        }
-      });
-    }
 
     startPlay() {
       if (this.state.isPause === true) {
@@ -107,6 +98,24 @@ const withPlayer = (Component) => {
         this.setState({
           isElepsed: Math.floor(elapsedTime / fullTime * 100)
         });
+      });
+
+    }
+
+    componentWillUnmount() {
+
+      document.removeEventListener(`keydown`, (evt) => {
+        if (evt.key === `Escape`) {
+          this.setState({
+            isFullScreen: false
+          });
+        }
+      });
+
+      this.initPlayer().pause();
+      this.setState({
+        isPlaying: false,
+        isPause: true,
       });
 
     }

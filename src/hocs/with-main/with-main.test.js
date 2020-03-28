@@ -8,9 +8,9 @@ it(`SnapshotTest withMain`, () => {
   const tree = renderer
   .create(
       <withMain
-      onShowMoreBtnClick={() => {}}
-      count={8}
-      isShowBtn={false}
+        onShowMoreBtnClick={() => {}}
+        count={8}
+        isShowBtn={false}
       />
   )
   .toJSON();

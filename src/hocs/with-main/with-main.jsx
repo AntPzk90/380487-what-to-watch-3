@@ -14,11 +14,24 @@ const withMain = (Component) => {
       this.changeCountFilms = this.changeCountFilms.bind(this);
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
 
       const {filteredFilms} = this.props;
 
-      if (this.state.count >= 25) {
+      if (prevProps.filteredFilms !== this.props.filteredFilms) {
+        this.setState({
+          count: 8,
+          isShowBtn: true
+        });
+
+        if (this.props.filteredFilms.length < 8) {
+          this.setState({
+            isShowBtn: false
+          });
+        }
+
+      } else if (this.state.count >= 25) {
+
         this.setState({
           count: filteredFilms.length,
           isShowBtn: false
@@ -56,7 +69,7 @@ const withMain = (Component) => {
   }
 
   WithMain.propTypes = {
-    films: PropTypes.arrayOf(
+    filteredFilms: PropTypes.arrayOf(
         PropTypes.shape({
           name: PropTypes.string.isRequired,
           poster: PropTypes.string.isRequired,

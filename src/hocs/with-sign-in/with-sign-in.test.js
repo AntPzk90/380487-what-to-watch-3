@@ -13,7 +13,7 @@ it(`SnapshotTest withSignIn`, () => {
         isEmailInputValid={true}
         loginRef={() => {}}
         password={() => {}}
-        />
+      />
   )
   .toJSON();
 

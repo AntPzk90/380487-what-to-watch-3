@@ -66,11 +66,11 @@ it(`SnapshotTest SignIn`, () => {
           history={history}
         >
           <SignIn
-             logged={`AUTH`}
-             error={false}
-             onSendForm={() => {}}
-             onSubmitBtnClick={() => {}}
-             isEmailInputValid={() => {}}
+            logged={`AUTH`}
+            error={false}
+            onSendForm={() => {}}
+            onSubmitBtnClick={() => {}}
+            isEmailInputValid={() => {}}
           />
         </Router>
       </Provider>, {

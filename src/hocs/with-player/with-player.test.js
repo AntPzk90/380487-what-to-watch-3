@@ -8,15 +8,15 @@ it(`SnapshotTest withPlayer`, () => {
   const tree = renderer
   .create(
       <withPlayer
-      isElepsed={0}
-      isPlaying={true}
-      isPause={false}
-      fullTime={null}
-      isFullScreen={false}
-      onFullScreenCkick={() => {}}
-      onPlayBtnClick={() => {}}
-      playerRef={() => {}}
-      onExitBtnClick={() => {}}
+        isElepsed={0}
+        isPlaying={true}
+        isPause={false}
+        fullTime={null}
+        isFullScreen={false}
+        onFullScreenCkick={() => {}}
+        onPlayBtnClick={() => {}}
+        playerRef={() => {}}
+        onExitBtnClick={() => {}}
       />
   )
   .toJSON();

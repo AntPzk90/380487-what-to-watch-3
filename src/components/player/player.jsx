@@ -28,7 +28,7 @@ const Player = (props) => {
 
   return (
     <div className="player">
-      <video src={videoLink} className="player__video" poster={backgroundImage} ref={playerRef}/>
+      <video src={videoLink} className="player__video" poster={backgroundImage} ref={playerRef} autoPlay/>
       <button type="button" className="player__exit"
         onClick={() => {
           onExitBtnClick();

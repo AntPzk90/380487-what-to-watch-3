@@ -13,15 +13,15 @@ const withLoadingIndicator = (Component) => {
 
     componentDidUpdate(prevProps) {
 
-      if (this.props.showFilmCard || this.props.filteredFilms) {
-        if (prevProps.showFilmCard !== this.props.showFilmCard || prevProps.filteredFilms !== this.props.filteredFilms) {
+      if (this.props.showFilmCard || this.props.filteredFilms || this.props.film) {
+        if (prevProps.showFilmCard !== this.props.showFilmCard || prevProps.filteredFilms !== this.props.filteredFilms || prevProps.film !== this.props.film) {
           this.setState({isLoading: false});
         }
       }
     }
 
     componentDidMount() {
-      if (this.props.showFilmCard || this.props.filteredFilms) {
+      if (this.props.showFilmCard || this.props.filteredFilms || this.props.film) {
         this.setState({isLoading: false});
       }
     }
@@ -36,7 +36,9 @@ const withLoadingIndicator = (Component) => {
   }
 
   WithLoadingIndicator.propTypes = {
-    showFilmCard: PropTypes.object
+    showFilmCard: PropTypes.object,
+    filteredFilms: PropTypes.array,
+    film: PropTypes.object
   };
 
   return WithLoadingIndicator;

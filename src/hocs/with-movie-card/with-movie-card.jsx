@@ -28,7 +28,7 @@ const withMovieCard = (Component) => {
     }
 
     componentWillUnmount() {
-      clearTimeout(this.timer)
+      clearTimeout(this.timer);
     }
 
     render() {

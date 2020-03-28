@@ -1,10 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import MovieCardReviews from './../movie-card-reviews/movie-card-reviews.jsx';
-import configureStore from 'redux-mock-store';
+import MovieCardReviews from './movie-card-reviews.jsx';
 import {Provider} from "react-redux";
-
-const mockStore = configureStore([]);
+import reducer from '../../reducer/reducer.js';
+import {applyMiddleware, createStore} from 'redux';
+import thunk from 'redux-thunk';
+import {createAPI} from '../../api.js';
 
 const reviewsMock = [
   {
@@ -51,24 +52,18 @@ const filmMock = {
 
 it(`SnapshotTest MovieCardReviews`, () => {
 
-  const store = mockStore({
-    DATA: {reviews: reviewsMock},
-    APPLICATION: {genre: `drama`},
-    USER: {authorizationStatus: `AUTH`}
-  });
+  const api = createAPI();
 
+  const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument(api)));
   const tree = renderer
   .create(
       <Provider store={store}>
         <MovieCardReviews
-          reviews = {reviewsMock[0]}
+          reviews = {reviewsMock}
           film = {filmMock}
         />
-      </Provider>, {
-        createNodeMock: () => {
-          return {};
-        }
-      })
+      </Provider>
+  )
   .toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -4,9 +4,10 @@ import Logo from '../logo/logo.jsx';
 import UserBlock from '../user-block/user-block.jsx';
 import {connect} from 'react-redux';
 import {getFilmForId} from '../../reducer/data/selectors';
-import {Link} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 import {AppRoute} from '../../const.js';
 import {Operation} from '../../reducer/data/data.js';
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {compose} from 'recompose';
 import withAddRewiewPage from '../../hocs/with-add-review-page/with-add-review-page.jsx';
 import withLoadingIndicator from '../../hocs/with-loading-indicator/with-loading-indicator.jsx';
@@ -24,7 +25,8 @@ const AddReviewPage = (props) => {
     onFormSubmit,
     onInputComment,
     rating,
-    comment
+    comment,
+    authorizationStatus
   } = props;
 
   const {
@@ -33,6 +35,9 @@ const AddReviewPage = (props) => {
     backgroundImage
   } = showFilmCard;
 
+  if (authorizationStatus === `NO_AUTH`) {
+    return <Redirect to="/"/>;
+  }
   return (
     <div>
       <section className="movie-card movie-card--full">
@@ -126,6 +131,7 @@ AddReviewPage.propTypes = {
   onChangeRating: PropTypes.func,
   onFormSubmit: PropTypes.func,
   onInputComment: PropTypes.func,
+  authorizationStatus: PropTypes.string,
   showFilmCard: PropTypes.shape({
     name: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
@@ -135,6 +141,7 @@ AddReviewPage.propTypes = {
 
 const mapStateToProps = (state, {id}) => ({
   showFilmCard: getFilmForId(state, id),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

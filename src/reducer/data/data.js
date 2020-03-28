@@ -7,7 +7,7 @@ const initialState = {
   reviews: [],
 };
 
-const adapter = (film) => {
+export const adapter = (film) => {
 
   return {
     name: film[`name`],
@@ -35,7 +35,8 @@ const ActionType = {
   LOAD_FAVORITE_FILMS: `LOAD_FAVORITES_FILMS`,
   LOAD_PROMO_FILM: `LOAD_PROMO_FILM`,
   LOAD_ALL_REVIEWS: `LOAD_ALL_REVIEWS`,
-  CHENGE_FAVORITE_FILM: `CHENGE_FAVORITE_FILM`,
+  CHANGE_FAVORITE_FILM: `CHANGE_FAVORITE_FILM`,
+  CHANGE_PROMO_FILM: `CHANGE_PROMO_FILM`,
 };
 
 const ActionCreator = {
@@ -43,7 +44,8 @@ const ActionCreator = {
   loadFavoriteFilms: (data) => ({type: ActionType.LOAD_FAVORITE_FILMS, payload: data}),
   loadPromoFilm: (data) => ({type: ActionType.LOAD_PROMO_FILM, payload: data}),
   loadAllReviews: (data) => ({type: ActionType.LOAD_ALL_REVIEWS, payload: data}),
-  changeFavoriteFilm: (data) => ({type: ActionType.CHENGE_FAVORITE_FILM, payload: data}),
+  changeFavoriteFilm: (data) => ({type: ActionType.CHANGE_FAVORITE_FILM, payload: data}),
+  changePromoFilm: (data) => ({type: ActionType.CHANGE_PROMO_FILM, payload: data}),
 };
 
 const Operation = {
@@ -63,6 +65,9 @@ const Operation = {
     return api.post(`/favorite/${data.id}/${status}`)
       .then((response) => {
         if (response.status === 200) {
+          if (data.id === 1) {
+            dispatch(ActionCreator.changePromoFilm(response.data));
+          }
           dispatch(ActionCreator.changeFavoriteFilm(response.data));
         }
       });
@@ -86,11 +91,15 @@ const reducer = (state = initialState, action) => {
       return extend(state, {promoFilm: adapter(action.payload)});
     case ActionType.LOAD_ALL_REVIEWS:
       return extend(state, {reviews: action.payload});
-    case ActionType.CHENGE_FAVORITE_FILM:
+    case ActionType.CHANGE_FAVORITE_FILM:
       return Object.assign({}, state, {
         films: state.films.map((it) => {
           return it.id === action.payload.id ? adapter(action.payload) : it;
         })
+      });
+    case ActionType.CHANGE_PROMO_FILM:
+      return Object.assign({}, state, {
+        promoFilm: adapter(action.payload)
       });
   }
 

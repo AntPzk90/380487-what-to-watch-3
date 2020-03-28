@@ -54,7 +54,7 @@ const filmsMock = [
 it(`SnapshotTest Player`, () => {
 
   const store = mockStore({
-    DATA: {fims: filmsMock, promoFilm: filmsMock[0]},
+    DATA: {films: filmsMock, promoFilm: filmsMock[0]},
     APPLICATION: {genre: `drama`},
     USER: {authorizationStatus: `AUTH`}
   });

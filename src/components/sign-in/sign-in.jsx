@@ -16,14 +16,14 @@ class SignIn extends PureComponent {
 
   render() {
     const {
-      logged,
+      authorizationStatus,
       error,
       onSendForm,
       onSubmitBtnClick,
       isEmailInputValid
     } = this.props;
 
-    if (logged === `AUTH`) {
+    if (authorizationStatus === `AUTH`) {
       return <Redirect to="/"/>;
     }
 
@@ -92,7 +92,7 @@ class SignIn extends PureComponent {
 
 SignIn.propTypes = {
   onSubmit: PropTypes.func,
-  logged: PropTypes.string,
+  authorizationStatus: PropTypes.string,
   error: PropTypes.bool,
   onSendForm: PropTypes.func,
   onSubmitBtnClick: PropTypes.func,
@@ -100,7 +100,7 @@ SignIn.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  logged: getAuthorizationStatus(state),
+  authorizationStatus: getAuthorizationStatus(state),
   error: getErrorStatus(state),
 
 });

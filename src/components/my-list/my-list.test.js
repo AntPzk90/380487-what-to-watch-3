@@ -1,13 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import MyList from './my-list.jsx';
-import {Provider} from "react-redux";
-import configureStore from 'redux-mock-store';
 import {Router} from "react-router-dom";
 import history from "../../history.js";
+import {Provider} from "react-redux";
+import reducer from '../../reducer/reducer.js';
+import {applyMiddleware, createStore} from 'redux';
 import thunk from 'redux-thunk';
-
-const mockStore = configureStore([thunk]);
+import {createAPI} from '../../api.js';
 
 const filmsMock = [
   {
@@ -53,11 +53,9 @@ const filmsMock = [
 
 it(`SnapshotTest MyList`, () => {
 
-  const store = mockStore({
-    DATA: {favoriteFilms: filmsMock, promoFilm: filmsMock[0]},
-    APPLICATION: {genre: `drama`},
-    USER: {authorizationStatus: `AUTH`}
-  });
+  const api = createAPI();
+
+  const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument(api)));
 
   const tree = renderer
   .create(
@@ -66,14 +64,11 @@ it(`SnapshotTest MyList`, () => {
           history={history}
         >
           <MyList
-            favoriteFilms={store.favoriteFilms}
+            favoriteFilms={filmsMock}
           />
         </Router>
-      </Provider>, {
-        createNodeMock: () => {
-          return {};
-        }
-      })
+      </Provider>
+  )
   .toJSON();
 
   expect(tree).toMatchSnapshot();

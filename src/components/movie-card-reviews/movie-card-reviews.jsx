@@ -59,7 +59,7 @@ class MovieCardReviews extends PureComponent {
                   <p className="review__text">{review.comment}</p>
                   <footer className="review__details">
                     <cite className="review__author">{review.user.name}</cite>
-                    <time className="review__date" dateTime={moment(new Date(review.date)).format(`MM-dd-YY`)}>{moment(new Date(review.date)).format(`MMMM d, YYYY`)}</time>
+                    <time className="review__date" dateTime={moment(new Date(review.date)).format(`MM-dd-YY`)}>{moment(new Date(review.date)).format(`MMMM D, YYYY`)}</time>
                   </footer>
                 </blockquote>
                 <div className="review__rating">{review.rating}</div>

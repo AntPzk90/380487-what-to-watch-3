@@ -24,7 +24,7 @@ class SignIn extends PureComponent {
     } = this.props;
 
     if (authorizationStatus === `AUTH`) {
-      return <Redirect to="/"/>;
+      return <Redirect to="/" />;
     }
 
     return (

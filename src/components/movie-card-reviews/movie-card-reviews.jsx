@@ -12,6 +12,18 @@ class MovieCardReviews extends PureComponent {
 
   }
 
+  componentDidMount() {
+    this.callReviewsDispatch();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.film.id) {
+      if (prevProps.film.id !== this.props.film.id) {
+        this.callReviewsDispatch();
+      }
+    }
+  }
+
   callReviewsDispatch() {
     const {
       film,
@@ -21,25 +33,6 @@ class MovieCardReviews extends PureComponent {
     const {id} = film;
 
     getAllReviews(id);
-  }
-
-  componentDidUpdate(prevProps) {
-
-    if (this.props.film.id) {
-      if (prevProps.film.id !== this.props.film.id) {
-        this.callReviewsDispatch();
-        this.setState({isLoading: false});
-      }
-    }
-  }
-
-  componentDidMount() {
-
-    this.callReviewsDispatch();
-
-    if (this.props.film.id) {
-      this.setState({isLoading: false});
-    }
   }
 
   render() {
@@ -52,7 +45,7 @@ class MovieCardReviews extends PureComponent {
           <div className="movie-card__reviews-col">
             {reviews.map((review) => (
               <div
-                key={review.user.id}
+                key={review.id}
                 className="review"
               >
                 <blockquote className="review__quote">
@@ -74,10 +67,10 @@ class MovieCardReviews extends PureComponent {
 MovieCardReviews.propTypes = {
   film: PropTypes.shape({
     id: PropTypes.number,
-  }).isRequired,
+  }),
   reviews: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number.isRequired,
+        id: PropTypes.number,
         user: PropTypes.shape({
           id: PropTypes.number,
           name: PropTypes.string

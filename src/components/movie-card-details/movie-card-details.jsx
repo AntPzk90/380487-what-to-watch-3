@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {convertationMinutesToTime} from '../../utils.js';
 
 const MovieCardDetails = (props) => {
 
@@ -26,7 +27,7 @@ const MovieCardDetails = (props) => {
         <div className="movie-card__text-col">
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Run Time</strong>
-            <span className="movie-card__details-value">{film.runTime}</span>
+            <span className="movie-card__details-value">{convertationMinutesToTime(film.runTime)}</span>
           </p>
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Genre</strong>

@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Switch, Route, Router} from 'react-router-dom';
 import Main from './../main/main.jsx';
@@ -14,60 +14,55 @@ import AddReviewPage from '../add-review-page/add-review-page.jsx';
 import Player from '../player/player.jsx';
 
 
-class App extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+const App = (props) => {
 
-  render() {
+  const {login} = props;
 
-    const {login} = this.props;
-
-    return (
-      <Router
-        history={history}
-      >
-        <Switch>
-          <Route exact path={AppRoute.ROOT}>
-            <Main/>
-          </Route>
-          <Route exact path={`${AppRoute.FILM}/:id`}
-            render={({match}) => {
-              return <MovieInfo id={match.params.id}/>;
-            }
-            }>
-          </Route>
-          <Route exact path={AppRoute.LOGIN}>
-            <SignIn
-              onSubmit={login}
-            />
-          </Route>
-          <Route exact path={`${AppRoute.FILM}/:id${AppRoute.REVIEW}`}
-            render={({match}) => {
-              return <AddReviewPage id={match.params.id}/>;
-            }
-            }>
-          </Route>
-          <Route exact path={`${AppRoute.PLAYER}/:id`}
-            render={({match}) => {
-              return <Player id={match.params.id}/>;
-            }
-            }>
-          </Route>
-          <PrivateRoute
-            exact
-            path={AppRoute.MYLIST}
-            render={() => {
-              return (
-                <MyList/>
-              );
-            }}
+  return (
+    <Router
+      history={history}
+    >
+      <Switch>
+        <Route exact path={AppRoute.ROOT}>
+          <Main/>
+        </Route>
+        <Route exact path={`${AppRoute.FILM}/:id`}
+          render={({match}) => {
+            return <MovieInfo id={match.params.id}/>;
+          }
+          }>
+        </Route>
+        <Route exact path={AppRoute.LOGIN}>
+          <SignIn
+            onSubmit={login}
           />
-        </Switch>
-      </Router>
-    );
-  }
-}
+        </Route>
+        <Route exact path={`${AppRoute.FILM}/:id${AppRoute.REVIEW}`}
+          render={({match}) => {
+            return <AddReviewPage id={match.params.id}/>;
+          }
+          }>
+        </Route>
+        <Route exact path={`${AppRoute.PLAYER}/:id`}
+          render={({match}) => {
+            return <Player id={match.params.id}/>;
+          }
+          }>
+        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.MYLIST}
+          render={() => {
+            return (
+              <MyList/>
+            );
+          }}
+        />
+      </Switch>
+    </Router>
+  );
+
+};
 
 App.propTypes = {
   login: PropTypes.func,

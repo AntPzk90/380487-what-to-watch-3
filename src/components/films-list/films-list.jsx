@@ -25,8 +25,8 @@ const FilmsList = (props) => {
 FilmsList.propTypes = {
   filteredFilms: PropTypes.arrayOf(
       PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        poster: PropTypes.string.isRequired,
+        name: PropTypes.string,
+        poster: PropTypes.string,
         previewImage: PropTypes.string,
         backgroundImage: PropTypes.string,
         backgroundColor: PropTypes.string,
@@ -41,11 +41,11 @@ FilmsList.propTypes = {
         isFavorite: PropTypes.bool,
         videoLink: PropTypes.string,
         previewVideoLink: PropTypes.string
-      }).isRequired
+      })
   ),
   onCardMouseEnter: PropTypes.func,
   onMovieCardClick: PropTypes.func,
-  count: PropTypes.number.isRequired,
+  count: PropTypes.number,
 };
 
 const mapStateToProps = (state) => ({

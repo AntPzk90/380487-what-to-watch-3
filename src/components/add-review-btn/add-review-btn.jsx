@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {AppRoute} from '../../const.js';
+import {getFilmForId} from '../../reducer/data/selectors.js';
 import history from '../../history.js';
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 
@@ -9,24 +10,23 @@ class AddReviewBtn extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.id = this.props.id;
-
-    this._onAddReviewBtnClick = this._onAddReviewBtnClick.bind(this);
+    this.handleAddReviewBtnClick = this.handleAddReviewBtnClick.bind(this);
   }
 
-  _onAddReviewBtnClick(evt) {
+  handleAddReviewBtnClick(evt) {
     evt.preventDefault();
     if (this.props.authorizationStatus === `NO_AUTH`) {
       history.push(AppRoute.LOGIN);
     } else {
-      history.push(`${AppRoute.FILM}/${this.id}${AppRoute.REVIEW}`);
+      history.push(`${AppRoute.FILM}/${this.props.showFilmCard.id}${AppRoute.REVIEW}`);
     }
   }
 
   render() {
+
     return (
       <a href="#" className="btn movie-card__button"
-        onClick={this._onAddReviewBtnClick}
+        onClick={this.handleAddReviewBtnClick}
       >
         Add review
       </a>
@@ -35,11 +35,13 @@ class AddReviewBtn extends PureComponent {
 }
 
 AddReviewBtn.propTypes = {
-  id: PropTypes.number.isRequired,
-  authorizationStatus: PropTypes.string.isRequired
+  showFilmCard: PropTypes.object,
+  id: PropTypes.number,
+  authorizationStatus: PropTypes.string
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, {id}) => ({
+  showFilmCard: getFilmForId(state, id),
   authorizationStatus: getAuthorizationStatus(state),
 });
 

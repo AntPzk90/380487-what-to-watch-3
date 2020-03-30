@@ -10,11 +10,12 @@ const withSignIn = (Component) => {
         isEmailInputValid: true
       };
 
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.checkValidEmail = this.checkValidEmail.bind(this);
+      this.handleFormSubmit = this.handleFormSubmit.bind(this);
+      this.handleSubmitBtnClick = this.handleSubmitBtnClick.bind(this);
     }
 
-    handleSubmit(loginValue, passwordValue) {
+    handleFormSubmit(loginValue, passwordValue) {
+
       const {onSubmit} = this.props;
 
       onSubmit({
@@ -23,7 +24,7 @@ const withSignIn = (Component) => {
       });
     }
 
-    checkValidEmail(ref) {
+    handleSubmitBtnClick(ref) {
       if (!ref.validity.valid) {
         this.setState({
           isEmailInputValid: false
@@ -39,8 +40,8 @@ const withSignIn = (Component) => {
       return (
         <Component
           {...this.props}
-          onSendForm={this.handleSubmit}
-          onSubmitBtnClick={this.checkValidEmail}
+          onSendForm={this.handleFormSubmit}
+          onSubmitBtnClick={this.handleSubmitBtnClick}
           isEmailInputValid={this.state.isEmailInputValid}
           loginRef={this.loginRef}
           password={this.passwordRef}

@@ -11,7 +11,7 @@ const withMain = (Component) => {
         isShowBtn: true
       };
 
-      this.changeCountFilms = this.changeCountFilms.bind(this);
+      this.handleShowMoreBtnClick = this.handleShowMoreBtnClick.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -39,7 +39,7 @@ const withMain = (Component) => {
       }
     }
 
-    changeCountFilms() {
+    handleShowMoreBtnClick() {
 
       const {filteredFilms} = this.props;
 
@@ -60,7 +60,7 @@ const withMain = (Component) => {
       return (
         <Component
           {...this.props}
-          onShowMoreBtnClick={this.changeCountFilms}
+          onShowMoreBtnClick={this.handleShowMoreBtnClick}
           count={this.state.count}
           isShowBtn={this.state.isShowBtn}
         />

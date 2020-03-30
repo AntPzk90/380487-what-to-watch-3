@@ -64,7 +64,7 @@ exports[`SnapshotTest MovieCardDetails 1`] = `
       <span
         className="movie-card__details-value"
       >
-        116
+        1h : 56m
       </span>
     </p>
     <p

@@ -21,10 +21,10 @@ const withAddRewiewPage = (Component) => {
       this.unblockForm = this.unblockForm.bind(this);
       this.changeComment = this.changeComment.bind(this);
       this.sendReview = this.sendReview.bind(this);
-      this.changeRating = this.changeRating.bind(this);
+      this.handleInputChange = this.handleInputChange.bind(this);
     }
 
-    changeRating(ratingNumber) {
+    handleInputChange(ratingNumber) {
       this.setState({
         rating: ratingNumber
       });
@@ -90,7 +90,7 @@ const withAddRewiewPage = (Component) => {
           isBlockedForm = {this.state.isBlockedForm}
           isError = {this.state.isError}
           onInputComment = {this.changeComment}
-          onChangeRating = {this.changeRating}
+          onChangeRating = {this.handleInputChange}
           rating = {this.state.rating}
           comment = {this.state.comment}
         />

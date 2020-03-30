@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer/application/application.js';
 import {getGenre} from './../../reducer/data/selectors.js';
+import {GENRES_COUNT} from '../../utils.js';
 
 const GenresList = (props) => {
 
@@ -12,7 +13,7 @@ const GenresList = (props) => {
     genreToFilter
   } = props;
 
-  const genres = Array.from(new Set(films.map((it) => it.genre))).slice(0, 8);
+  const genres = Array.from(new Set(films.map((it) => it.genre))).slice(0, GENRES_COUNT);
 
   return (
     <ul className="catalog__genres-list">
@@ -46,8 +47,8 @@ GenresList.propTypes = {
   onGenreLinkClick: PropTypes.func,
   films: PropTypes.arrayOf(
       PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        poster: PropTypes.string.isRequired,
+        name: PropTypes.string,
+        poster: PropTypes.string,
         previewImage: PropTypes.string,
         backgroundImage: PropTypes.string,
         backgroundColor: PropTypes.string,
@@ -62,7 +63,7 @@ GenresList.propTypes = {
         isFavorite: PropTypes.bool,
         videoLink: PropTypes.string,
         previewVideoLink: PropTypes.string
-      }).isRequired
+      })
   ),
   genreToFilter: PropTypes.string,
 };

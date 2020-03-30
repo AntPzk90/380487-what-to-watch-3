@@ -42,7 +42,7 @@ const filmsMock = [
     runTime: 116,
     genre: `Adventure`,
     released: 2005,
-    id: 1,
+    id: 2,
     isFavorite: false,
     videoLink: `http://media.xiph.org/mango/tears_of_steel_1080p.webm`,
     previewVideoLink: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,

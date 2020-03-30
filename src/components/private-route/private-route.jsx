@@ -25,10 +25,10 @@ const PrivateRoute = (props) => {
 };
 
 PrivateRoute.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  exact: PropTypes.bool.isRequired,
-  path: PropTypes.string.isRequired,
-  render: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string,
+  exact: PropTypes.bool,
+  path: PropTypes.string,
+  render: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({

@@ -26,7 +26,7 @@ const AddReviewPage = (props) => {
     onInputComment,
     rating,
     comment,
-    authorizationStatus
+    authorizationStatus,
   } = props;
 
   const {

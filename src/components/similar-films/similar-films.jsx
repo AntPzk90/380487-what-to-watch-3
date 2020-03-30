@@ -4,16 +4,16 @@ import {getAllFilms} from './../../reducer/data/selectors.js';
 import {connect} from 'react-redux';
 import withFilmsList from '../../hocs/with-films-list/with-films-list.jsx';
 import MovieCard from '../movie-card/movie-card.jsx';
+import {SIMILAR_FILMS_COUNT} from '../../utils.js';
 
-
-const SimilarFilmsList = (props) => {
+const SimilarFilms = (props) => {
   const {similarFilms, onCardMouseEnter} = props;
 
   return (
     <section className="catalog catalog--like-this">
       <h2 className="catalog__title">More like this</h2>
       <div className="catalog__movies-list">
-        {similarFilms.slice(0, 4).map((film) => {
+        {similarFilms.slice(0, SIMILAR_FILMS_COUNT).map((film) => {
           return (
             <MovieCard key={film.id}
               film={film}
@@ -26,7 +26,7 @@ const SimilarFilmsList = (props) => {
   );
 };
 
-SimilarFilmsList.propTypes = {
+SimilarFilms.propTypes = {
   similarFilms: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
@@ -54,4 +54,4 @@ const mapStateToProps = (state, {genre}) => ({
   similarFilms: getAllFilms(state).filter((it) => it.genre === genre)
 });
 
-export default connect(mapStateToProps)(withFilmsList(SimilarFilmsList));
+export default connect(mapStateToProps)(withFilmsList(SimilarFilms));

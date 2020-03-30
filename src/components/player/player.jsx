@@ -11,7 +11,6 @@ const Player = (props) => {
   const {
     showFilmCard,
     isElepsed,
-    isFullScreen,
     isPlaying,
     onPlayBtnClick,
     onFullScreenCkick,
@@ -34,44 +33,41 @@ const Player = (props) => {
           onExitBtnClick();
         }}
       >Exit</button>
-      {!isFullScreen
-        ? <div className="player__controls">
-          <div className="player__controls-row">
-            <div className="player__time">
-              <progress className="player__progress" value={isElepsed} max={100} />
-              <div className="player__toggler" style={{left: `${isElepsed}%`}}>Toggler</div>
-            </div>
-            <div className="player__time-value">{fullTime}</div>
+      <div className="player__controls">
+        <div className="player__controls-row">
+          <div className="player__time">
+            <progress className="player__progress" value={isElepsed} max={100} />
+            <div className="player__toggler" style={{left: `${isElepsed}%`}}>Toggler</div>
           </div>
-          <div className="player__controls-row">
-            <button type="button" className="player__play"
-              onClick={ () => {
-                onPlayBtnClick();
-              }}
-            >
-              <svg viewBox="0 0 19 19" width={19} height={19}>
-                {isPlaying
-                  ? <use xlinkHref="#pause" />
-                  : <use xlinkHref="#play-s" />
-                }
-              </svg>
-              <span>Play</span>
-            </button>
-            <div className="player__name">{name}</div>
-            <button type="button" className="player__full-screen"
-              onClick={ () => {
-                onFullScreenCkick();
-              }}
-            >
-              <svg viewBox="0 0 27 27" width={27} height={27}>
-                <use xlinkHref="#full-screen" />
-              </svg>
-              <span>Full screen</span>
-            </button>
-          </div>
+          <div className="player__time-value">{fullTime}</div>
         </div>
-        : ``
-      }
+        <div className="player__controls-row">
+          <button type="button" className="player__play"
+            onClick={ () => {
+              onPlayBtnClick();
+            }}
+          >
+            <svg viewBox="0 0 19 19" width={19} height={19}>
+              {isPlaying
+                ? <use xlinkHref="#pause" />
+                : <use xlinkHref="#play-s" />
+              }
+            </svg>
+            <span>Play</span>
+          </button>
+          <div className="player__name">{name}</div>
+          <button type="button" className="player__full-screen"
+            onClick={ () => {
+              onFullScreenCkick();
+            }}
+          >
+            <svg viewBox="0 0 27 27" width={27} height={27}>
+              <use xlinkHref="#full-screen" />
+            </svg>
+            <span>Full screen</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
@@ -83,7 +79,6 @@ Player.propTypes = {
     videoLink: PropTypes.string.isRequired,
   }),
   isElepsed: PropTypes.number.isRequired,
-  isFullScreen: PropTypes.bool.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   onPlayBtnClick: PropTypes.func.isRequired,
   onFullScreenCkick: PropTypes.func.isRequired,

@@ -9,10 +9,10 @@ const withMovieInfo = (Component) => {
         activePage: `overview`,
       };
 
-      this.changeActivePage = this.changeActivePage.bind(this);
+      this.handleTabClick = this.handleTabClick.bind(this);
     }
 
-    changeActivePage(activeTab) {
+    handleTabClick(activeTab) {
       this.setState({
         activePage: activeTab,
       });
@@ -23,7 +23,7 @@ const withMovieInfo = (Component) => {
       return (
         <Component
           {...this.props}
-          onTabClick={this.changeActivePage}
+          onTabClick={this.handleTabClick}
           activePage={this.state.activePage}
         />
       );

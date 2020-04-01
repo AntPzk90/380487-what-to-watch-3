@@ -11,7 +11,7 @@ import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {compose} from 'recompose';
 import withAddRewiewPage from '../../hocs/with-add-review-page/with-add-review-page.jsx';
 import withLoadingIndicator from '../../hocs/with-loading-indicator/with-loading-indicator.jsx';
-
+import {ratingStarsCount} from '../../const.js';
 const AddReviewPage = (props) => {
 
   const {
@@ -71,7 +71,7 @@ const AddReviewPage = (props) => {
             }}>
             <div className="rating">
               <div className="rating__stars">
-                {new Array(5).fill(``).map((_, i) => {
+                {new Array(ratingStarsCount).fill(``).map((_, i) => {
                   let index = i + 1;
                   return (
                     <React.Fragment key={index}>

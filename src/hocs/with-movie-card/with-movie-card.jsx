@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react';
+import {secondsDelay} from '../../const.js';
 
 const withMovieCard = (Component) => {
   class WithMovieCard extends PureComponent {
@@ -13,22 +14,22 @@ const withMovieCard = (Component) => {
       this.handleCardMouseLeave = this.handleCardMouseLeave.bind(this);
     }
 
+    componentWillUnmount() {
+      clearTimeout(this.timer);
+    }
+
     handleCardMouseHover() {
       this.timer = setTimeout(() => {
         this.setState(({isPlay}) => {
           return {isPlay: !isPlay};
         });
-      }, 1000);
+      }, secondsDelay);
     }
 
     handleCardMouseLeave() {
       this.setState(({isPlay}) => {
         return {isPlay: !isPlay};
       });
-    }
-
-    componentWillUnmount() {
-      clearTimeout(this.timer);
     }
 
     render() {

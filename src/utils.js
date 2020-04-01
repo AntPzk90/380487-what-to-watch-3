@@ -37,5 +37,4 @@ export const convertationSecondsToTime = (time) => {
   return fulltime;
 };
 
-export const SIMILAR_FILMS_COUNT = 4;
-export const GENRES_COUNT = 8;
+

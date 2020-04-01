@@ -1,7 +1,8 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import history from "../../history.js";
-import {AppRoute} from "../../const.js";
+import {AppRoute, WidthComment} from "../../const.js";
+
 
 const withAddRewiewPage = (Component) => {
   class WithAddRewiewPage extends PureComponent {
@@ -32,7 +33,7 @@ const withAddRewiewPage = (Component) => {
 
     calcCommentLenght() {
 
-      if (this.state.comment.length >= 50 && this.state.comment.length <= 400) {
+      if (this.state.comment.length >= WidthComment.MIN && this.state.comment.length <= WidthComment.MAX) {
         this.setState({
           isBlocked: false
         });

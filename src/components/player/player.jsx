@@ -12,6 +12,7 @@ const Player = (props) => {
     showFilmCard,
     isElepsed,
     isPlaying,
+    isControls,
     onPlayBtnClick,
     onFullScreenCkick,
     onExitBtnClick,
@@ -27,7 +28,7 @@ const Player = (props) => {
 
   return (
     <div className="player">
-      <video src={videoLink} className="player__video" poster={backgroundImage} ref={playerRef} autoPlay/>
+      <video src={videoLink} className="player__video" poster={backgroundImage} ref={playerRef} autoPlay controls={isControls}/>
       <button type="button" className="player__exit"
         onClick={() => {
           onExitBtnClick();
@@ -80,6 +81,7 @@ Player.propTypes = {
   }),
   isElepsed: PropTypes.number.isRequired,
   isPlaying: PropTypes.bool.isRequired,
+  isControls: PropTypes.bool.isRequired,
   onPlayBtnClick: PropTypes.func.isRequired,
   onFullScreenCkick: PropTypes.func.isRequired,
   onExitBtnClick: PropTypes.func.isRequired,

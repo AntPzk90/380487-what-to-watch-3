@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer/application/application.js';
 import {getGenre} from './../../reducer/data/selectors.js';
-import {GENRES_COUNT} from '../../utils.js';
+import {GENRES_COUNT} from '../../const.js';
 
 const GenresList = (props) => {
 
@@ -13,7 +13,7 @@ const GenresList = (props) => {
     genreToFilter
   } = props;
 
-  const genres = Array.from(new Set(films.map((it) => it.genre))).slice(0, GENRES_COUNT);
+  const genres = Array.from(new Set(films.map((itemGenre) => itemGenre.genre))).slice(0, GENRES_COUNT);
 
   return (
     <ul className="catalog__genres-list">

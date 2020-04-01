@@ -17,8 +17,8 @@ const MovieCardDetails = (props) => {
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Starring</strong>
             <span className="movie-card__details-value">
-              {film.starring.map((it) => {
-                return (<span key={it}>{it} <br /></span>);
+              {film.starring.map((actor) => {
+                return (<span key={actor}>{actor} <br /></span>);
               })
               }
             </span>

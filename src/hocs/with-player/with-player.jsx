@@ -1,6 +1,7 @@
 import React, {PureComponent, createRef} from 'react';
 import history from '../../history.js';
-import {convertationSecondsToTime, percentageProportion} from '../../utils.js';
+import {convertationSecondsToTime} from '../../utils.js';
+import {percentageProportion} from '../../const.js';
 
 const withPlayer = (Component) => {
   class WithPlayer extends PureComponent {
@@ -95,35 +96,32 @@ const withPlayer = (Component) => {
     handleFullScreenBtnClick() {
       if (this.initPlayer().requestFullscreen) {
         this.initPlayer().requestFullscreen();
-        document.onfullscreenchange = (evt) => {
+        document.onfullscreenchange = () => {
           this.setState({
             isControls: !this.state.isControls,
           });
-        }
+        };
       } else if (this.initPlayer().mozRequestFullScreen) { /* Firefox */
         this.initPlayer().mozRequestFullScreen();
-        document.onfullscreenchange = (evt) => {
-          console.log(evt)
+        document.onfullscreenchange = () => {
           this.setState({
             isControls: !this.state.isControls,
           });
-        }
+        };
       } else if (this.initPlayer().webkitRequestFullscreen) { /* Chrome, Safari & Opera */
         this.initPlayer().webkitRequestFullscreen();
-        document.onfullscreenchange = (evt) => {
-          console.log(evt)
+        document.onfullscreenchange = () => {
           this.setState({
             isControls: !this.state.isControls,
           });
-        }
+        };
       } else if (this.initPlayer().msRequestFullscreen) { /* IE/Edge */
         this.initPlayer().msRequestFullscreen();
-        document.onfullscreenchange = (evt) => {
-          console.log(evt)
+        document.onfullscreenchange = () => {
           this.setState({
             isControls: !this.state.isControls,
           });
-        }
+        };
       }
     }
 

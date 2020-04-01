@@ -4,7 +4,7 @@ import {getAllFilms} from './../../reducer/data/selectors.js';
 import {connect} from 'react-redux';
 import withFilmsList from '../../hocs/with-films-list/with-films-list.jsx';
 import MovieCard from '../movie-card/movie-card.jsx';
-import {SIMILAR_FILMS_COUNT} from '../../utils.js';
+import {SIMILAR_FILMS_COUNT} from '../../const.js';
 
 const SimilarFilms = (props) => {
   const {similarFilms, onCardMouseEnter} = props;

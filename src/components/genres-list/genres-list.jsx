@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer/application/application.js';
 import {getGenre} from './../../reducer/data/selectors.js';
-import {GENRES_COUNT} from '../../utils.js';
+import {GENRES_COUNT} from '../../const.js';
 
 const GenresList = (props) => {
 

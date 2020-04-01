@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {secondsDelay} from '../../utils.js'
+import {secondsDelay} from '../../const.js';
 
 const withMovieCard = (Component) => {
   class WithMovieCard extends PureComponent {

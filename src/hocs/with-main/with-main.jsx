@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {countCardsShown} from '../../utils.js';
+import {CountCardsShown} from '../../const.js';
 
 const withMain = (Component) => {
   class WithMain extends PureComponent {
@@ -25,13 +25,13 @@ const withMain = (Component) => {
           isShowBtn: true
         });
 
-        if (this.props.filteredFilms.length < countCardsShown.ADDING) {
+        if (this.props.filteredFilms.length < CountCardsShown.ADDING) {
           this.setState({
             isShowBtn: false
           });
         }
 
-      } else if (this.state.count >= countCardsShown.MAX) {
+      } else if (this.state.count >= CountCardsShown.MAX) {
 
         this.setState({
           count: filteredFilms.length,
@@ -52,7 +52,7 @@ const withMain = (Component) => {
       }
 
       this.setState({
-        count: this.state.count + countCardsShown.ADDING
+        count: this.state.count + CountCardsShown.ADDING
       });
 
     }

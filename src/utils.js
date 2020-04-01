@@ -39,3 +39,12 @@ export const convertationSecondsToTime = (time) => {
 
 export const SIMILAR_FILMS_COUNT = 4;
 export const GENRES_COUNT = 8;
+
+export const countCardsShown = {
+  MAX: 25,
+  ADDING: 8,
+};
+
+export const secondsDelay = 1000;
+
+export const percentageProportion = 100;

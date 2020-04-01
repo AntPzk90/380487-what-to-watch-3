@@ -1,6 +1,6 @@
 import React, {PureComponent, createRef} from 'react';
 import history from '../../history.js';
-import {convertationSecondsToTime} from '../../utils.js';
+import {convertationSecondsToTime, percentageProportion} from '../../utils.js';
 
 const withPlayer = (Component) => {
   class WithPlayer extends PureComponent {
@@ -10,10 +10,12 @@ const withPlayer = (Component) => {
       this.playerRef = createRef();
 
       this.state = {
+        isAutoplay: true,
         isPlaying: true,
         isPause: false,
         fullTime: null,
         isElepsed: 0,
+        isControls: false,
       };
 
       this.handlePlayBtnClick = this.handlePlayBtnClick.bind(this);
@@ -45,7 +47,7 @@ const withPlayer = (Component) => {
         let fullTime = Math.floor(this.initPlayer().duration);
         let elapsedTime = Math.floor(this.initPlayer().currentTime);
         this.setState({
-          isElepsed: Math.floor(elapsedTime / fullTime * 100)
+          isElepsed: Math.floor(elapsedTime / fullTime * percentageProportion)
         });
       });
 
@@ -65,7 +67,7 @@ const withPlayer = (Component) => {
         let fullTime = Math.floor(this.initPlayer().duration);
         let elapsedTime = Math.floor(this.initPlayer().currentTime);
         this.setState({
-          isElepsed: Math.floor(elapsedTime / fullTime * 100)
+          isElepsed: Math.floor(elapsedTime / fullTime * percentageProportion)
         });
       });
     }
@@ -91,7 +93,39 @@ const withPlayer = (Component) => {
     }
 
     handleFullScreenBtnClick() {
-      this.initPlayer().requestFullscreen();
+      if (this.initPlayer().requestFullscreen) {
+        this.initPlayer().requestFullscreen();
+        document.onfullscreenchange = (evt) => {
+          console.log(evt)
+          this.setState({
+            isControls: !this.state.isControls,
+          });
+        }
+      } else if (this.initPlayer().mozRequestFullScreen) { /* Firefox */
+        this.initPlayer().mozRequestFullScreen();
+        document.onfullscreenchange = (evt) => {
+          console.log(evt)
+          this.setState({
+            isControls: !this.state.isControls,
+          });
+        }
+      } else if (this.initPlayer().webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+        this.initPlayer().webkitRequestFullscreen();
+        document.onfullscreenchange = (evt) => {
+          console.log(evt)
+          this.setState({
+            isControls: !this.state.isControls,
+          });
+        }
+      } else if (this.initPlayer().msRequestFullscreen) { /* IE/Edge */
+        this.initPlayer().msRequestFullscreen();
+        document.onfullscreenchange = (evt) => {
+          console.log(evt)
+          this.setState({
+            isControls: !this.state.isControls,
+          });
+        }
+      }
     }
 
     handelExitBtnClick() {
@@ -108,6 +142,7 @@ const withPlayer = (Component) => {
           isPause={this.state.isPause}
           fullTime={this.state.fullTime}
           isFullScreen={this.state.isFullScreen}
+          isControls={this.state.isControls}
           onFullScreenCkick={this.handleFullScreenBtnClick}
           onPlayBtnClick={this.handlePlayBtnClick}
           playerRef={this.playerRef}

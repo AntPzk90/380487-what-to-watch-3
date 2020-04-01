@@ -96,7 +96,6 @@ const withPlayer = (Component) => {
       if (this.initPlayer().requestFullscreen) {
         this.initPlayer().requestFullscreen();
         document.onfullscreenchange = (evt) => {
-          console.log(evt)
           this.setState({
             isControls: !this.state.isControls,
           });

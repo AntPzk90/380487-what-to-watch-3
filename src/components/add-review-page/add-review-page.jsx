@@ -71,7 +71,7 @@ const AddReviewPage = (props) => {
             }}>
             <div className="rating">
               <div className="rating__stars">
-                {new Array(ratingStarsCount).fill(``).map((_, i) => {
+                {new Array(ratingStarsCount).fill(``).map((starItem, i) => {
                   let index = i + 1;
                   return (
                     <React.Fragment key={index}>

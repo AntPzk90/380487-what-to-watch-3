@@ -51,7 +51,7 @@ SimilarFilms.propTypes = {
 };
 
 const mapStateToProps = (state, {genre}) => ({
-  similarFilms: getAllFilms(state).filter((it) => it.genre === genre)
+  similarFilms: getAllFilms(state).filter((film) => film.genre === genre)
 });
 
 export default connect(mapStateToProps)(withFilmsList(SimilarFilms));

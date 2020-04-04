@@ -29,7 +29,7 @@ export const getFilmForId = createSelector(
     getAllFilms,
     getIdFilm,
     (one, two) => {
-      return one.find((it) => it.id === Number(two));
+      return one.find((film) => film.id === Number(two));
     }
 );
 
@@ -40,7 +40,7 @@ export const getFilteredFilms = createSelector(
       if (genre === `All genres`) {
         return films;
       } else {
-        return films.filter((it) => it.genre === genre);
+        return films.filter((film) => film.genre === genre);
       }
     }
 );

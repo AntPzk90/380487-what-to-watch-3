@@ -93,8 +93,8 @@ const reducer = (state = initialState, action) => {
       return extend(state, {reviews: action.payload});
     case ActionType.CHANGE_FAVORITE_FILM:
       return Object.assign({}, state, {
-        films: state.films.map((it) => {
-          return it.id === action.payload.id ? adapter(action.payload) : it;
+        films: state.films.map((film) => {
+          return film.id === action.payload.id ? adapter(action.payload) : film;
         })
       });
     case ActionType.CHANGE_PROMO_FILM:

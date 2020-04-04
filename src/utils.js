@@ -2,16 +2,16 @@ export const extend = (a, b) => {
   return Object.assign({}, a, b);
 };
 
-export const convertationMinutesToTime = (num) => {
-  const hours = Math.floor(num / 60);
-  const minutes = num % 60;
+export const convertationMinutesToTime = (timeMinutes) => {
+  const hours = Math.floor(timeMinutes / 60);
+  const minutes = timeMinutes % 60;
   return `${hours}h : ${minutes}m`;
 };
 
-export const convertationSecondsToTime = (time) => {
+export const convertationSecondsToTime = (timeSeconds) => {
   let fulltime = 0;
-  let hours = Math.floor(time / (60 * 60));
-  let divisionMinutes = time % (60 * 60);
+  let hours = Math.floor(timeSeconds / (60 * 60));
+  let divisionMinutes = timeSeconds % (60 * 60);
   let minutes = Math.floor(divisionMinutes / 60);
   let divisionSeconds = divisionMinutes % 60;
   let seconds = Math.ceil(divisionSeconds);
